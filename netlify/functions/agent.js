@@ -1,5 +1,5 @@
 const Anthropic = require('@anthropic-ai/sdk');
-const { checkRateLimit, logError } = require('../lib/shared');
+const { checkRateLimit, logError } = require('../../lib/shared');
 
 const PERSONAS = {
   apex: {

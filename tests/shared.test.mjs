@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const { checkRateLimit } = require('../netlify/lib/shared.js');
+const { checkRateLimit } = require('../lib/shared.js');
 
 describe('checkRateLimit (memory fallback)', () => {
   it('blocks requests beyond the max within the window', async () => {

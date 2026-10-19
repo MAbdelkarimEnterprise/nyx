@@ -6,7 +6,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://nyxsystem.online"
+          "value": "https://www.nyxsystem.online"
         },
         {
           "key": "Vary",
