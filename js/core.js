@@ -351,3 +351,11 @@ function nyxLoop(el, step){
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-lit'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -20% 0px' });
   els.forEach(el => io.observe(el));
 })();
+
+/* ── SCAN REVEAL ── report and mission cards: a blue scan line reveals each as it enters. */
+(function(){
+  if (_pRM) return;
+  const els = [...document.querySelectorAll('#outcomes .n-report, #mission-logs .mission')];
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
+  els.forEach((el, i) => { if (el.getBoundingClientRect().top > innerHeight) { el.style.setProperty('--d', (i % 3) * 0.12 + 's'); el.classList.add('scan'); io.observe(el); } });
+})();

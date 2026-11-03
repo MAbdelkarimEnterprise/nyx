@@ -1855,6 +1855,25 @@ html:has(#night-field.show) #hero::before{opacity:0}
 #access .n-card.is-chosen{box-shadow:0 0 0 1px var(--command-hover),var(--glow-pink),0 30px 70px -30px var(--system)!important}
 @media(max-width:1100px){#access .n-card--feature,#access .n-card--feature:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){#access .n-card,#access .n-card:hover{transition:none;transform:none}}
+
+/* ══ BOLD 6: OUTCOMES + MISSIONS ══ report and mission cards; a blue scan line
+   passes down each one as it enters and reveals it (JS adds .scan, so no-JS shows all). */
+#outcomes .outcomes-grid{gap:var(--s3)!important;border:0!important}
+#outcomes .n-report{position:relative;padding:var(--s4)!important;border:1px solid color-mix(in srgb,var(--blue-4) 28%,transparent)!important;border-radius:var(--r2);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--blue-1) 30%,var(--raised)),var(--raised) 45%)!important;box-shadow:0 30px 70px -45px var(--system)}
+#outcomes .n-report + .n-report{border-left:1px solid color-mix(in srgb,var(--blue-4) 28%,transparent)!important;padding-left:var(--s4)!important}
+#outcomes .outcome-metric-val{color:var(--blue-5)!important;text-shadow:0 0 30px color-mix(in srgb,var(--system) 80%,transparent)}
+#mission-logs .mission{position:relative;margin-bottom:var(--s2);border:1px solid color-mix(in srgb,var(--blue-4) 25%,transparent)!important;border-radius:var(--r2);background:var(--raised);box-shadow:0 20px 50px -40px var(--system)}
+#mission-logs .mission-bar{padding-left:var(--s4)!important;padding-right:var(--s4)!important}
+#mission-logs .mission:hover{border-color:color-mix(in srgb,var(--blue-5) 60%,transparent)!important}
+#mission-logs .mission-bar[aria-expanded="true"] .mission-title{color:var(--pink-glow)}
+.scan{clip-path:inset(0 0 100% 0);transition:clip-path 1000ms var(--ease-sig) var(--d,0s)}
+.scan::after{content:'';position:absolute;left:0;right:0;top:0;height:2px;opacity:0;pointer-events:none;background:linear-gradient(90deg,transparent,var(--blue-5),var(--blue-6),var(--blue-5),transparent);box-shadow:0 0 18px 2px var(--system)}
+.scan.is-in{clip-path:inset(0 0 0 0)}
+.scan.is-in::after{animation:scanDown 1000ms var(--ease-sig) var(--d,0s) both}
+@keyframes scanDown{0%{top:0;opacity:1}90%{opacity:1}100%{top:calc(100% - 2px);opacity:0}}
+@media(prefers-reduced-motion:reduce){.scan{clip-path:none;transition:none}.scan::after{display:none}}
+@media(max-width:900px){#outcomes .n-report + .n-report{padding-left:var(--s4)!important;border-top:1px solid color-mix(in srgb,var(--blue-4) 28%,transparent)!important}}
 </style>
 </head>
 <body>
@@ -1948,7 +1967,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
 </section>
 
 <!-- ENGINE -->
-<section class="engine-section" id="engine" aria-label="The Engine">
+<section class="engine-section" id="engine" aria-label="The Engine" data-field="0.3">
   <div class="engine-inner">
     <div class="engine-copy">
       <h2 class="engine-headline">Precision<br><em>in motion.</em></h2>
@@ -2156,7 +2175,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
 </section>
 
 <!-- SYSTEM PILLARS -->
-<section class="system n-how" id="system" aria-label="How It Works">
+<section class="system n-how" id="system" aria-label="How It Works" data-field="0.35">
   <div class="system-inner">
     <h2 class="system-headline">Four principles.<br>One operating system.</h2>
     <ol class="n-principles">
@@ -2214,7 +2233,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
 </section>
 
 <!-- INTELLIGENCE STATS -->
-<section class="intel n-stats-band" aria-label="Projected statistics">
+<section class="intel n-stats-band" aria-label="Projected statistics" data-field="0.45">
   <dl class="intel-inner n-stats">
       <div class="n-stat"><dt>Operators Enrolled</dt><dd class="intel-value" id="stat-enrolled">1,247</dd><dd class="n-flag">Projected</dd></div>
       <div class="n-stat"><dt>System Uptime</dt><dd class="intel-value">99.97%</dd><dd class="n-flag">Projected</dd></div>
@@ -2224,7 +2243,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
 </section>
 
 <!-- OPERATOR OUTCOMES -->
-<section class="outcomes n-reports" id="outcomes" aria-label="Projected Outcomes">
+<section class="outcomes n-reports" id="outcomes" aria-label="Projected Outcomes" data-field="0.32">
   <div class="outcomes-head">
     <h2 class="outcomes-headline">Outcome reports.<br>Not testimonials.</h2>
     <p class="outcomes-sub">What changes when the system runs. Projected from how the system is designed to operate. <b>Not guarantees.</b></p>
@@ -2258,7 +2277,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
 </section>
 
 <!-- MISSION LOGS -->
-<section class="missions" id="mission-logs" aria-label="Sample Missions">
+<section class="missions" id="mission-logs" aria-label="Sample Missions" data-field="0.32">
   <div class="missions-head">
     <h2 class="missions-headline">Sample missions.<br>How a deployment runs.</h2>
     <p class="missions-sub">Sample operations, showing how the system is designed to run. Every log follows the same briefing structure — objective, constraints, actions, outcome.</p>
@@ -2345,12 +2364,12 @@ html:has(#night-field.show) #hero::before{opacity:0}
 </section>
 
 <!-- BRAND CREED -->
-<div class="brand-creed">
+<div class="brand-creed" data-field="0.6">
   <p>What operates in the dark<br>controls what happens in the light.</p>
 </div>
 
 <!-- A NOTE FROM THE ARCHITECT -->
-<section class="architect" id="architect" aria-label="A Note from the Architect">
+<section class="architect" id="architect" aria-label="A Note from the Architect" data-field="0.28">
   <div class="architect-inner">
     <p class="architect-body">
       <span class="lead">NYX was built around a simple belief:</span>
@@ -2467,7 +2486,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
 <button type="button" class="ask-alfred" id="ask-alfred" aria-haspopup="dialog">Ask Alfred</button>
 
 <!-- FOOTER -->
-<footer>
+<footer data-field="0.2">
   <div class="footer-logo">NYX</div>
   <div class="footer-copy">
     <p>© 2026 NYX Systems · <a href="mailto:labs@nyxsystem.online">labs@nyxsystem.online</a></p>
