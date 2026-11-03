@@ -1,0 +1,402 @@
+// NYX three.js scenes (hero topology + engine). Loaded as a module, so it runs
+// after the deferred classic scripts (gsap, ScrollTrigger, core.js globals).
+// three.js is fetched only on capable devices, only when a scene nears the
+// viewport. Phones, ≤4-core devices and reduced motion get the static fallback.
+const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.186.1/+esm';
+const capable = !matchMedia('(prefers-reduced-motion: reduce)').matches
+  && !matchMedia('(max-width: 768px)').matches
+  && (navigator.hardwareConcurrency || 8) > 4;
+
+let threeP;
+const loadThree = () => (threeP ||= import(THREE_URL));
+function whenNear(el, fn){
+  if (!el) return;
+  const io = new IntersectionObserver(es => {
+    if (es.some(e => e.isIntersecting)) { io.disconnect(); fn(); }
+  }, { rootMargin: '200px' });
+  io.observe(el);
+}
+const afterLoad = (fn) => document.readyState === 'complete' ? fn() : addEventListener('load', fn, { once: true });
+
+if (!capable) {
+  document.documentElement.classList.add('static-scenes');
+} else {
+  // Hero waits for page load so three.js never competes with first paint.
+  afterLoad(() => whenNear(document.getElementById('hero-canvas'), () => loadThree().then(heroScene)));
+  whenNear(document.getElementById('engine-canvas'), () => loadThree().then(engineScene));
+}
+
+/* ── THREE.JS NEURAL TOPOLOGY ───────────────────────── */
+function heroScene(THREE){
+  try{
+    const canvas = document.getElementById('hero-canvas');
+    let W = canvas.offsetWidth, H = canvas.offsetHeight;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:false });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, _touch ? 1 : 1.5));
+
+    const scene  = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, W/H, 1, 3000);
+    camera.position.z = 620;
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // ── Node positions: scattered volumetric ellipsoid ──
+    const N = _touch ? 44 : 88;
+    const npos = [];
+    const SX = _touch ? 280 : 360, SY = _touch ? 200 : 260, SZ = _touch ? 140 : 180;
+
+    for(let i = 0; i < N; i++){
+      const theta = Math.random() * Math.PI * 2;
+      const phi   = Math.acos(2 * Math.random() - 1);
+      const r     = 0.22 + 0.78 * Math.cbrt(Math.random());
+      npos.push([
+        SX * r * Math.sin(phi) * Math.cos(theta),
+        SY * r * Math.sin(phi) * Math.sin(theta),
+        SZ * r * Math.cos(phi)
+      ]);
+    }
+
+    // ── Small background nodes (white) ──
+    const smallArr = new Float32Array(N * 3);
+    npos.forEach((p,i) => { smallArr[i*3]=p[0]; smallArr[i*3+1]=p[1]; smallArr[i*3+2]=p[2]; });
+    const smallGeo = new THREE.BufferGeometry();
+    smallGeo.setAttribute('position', new THREE.BufferAttribute(smallArr, 3));
+    group.add(new THREE.Points(smallGeo,
+      new THREE.PointsMaterial({ color:0xffffff, size:1.9, transparent:true, opacity:0.3, sizeAttenuation:true })
+    ));
+
+    // ── Hub nodes (gold, larger) ──
+    const HUB_N = 14;
+    const hubArr = new Float32Array(HUB_N * 3);
+    for(let i = 0; i < HUB_N; i++){
+      const idx = Math.floor((i / HUB_N) * N);
+      hubArr[i*3]=npos[idx][0]; hubArr[i*3+1]=npos[idx][1]; hubArr[i*3+2]=npos[idx][2];
+    }
+    const hubGeo = new THREE.BufferGeometry();
+    hubGeo.setAttribute('position', new THREE.BufferAttribute(hubArr, 3));
+    group.add(new THREE.Points(hubGeo,
+      new THREE.PointsMaterial({ color:0x1E5BFF, size:4.8, transparent:true, opacity:0.62, sizeAttenuation:true })
+    ));
+
+    // ── Edges ──
+    const MAX_D = 138;
+    const adj = Array.from({length:N}, () => []);
+    const edgeVerts = [];
+
+    for(let i = 0; i < N; i++){
+      let c = 0;
+      for(let j = i+1; j < N && c < 4; j++){
+        const dx=npos[i][0]-npos[j][0], dy=npos[i][1]-npos[j][1], dz=npos[i][2]-npos[j][2];
+        if(dx*dx+dy*dy+dz*dz < MAX_D*MAX_D){
+          edgeVerts.push(...npos[i], ...npos[j]);
+          adj[i].push(j); adj[j].push(i); c++;
+        }
+      }
+    }
+    const edgeGeo = new THREE.BufferGeometry();
+    edgeGeo.setAttribute('position', new THREE.Float32BufferAttribute(edgeVerts, 3));
+    group.add(new THREE.LineSegments(edgeGeo,
+      new THREE.LineBasicMaterial({ color:0xffffff, transparent:true, opacity:0.052 })
+    ));
+
+    // ── Activation pulses traveling along edges ──
+    const PULSES = _touch ? 5 : 9;
+    const pulses = [];
+
+    for(let p = 0; p < PULSES; p++){
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute([0,0,0], 3));
+      const mat = new THREE.PointsMaterial({ color:0x1E5BFF, size:5.5, transparent:true, opacity:0, sizeAttenuation:true });
+      const mesh = new THREE.Points(geo, mat);
+      group.add(mesh);
+      const src = Math.floor(Math.random() * N);
+      const nbrs = adj[src];
+      const dst = nbrs.length > 0 ? nbrs[Math.floor(Math.random()*nbrs.length)] : (src+1)%N;
+      pulses.push({ mesh, src, dst, t: Math.random(), speed: 0.005+Math.random()*0.007 });
+    }
+
+    // ── Mouse + auto rotation ──
+    const mouse = {x:0, y:0};
+    let rotY = 0, mX = 0, mY = 0;
+
+    window.addEventListener('mousemove', e => {
+      mouse.x=(e.clientX/W-0.5)*2; mouse.y=(e.clientY/H-0.5)*2;
+    }, {passive:true});
+
+    let _rt;
+    window.addEventListener('resize', () => {
+      clearTimeout(_rt);
+      _rt = setTimeout(() => {
+        W=canvas.offsetWidth; H=canvas.offsetHeight;
+        camera.aspect=W/H; camera.updateProjectionMatrix();
+        renderer.setSize(W,H);
+      }, 100);
+    }, {passive:true});
+
+    let _vis = true, raf = 0;
+    new IntersectionObserver(es => { _vis = es[0].isIntersecting; if(_vis && !raf) tick(); }).observe(canvas);
+    document.addEventListener('visibilitychange', () => { if(_vis && !raf) tick(); });
+
+    function tick(){
+      if(!_vis || document.hidden){ raf = 0; return; }
+      raf = requestAnimationFrame(tick);
+      rotY += 0.00014;
+      mX += (mouse.y*0.11 - mX)*0.024;
+      mY += (mouse.x*0.11 - mY)*0.024;
+      group.rotation.x = mX;
+      group.rotation.y = rotY + mY;
+
+      pulses.forEach(pulse => {
+        pulse.t += pulse.speed;
+        if(pulse.t >= 1){
+          pulse.src = pulse.dst;
+          const nbrs = adj[pulse.src];
+          pulse.dst = nbrs.length > 0 ? nbrs[Math.floor(Math.random()*nbrs.length)] : (pulse.src+1)%N;
+          pulse.t = 0;
+          pulse.speed = 0.005 + Math.random()*0.007;
+        }
+        const a = npos[pulse.src], b = npos[pulse.dst];
+        const pa = pulse.mesh.geometry.attributes.position;
+        pa.setXYZ(0,
+          a[0]+(b[0]-a[0])*pulse.t,
+          a[1]+(b[1]-a[1])*pulse.t,
+          a[2]+(b[2]-a[2])*pulse.t
+        );
+        pa.needsUpdate = true;
+        pulse.mesh.material.opacity = Math.sin(pulse.t * Math.PI) * 0.88;
+      });
+
+      renderer.render(scene, camera);
+    }
+    tick();
+
+  } catch(e){ console.warn('NYX 3D unavailable',e); }
+}
+
+/* ── NYX ENGINE — 3D PRECISION INSTRUMENT ───────────── */
+function engineScene(THREE){
+  const canvas = document.getElementById('engine-canvas');
+  if (!canvas) return;
+
+  const wrap = canvas.parentElement;
+  let W = wrap.clientWidth, H = wrap.clientHeight;
+
+  const scene    = new THREE.Scene();
+  const camera   = new THREE.PerspectiveCamera(38, W / H, 0.1, 100);
+  camera.position.set(0, 0, 7.5);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setSize(W, H);
+  renderer.setClearColor(0x000000, 0);
+
+  // ── MATERIALS ─────────────────────────────────────────
+  const gold     = new THREE.LineBasicMaterial({ color: 0x1E5BFF, transparent: true, opacity: 0.75 });
+  const goldDim  = new THREE.LineBasicMaterial({ color: 0x1E5BFF, transparent: true, opacity: 0.25 });
+  const goldFade = new THREE.LineBasicMaterial({ color: 0x1E5BFF, transparent: true, opacity: 0.12 });
+  const white    = new THREE.LineBasicMaterial({ color: 0xF0EDE8, transparent: true, opacity: 0.18 });
+  const steel    = new THREE.LineBasicMaterial({ color: 0x4A4A4A, transparent: true, opacity: 0.62 });
+  const steelDim = new THREE.LineBasicMaterial({ color: 0x4A4A4A, transparent: true, opacity: 0.34 });
+
+  // ── HELPER: edges from geometry ───────────────────────
+  function edges(geo, mat) {
+    return new THREE.LineSegments(new THREE.EdgesGeometry(geo), mat);
+  }
+  function wireframe(geo, mat) {
+    return new THREE.LineSegments(new THREE.WireframeGeometry(geo), mat);
+  }
+
+  // ── ENGINE GROUP ──────────────────────────────────────
+  const engine = new THREE.Group();
+
+  // Outer gimbal — large ring, tilted 15°
+  const ring1 = new THREE.Group();
+  const r1 = edges(new THREE.TorusGeometry(2.8, 0.018, 6, 160), gold);
+  ring1.add(r1);
+  // Tick marks on outer ring
+  for (let i = 0; i < 24; i++) {
+    const a = (i / 24) * Math.PI * 2;
+    const len = i % 6 === 0 ? 0.14 : 0.07;
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(Math.cos(a) * 2.8, Math.sin(a) * 2.8, 0),
+      new THREE.Vector3(Math.cos(a) * (2.8 + len), Math.sin(a) * (2.8 + len), 0),
+    ]);
+    ring1.add(new THREE.Line(g, i % 6 === 0 ? goldDim : goldFade));
+  }
+  ring1.rotation.x = 0.26;
+  engine.add(ring1);
+
+  // Middle gimbal — medium ring, perpendicular axis
+  const ring2 = new THREE.Group();
+  const r2 = edges(new THREE.TorusGeometry(2.1, 0.014, 6, 128), goldDim);
+  ring2.add(r2);
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2;
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0, Math.cos(a) * 2.1, Math.sin(a) * 2.1),
+      new THREE.Vector3(0, Math.cos(a) * (2.1 + 0.08), Math.sin(a) * (2.1 + 0.08)),
+    ]);
+    ring2.add(new THREE.Line(g, goldFade));
+  }
+  engine.add(ring2);
+
+  // Inner gimbal — smaller ring, diagonal axis
+  const ring3 = new THREE.Group();
+  const r3 = edges(new THREE.TorusGeometry(1.4, 0.012, 6, 96), goldDim);
+  ring3.add(r3);
+  ring3.rotation.z = Math.PI / 4;
+  ring3.rotation.x = Math.PI / 6;
+  engine.add(ring3);
+
+  // Structural cross-axle lines
+  const axleGeo = new THREE.BufferGeometry().setFromPoints([
+    new THREE.Vector3(-3.1, 0, 0), new THREE.Vector3(3.1, 0, 0)
+  ]);
+  const axle1 = new THREE.Line(axleGeo, goldFade);
+  const axle2 = axle1.clone(); axle2.rotation.z = Math.PI / 2;
+  const axle3 = axle1.clone(); axle3.rotation.y = Math.PI / 2;
+  engine.add(axle1, axle2, axle3);
+
+  // Axis end caps (small spheres at axle tips)
+  [[-3.1,0,0],[3.1,0,0],[0,-3.1,0],[0,3.1,0],[0,0,-3.1],[0,0,3.1]].forEach(([x,y,z]) => {
+    const cap = edges(new THREE.SphereGeometry(0.06, 8, 6), goldDim);
+    cap.position.set(x, y, z);
+    engine.add(cap);
+  });
+
+  // Core sphere — latitude/longitude wireframe
+  const core = wireframe(new THREE.SphereGeometry(0.55, 16, 12), goldDim);
+  engine.add(core);
+
+  // Inner core glow ring
+  const coreRing = edges(new THREE.TorusGeometry(0.55, 0.008, 4, 64), gold);
+  engine.add(coreRing);
+
+  // Equatorial detail band
+  const equator = edges(new THREE.TorusGeometry(0.72, 0.005, 4, 80), goldDim);
+  engine.add(equator);
+
+  // Node spheres at ring intersections (8 agents)
+  const nodePositions = [
+    [2.8, 0, 0], [-2.8, 0, 0],
+    [0, 2.1, 0], [0, -2.1, 0],
+    [0, 0, 1.4], [0, 0, -1.4],
+    [1.98, 1.48, 0], [-1.98, -1.48, 0],
+  ];
+  nodePositions.forEach(([x,y,z]) => {
+    const node = edges(new THREE.SphereGeometry(0.1, 10, 8), gold);
+    node.position.set(x, y, z);
+    engine.add(node);
+  });
+
+  // Outer ghost sphere (steel — deep-reflection shell)
+  const ghost = wireframe(new THREE.SphereGeometry(3.0, 24, 16), steelDim);
+  engine.add(ghost);
+
+  // ── DEEP-REFLECTION DETAIL LAYER (#4A4A4A) ───────────
+  // Graduated outer measurement scale
+  const scaleRing = new THREE.Group();
+  for (let i = 0; i < 120; i++) {
+    const a = (i / 120) * Math.PI * 2;
+    const len = i % 10 === 0 ? 0.13 : (i % 5 === 0 ? 0.07 : 0.035);
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(Math.cos(a) * 3.06, Math.sin(a) * 3.06, 0),
+      new THREE.Vector3(Math.cos(a) * (3.06 + len), Math.sin(a) * (3.06 + len), 0),
+    ]);
+    scaleRing.add(new THREE.Line(g, i % 10 === 0 ? steel : steelDim));
+  }
+  scaleRing.rotation.x = 0.26;
+  engine.add(scaleRing);
+
+  // Octahedral structural cage
+  const cage = edges(new THREE.OctahedronGeometry(3.0, 0), steelDim);
+  engine.add(cage);
+
+  // Radial structural spokes (mid band)
+  for (let i = 0; i < 12; i++) {
+    const a = (i / 12) * Math.PI * 2;
+    const g = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(Math.cos(a) * 0.95, Math.sin(a) * 0.95, 0),
+      new THREE.Vector3(Math.cos(a) * 1.30, Math.sin(a) * 1.30, 0),
+    ]);
+    engine.add(new THREE.Line(g, steelDim));
+  }
+
+  // Center reticle — blue crosshair + steel micro-ring
+  [[-0.30,0,0,-0.13,0,0],[0.13,0,0,0.30,0,0],[0,-0.30,0,0,-0.13,0],[0,0.13,0,0,0.30,0]].forEach(c => {
+    const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(c[0],c[1],c[2]), new THREE.Vector3(c[3],c[4],c[5])]);
+    engine.add(new THREE.Line(g, gold));
+  });
+  engine.add(edges(new THREE.TorusGeometry(0.16, 0.004, 4, 48), steel));
+
+  scene.add(engine);
+
+  // ── SCROLL REACTIVITY ─────────────────────────────────
+  let scrollSpeed = 0;
+  let baseRotY = 0, baseRotX = 0;
+  ScrollTrigger.create({
+    trigger: '#engine',
+    start: 'top bottom',
+    end: 'bottom top',
+    onUpdate: (self) => { scrollSpeed = self.getVelocity() * 0.00002; }
+  });
+
+  // Entrance animation
+  engine.scale.set(0, 0, 0);
+  ScrollTrigger.create({
+    trigger: '#engine',
+    start: 'top 75%',
+    once: true,
+    onEnter: () => {
+      gsap.to(engine.scale, { x: 1, y: 1, z: 1, duration: 1.8, ease: 'power3.out' });
+    }
+  });
+
+  // ── RENDER LOOP ───────────────────────────────────────
+  let rafId;
+  let visible = false;
+  const obs = new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    if (visible && !rafId) tick();
+  }, { threshold: 0.01 });
+  obs.observe(canvas);
+
+  let t = 0;
+  function tick() {
+    rafId = requestAnimationFrame(tick);
+    if (!visible) { rafId = null; return; }
+    t += 0.008;
+
+    // Independent ring rotations
+    ring1.rotation.y += 0.004 + scrollSpeed;
+    ring2.rotation.x += 0.006 + scrollSpeed * 0.8;
+    ring3.rotation.z += 0.009 + scrollSpeed * 1.2;
+    core.rotation.y  -= 0.003;
+    core.rotation.x  += 0.002;
+    coreRing.rotation.z += 0.005;
+    ghost.rotation.y -= 0.001;
+    ghost.rotation.x += 0.0015;
+    scaleRing.rotation.z -= 0.0012;
+    cage.rotation.y += 0.0010;
+    cage.rotation.x += 0.0006;
+
+    // Gentle overall drift
+    engine.rotation.y = Math.sin(t * 0.3) * 0.18;
+    engine.rotation.x = Math.sin(t * 0.2) * 0.1;
+
+    scrollSpeed *= 0.92; // dampen
+    renderer.render(scene, camera);
+  }
+
+  // ── RESIZE ────────────────────────────────────────────
+  const ro = new ResizeObserver(() => {
+    W = wrap.clientWidth; H = wrap.clientHeight;
+    camera.aspect = W / H;
+    camera.updateProjectionMatrix();
+    renderer.setSize(W, H);
+  });
+  ro.observe(wrap);
+}
