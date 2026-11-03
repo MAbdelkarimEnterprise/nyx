@@ -1748,6 +1748,21 @@ html:has(#night-field.show) #hero::before{opacity:0}
 :is(main,footer) p a:not([class]):hover,.footer-copy a:hover,.nav-link:hover,.rail-list a:hover{color:var(--pink-glow)!important}
 #hero :is(.hero-status,.hero-eyebrow,.hero-intel,.hero-scroll,.hero-statement){text-shadow:0 0 2px var(--surface),0 0 14px var(--surface),0 0 28px color-mix(in srgb,var(--surface) 70%,transparent)!important}
 #hero .hero-statement em{text-shadow:none!important}
+
+/* ══ BOLD 2: THE SYSTEM STATEMENT ══ large type over the field's deep-blue wash;
+   key phrases light up (blue, then the blue→pink gradient, then pink) as they enter. */
+#about{position:relative}
+#about::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--blue-1) 45%,transparent) 30%,color-mix(in srgb,var(--blue-1) 45%,transparent) 70%,transparent)}
+#about .manifesto-headline{font-size:clamp(48px,7.4vw,112px)!important;line-height:.98!important;letter-spacing:-.025em!important}
+#about .lit-dim{color:var(--text-tertiary)}
+#about .manifesto-body{color:var(--text-secondary)!important;font-size:17px}
+.lit{transition:color 900ms var(--ease-sig) var(--d,0s),text-shadow 900ms var(--ease-sig) var(--d,0s),background-position 1400ms var(--ease-sig) var(--d,0s);color:var(--text-primary)}
+.lit-blue.is-lit{color:var(--blue-5);text-shadow:0 0 28px color-mix(in srgb,var(--system) 80%,transparent)}
+.lit-pink.is-lit{color:var(--pink-glow);text-shadow:0 0 22px color-mix(in srgb,var(--command) 60%,transparent)}
+.lit-grad{background:linear-gradient(90deg,var(--blue-5),var(--pink-glow) 50%,var(--text-primary) 50%,var(--text-primary));background-size:200% 100%;background-position:100% 0;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent}
+.lit-grad.is-lit{background-position:0 0;filter:drop-shadow(0 0 22px color-mix(in srgb,var(--system) 60%,transparent))}
+#about .manifesto-body .lit{font-weight:500}
+@media(prefers-reduced-motion:reduce){.lit{transition:none}}
 </style>
 </head>
 <body>
@@ -1831,11 +1846,11 @@ html:has(#night-field.show) #hero::before{opacity:0}
 <!-- MANIFESTO -->
 <section id="about" class="n-system" aria-label="The System" data-field="0.55">
   <div class="manifesto n-system-grid">
-    <h2 class="manifesto-headline">Not a tool.<br>Not a service.<br>An operating system<br>for performance.</h2>
+    <h2 class="manifesto-headline"><span class="lit-dim">Not a tool.<br>Not a service.</span><br><span class="lit lit-blue">An operating system</span><br><span class="lit lit-grad" style="--d:.35s">for performance.</span></h2>
     <div class="manifesto-body">
-      <p>NYX is an eight-agent autonomous operating system. APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN — each a specialist, each always running. They coordinate, delegate, and execute across every domain of your operation.</p>
+      <p>NYX is an <span class="lit lit-blue" style="--d:.5s">eight-agent autonomous operating system</span>. APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN — each a specialist, each always running. They coordinate, delegate, and execute across every domain of your operation.</p>
       <p>A persistent memory layer knows your goals, your decisions, your history. Alfred — a voice-native executive intelligence layer — lets you command the system in plain language. An autonomous workflow engine acts without instruction when you authorize it to.</p>
-      <p>Access is by inquiry. Every operation is reviewed before it begins.</p>
+      <p><span class="lit lit-pink" style="--d:.7s">Access is by inquiry.</span> Every operation is reviewed before it begins.</p>
     </div>
   </div>
 </section>

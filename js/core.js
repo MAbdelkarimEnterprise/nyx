@@ -353,3 +353,11 @@ function nyxLoop(el, step){
     schedule();
   }
 })();
+
+/* ── LIGHT ON ENTRY ── key phrases (.lit) light up once as they scroll into view. */
+(function(){
+  const els = document.querySelectorAll('.lit');
+  if (!els.length) return;
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-lit'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -20% 0px' });
+  els.forEach(el => io.observe(el));
+})();
