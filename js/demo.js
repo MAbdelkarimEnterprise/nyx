@@ -60,6 +60,7 @@
   // drip new events live
   function dripEvent() {
     const item = pool[Math.floor(Math.random() * pool.length)];
+    if (nyxPaused()) { setTimeout(dripEvent, 4000); return; }
     addEvent(item, 'just now', true);
     // update the previous "just now" to "2 min ago"
     const rows = terminal.querySelectorAll('.feed-event-time');
@@ -72,7 +73,7 @@
 
   // scroll reveal
   ScrollTrigger.create({
-    trigger: '.feed-section',
+    trigger: '#alfred',
     start: 'top 78%',
     once: true,
     onEnter: () => {
@@ -257,55 +258,7 @@
 
   if(enterPrompt) enterPrompt.addEventListener('click', advanceBrief);
 
-  document.addEventListener('keydown', e => {
-    if(e.key !== 'Enter') return;
-    const demo = document.getElementById('alfred-demo');
-    if(!demo) return;
-    const rect = demo.getBoundingClientRect();
-    if(rect.top < window.innerHeight && rect.bottom > 0) advanceBrief();
-  });
 
-})();
-/* ── FOUNDER OS DASHBOARD ────────────────────────────── */
-(function(){
-  // Priority checkboxes
-  document.querySelectorAll('.os-priority').forEach(el => {
-    el.addEventListener('click', () => {
-      el.classList.toggle('done');
-      const tag = el.querySelector('.os-pri-tag');
-      if(tag && el.classList.contains('done')) tag.textContent = 'DONE';
-    });
-  });
-
-  // Pulse agent rows periodically
-  const agentMsgs = document.querySelectorAll('#os-agent-flow .os-agent-msg');
-  let pulseIdx = 0;
-  function pulseNext(){
-    agentMsgs.forEach(m => m.classList.remove('pulse'));
-    if(agentMsgs[pulseIdx]) agentMsgs[pulseIdx].classList.add('pulse');
-    pulseIdx = (pulseIdx + 1) % agentMsgs.length;
-  }
-  setInterval(pulseNext, 2200);
-  pulseNext();
-
-  // Pulsing briefing lines
-  const pulseLines = [document.getElementById('os-pulse-1'), document.getElementById('os-pulse-2')];
-  let pulseLineIdx = 0;
-  setInterval(() => {
-    pulseLines.forEach(l => l && l.classList.remove('pulse'));
-    if(pulseLines[pulseLineIdx]) pulseLines[pulseLineIdx].classList.add('pulse');
-    pulseLineIdx = (pulseLineIdx + 1) % pulseLines.length;
-  }, 3400);
-
-  // Animate MRR counting up on scroll
-  ScrollTrigger.create({
-    trigger: '#founder-os',
-    start: 'top 65%',
-    once: true,
-    onEnter: () => {
-      gsap.to('.founder-os-headline', { clipPath:'inset(0 0 0% 0)', duration:1, ease:'power3.out' });
-    }
-  });
 })();
 /* ── VHUD PREVIEW CANVAS (Voice OS section background) ── */
 (function(){
@@ -431,12 +384,12 @@
       padding:20px 36px;
       border-bottom:1px solid rgba(30,91,255,0.06);
     }
-    .af-logo{font-family:var(--mono);font-size:9px;letter-spacing:0.55em;color:rgba(30,91,255,0.7);text-transform:uppercase}
-    .af-header-mid{font-family:var(--mono);font-size:8px;letter-spacing:0.32em;color:rgba(30,91,255,0.35);text-transform:uppercase;display:flex;align-items:center;gap:8px}
+    .af-logo{font-family:var(--mono);font-size:12px;letter-spacing:0.55em;color:var(--gold-text);text-transform:uppercase}
+    .af-header-mid{font-family:var(--mono);font-size:12px;letter-spacing:0.32em;color:var(--gold-text);text-transform:uppercase;display:flex;align-items:center;gap:8px}
     .af-status-dot{width:5px;height:5px;border-radius:50%;background:#1E5BFF;animation:af-dot-pulse 1.8s ease-in-out infinite;flex-shrink:0}
     @keyframes af-dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.25;transform:scale(0.5)}}
-    .af-close-btn{font-family:var(--mono);font-size:8px;letter-spacing:0.25em;color:rgba(240,237,232,0.15);text-transform:uppercase;cursor:pointer;transition:color .2s;user-select:none;background:none;border:none;padding:4px 0}
-    .af-close-btn:hover{color:rgba(30,91,255,0.7)}
+    .af-close-btn{font-family:var(--mono);font-size:12px;letter-spacing:0.25em;color:rgba(240,237,232,0.62);text-transform:uppercase;cursor:pointer;transition:color .2s;user-select:none;background:none;border:none;padding:4px 0}
+    .af-close-btn:hover{color:var(--gold-text)}
 
     /* ── LEFT HUD PANEL ────────────────────────────────────── */
     .af-panel{
@@ -453,16 +406,16 @@
     .af-panel.left{left:32px}
     .af-panel.right{right:32px}
     .af-panel-title{
-      font-family:var(--mono);font-size:7px;letter-spacing:0.45em;
-      color:rgba(30,91,255,0.4);text-transform:uppercase;
+      font-family:var(--mono);font-size:12px;letter-spacing:0.45em;
+      color:var(--gold-text);text-transform:uppercase;
       padding-bottom:10px;border-bottom:1px solid rgba(30,91,255,0.08);
     }
     .af-panel-row{display:flex;flex-direction:column;gap:4px}
-    .af-panel-label{font-family:var(--mono);font-size:7px;letter-spacing:0.2em;color:rgba(30,91,255,0.3);text-transform:uppercase}
-    .af-panel-val{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:rgba(240,237,232,0.55);text-transform:uppercase}
-    .af-panel-val.live{color:rgba(30,91,255,0.8)}
+    .af-panel-label{font-family:var(--mono);font-size:12px;letter-spacing:0.2em;color:var(--gold-text);text-transform:uppercase}
+    .af-panel-val{font-family:var(--mono);font-size:12px;letter-spacing:0.12em;color:rgba(240,237,232,0.62);text-transform:uppercase}
+    .af-panel-val.live{color:var(--gold-text)}
     .af-agent-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
-    .af-agent-name{font-family:var(--mono);font-size:7.5px;letter-spacing:0.12em;color:rgba(30,91,255,0.5);text-transform:uppercase;flex-shrink:0}
+    .af-agent-name{font-family:var(--mono);font-size:12px;letter-spacing:0.12em;color:var(--gold-text);text-transform:uppercase;flex-shrink:0}
     .af-agent-bar{flex:1;height:2px;background:rgba(30,91,255,0.1);border-radius:1px;overflow:hidden}
     .af-agent-bar-fill{height:100%;background:rgba(30,91,255,0.6);border-radius:1px;transition:width 2s ease}
     .af-agent-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
@@ -472,8 +425,8 @@
     /* intel rows in right panel */
     .af-intel-row{padding:8px 0;border-bottom:1px solid rgba(30,91,255,0.06);display:flex;flex-direction:column;gap:3px}
     .af-intel-row:last-child{border-bottom:none}
-    .af-intel-agent{font-family:var(--mono);font-size:7px;letter-spacing:0.25em;color:rgba(30,91,255,0.5);text-transform:uppercase}
-    .af-intel-text{font-family:var(--mono);font-size:7.5px;letter-spacing:0.06em;color:rgba(240,237,232,0.4);line-height:1.5}
+    .af-intel-agent{font-family:var(--mono);font-size:12px;letter-spacing:0.25em;color:var(--gold-text);text-transform:uppercase}
+    .af-intel-text{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:rgba(240,237,232,0.62);line-height:1.5}
 
     /* center UI */
     .af-center{
@@ -482,15 +435,15 @@
       width:min(560px,60vw);text-align:center;pointer-events:none;
     }
     .af-system-label{
-      font-family:var(--mono);font-size:7px;letter-spacing:0.5em;
-      color:rgba(30,91,255,0.25);text-transform:uppercase;margin-bottom:6px;
+      font-family:var(--mono);font-size:12px;letter-spacing:0.5em;
+      color:var(--gold-text);text-transform:uppercase;margin-bottom:6px;
     }
     .af-orb-label{
-      font-family:var(--mono);font-size:8px;letter-spacing:0.38em;
-      color:rgba(30,91,255,0.5);text-transform:uppercase;
+      font-family:var(--mono);font-size:12px;letter-spacing:0.38em;
+      color:var(--gold-text);text-transform:uppercase;
       transition:color .3s;min-height:14px;
     }
-    .af-orb-label.on{color:#1E5BFF}
+    .af-orb-label.on{color:var(--gold-text)}
     .af-response{
       font-family:var(--serif);
       font-size:clamp(17px,2.2vw,26px);font-weight:300;font-style:italic;
@@ -500,8 +453,8 @@
     }
     .af-response.show{opacity:1}
     .af-transcript{
-      font-family:var(--mono);font-size:8.5px;letter-spacing:0.12em;
-      color:rgba(30,91,255,0.22);text-transform:uppercase;
+      font-family:var(--mono);font-size:12px;letter-spacing:0.12em;
+      color:var(--gold-text);text-transform:uppercase;
       margin-top:16px;min-height:14px;max-width:400px;line-height:1.5;
     }
 
@@ -512,32 +465,32 @@
       width:min(480px,60vw);
     }
     .af-status{
-      font-family:var(--mono);font-size:7.5px;letter-spacing:0.38em;
-      color:rgba(30,91,255,0.28);text-transform:uppercase;text-align:center;
+      font-family:var(--mono);font-size:12px;letter-spacing:0.38em;
+      color:var(--gold-text);text-transform:uppercase;text-align:center;
       transition:color .3s;
     }
-    .af-status.on{color:#1E5BFF}
+    .af-status.on{color:var(--gold-text)}
     .af-input-row{display:flex;gap:0;width:100%;border:1px solid rgba(30,91,255,0.14)}
     .af-text-in{
       flex:1;background:rgba(0,0,0,0.7);border:none;
-      color:rgba(240,237,232,0.75);font-family:var(--mono);font-size:8.5px;
+      color:rgba(240,237,232,0.75);font-family:var(--mono);font-size:12px;
       letter-spacing:0.1em;text-transform:uppercase;padding:12px 16px;
       outline:none;transition:background .2s;pointer-events:all;
     }
-    .af-text-in::placeholder{color:rgba(30,91,255,0.18)}
+    .af-text-in::placeholder{color:var(--gold-text)}
     .af-text-in:focus{background:rgba(30,91,255,0.04)}
     .af-send{
       background:rgba(30,91,255,0.07);border:none;border-left:1px solid rgba(30,91,255,0.14);
-      color:rgba(30,91,255,0.5);font-family:var(--mono);font-size:7.5px;
+      color:var(--gold-text);font-family:var(--mono);font-size:12px;
       letter-spacing:0.22em;text-transform:uppercase;padding:0 20px;
       cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;pointer-events:all;
     }
-    .af-send:hover{background:rgba(30,91,255,0.14);color:#1E5BFF}
+    .af-send:hover{background:rgba(30,91,255,0.14);color:var(--gold-text)}
 
     .af-hint{
       position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
-      font-family:var(--mono);font-size:7px;letter-spacing:0.28em;
-      color:rgba(240,237,232,0.07);text-transform:uppercase;white-space:nowrap;z-index:6;
+      font-family:var(--mono);font-size:12px;letter-spacing:0.28em;
+      color:rgba(240,237,232,0.62);text-transform:uppercase;white-space:nowrap;z-index:6;
     }
 
     /* crosshair reticle */
@@ -658,7 +611,7 @@
       row.className = 'af-intel-row';
       const now = new Date();
       const t = now.toTimeString().slice(0,8);
-      row.innerHTML = `<span class="af-intel-agent">${item.agent}</span><span class="af-intel-text">${item.text}</span><span style="font-family:var(--mono);font-size:6.5px;color:rgba(30,91,255,0.2);letter-spacing:0.15em">${t}</span>`;
+      row.innerHTML = `<span class="af-intel-agent">${item.agent}</span><span class="af-intel-text">${item.text}</span><span style="font-family:var(--mono);font-size:12px;color:var(--gold-text);letter-spacing:0.15em">${t}</span>`;
       container.insertBefore(row, container.firstChild);
       while(container.children.length > 4) container.removeChild(container.lastChild);
     }
@@ -886,7 +839,7 @@
         ctx.lineWidth=1.5; ctx.stroke();
       }
 
-      ringRaf = requestAnimationFrame(tick);
+      ringRaf = _pRM ? 0 : requestAnimationFrame(tick);
     }
     window._alfredRingKick = () => { if(!ringRaf) tick(); };
   })();
@@ -1096,4 +1049,54 @@
   if (mainBtn) { mainBtn.addEventListener('click', openAlfred); }
 
   // No dynamic button needed — the HTML button #jarvis-activate-main is already wired above
+})();
+
+/* ── ALFRED HUB TABS (Morning Briefing / Live Feed / Voice) ──
+   WAI-ARIA tabs: click, or Left/Right/Home/End when a tab has focus. */
+(function(){
+  const tabs = [...document.querySelectorAll('.hub-tab')];
+  if (!tabs.length) return;
+  function select(tab, focus){
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+    if (focus) tab.focus();
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      const k = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+      if (k === undefined) return;
+      e.preventDefault();
+      select(tabs[(k + tabs.length) % tabs.length], true);
+    });
+  });
+})();
+
+/* ── ALFRED OVERLAY: focus trap, Esc, focus return ── */
+(function(){
+  const overlay = document.getElementById('alfred-overlay');
+  if (!overlay) return;
+  let opener = null;
+  const focusables = () => [...overlay.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])')].filter(el => !el.disabled && el.offsetParent !== null);
+  new MutationObserver(() => {
+    if (overlay.classList.contains('active')) {
+      opener = opener || document.activeElement;
+    } else if (opener) {
+      const o = opener; opener = null;
+      if (o && o.focus) o.focus();
+    }
+  }).observe(overlay, { attributes: true, attributeFilter: ['class'] });
+  overlay.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const f = focusables(); if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 })();

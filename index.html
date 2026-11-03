@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>NYX — Autonomous AI Operating System</title>
 <meta name="description" content="NYX Systems. Silent infrastructure. Elite outcomes. An autonomous AI operating system for founders, executives, and elite performers.">
 <meta property="og:title" content="NYX — Autonomous AI Operating System">
@@ -32,8 +32,8 @@ body{background:#000;color:#F0EDE8;font-family:'Inter',system-ui,-apple-system,s
 :root{
   --void:#000;--deep:#050505;--surf:#0A0A0A;--s2:#121212;
   --line:rgba(255,255,255,0.048);--line-hi:rgba(255,255,255,0.11);
-  --t1:#7A7A7A;--t2:rgba(150,150,153,0.86);--t3:rgba(128,128,131,0.55);
-  --gold:#1E5BFF;--gold-d:rgba(30,91,255,0.28);
+  --t1:#A3A3A3;--t2:rgba(186,186,190,0.92);--t3:rgba(160,160,164,0.86);
+  --gold:#1E5BFF;--gold-text:#6E9CFF;--gold-d:rgba(30,91,255,0.28);
   /* ── TYPE SYSTEM ──────────────────────────────────────
      Fraunces        = display (high-contrast editorial roman — hero
                        monogram + all section headlines; Canela/Editorial
@@ -78,13 +78,13 @@ body{background:#000;color:#F0EDE8;font-family:'Inter',system-ui,-apple-system,s
 .hud-br{bottom:28px;right:28px;border-width:0 1px 1px 0}
 .loader-sys{
   position:absolute;top:36px;left:60px;
-  font-family:var(--mono);font-size:8px;letter-spacing:0.22em;
-  color:rgba(30,91,255,0.5);text-transform:uppercase;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.22em;
+  color:var(--gold-text);text-transform:uppercase;
 }
 .loader-clock{
   position:absolute;top:36px;right:60px;
-  font-family:var(--mono);font-size:8px;letter-spacing:0.18em;
-  color:rgba(240,237,232,0.2);
+  font-family:var(--mono);font-size:12px;letter-spacing:0.18em;
+  color:rgba(240,237,232,0.62);
 }
 .loader-logo{
   font-family:var(--serif);font-weight:300;
@@ -95,9 +95,9 @@ body{background:#000;color:#F0EDE8;font-family:'Inter',system-ui,-apple-system,s
   opacity:0;transform:scale(0.9);
 }
 .loader-sub{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.5em;text-transform:uppercase;
-  color:var(--gold);margin-top:18px;opacity:0;
+  color:var(--gold-text);margin-top:18px;opacity:0;
 }
 .loader-progress{
   position:absolute;bottom:28px;left:60px;right:60px;
@@ -111,7 +111,7 @@ body{background:#000;color:#F0EDE8;font-family:'Inter',system-ui,-apple-system,s
   transform-origin:left;transform:scaleX(0);
 }
 .loader-pct{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.15em;color:var(--t3);
   white-space:nowrap;min-width:36px;
 }
@@ -137,7 +137,7 @@ nav.scrolled{
 }
 .nav-links{display:flex;align-items:center;gap:40px}
 .nav-link{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.22em;text-transform:uppercase;
   color:var(--t2);text-decoration:none;
   transition:color .2s;position:relative;
@@ -151,7 +151,7 @@ nav.scrolled{
 .nav-link:hover{color:var(--t1)}
 .nav-link:hover::after{transform:scaleX(1)}
 .nav-cta{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.22em;text-transform:uppercase;
   color:var(--void);background:var(--t1);
   padding:11px 24px;text-decoration:none;
@@ -219,7 +219,7 @@ nav.scrolled{
   animation:blink 2.2s ease-in-out infinite;
 }
 .hero-status-label{
-  font-family:var(--mono);font-size:7px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.3em;text-transform:uppercase;color:var(--t3);
 }
 .hero-coords{
@@ -227,7 +227,7 @@ nav.scrolled{
   z-index:2;opacity:0;
 }
 .hero-coords p{
-  font-family:var(--mono);font-size:7px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.2em;color:var(--t3);line-height:1.8;
 }
 .hero-access{
@@ -235,7 +235,7 @@ nav.scrolled{
   text-align:right;z-index:2;opacity:0;
 }
 .hero-access p{
-  font-family:var(--mono);font-size:7px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.2em;color:var(--t3);line-height:1.8;text-align:right;
 }
 /* Main hero content */
@@ -245,9 +245,9 @@ nav.scrolled{
   width:100%;max-width:1400px;margin:0 auto;
 }
 .hero-eyebrow{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.5em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:32px;opacity:0;
+  color:var(--gold-text);margin-bottom:32px;opacity:0;
 }
 /* Title with char split */
 .hero-title{
@@ -284,16 +284,16 @@ nav.scrolled{
   animation:scrollPulse 2s ease-in-out infinite;
 }
 .hero-scroll-text{
-  font-family:var(--mono);font-size:7px;letter-spacing:0.35em;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.35em;
   text-transform:uppercase;color:var(--t3);
   writing-mode:vertical-rl;transform:rotate(180deg);
 }
 
 /* ── SECTION LABELS ────────────────────────────────────── */
 .sec-label{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.48em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:64px;
+  color:var(--gold-text);margin-bottom:64px;
   display:flex;align-items:center;gap:16px;
   opacity:0;
 }
@@ -310,7 +310,7 @@ nav.scrolled{
   max-width:700px;margin-bottom:72px;overflow:hidden;
   clip-path:inset(0 0 100% 0);
 }
-.manifesto-headline em{font-style:italic;color:var(--gold)}
+.manifesto-headline em{font-style:italic;color:var(--gold-text)}
 .manifesto-split{
   display:grid;grid-template-columns:1fr 1fr;
   gap:80px;align-items:start;
@@ -330,10 +330,10 @@ nav.scrolled{
 .engine-inner{max-width:1400px;margin:0 auto;padding:0 var(--sh);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);align-items:center}
 .engine-headline{font-family:var(--serif);font-size:clamp(36px,5vw,68px);font-weight:300;line-height:1.08;letter-spacing:-0.02em;color:var(--t1);margin:20px 0 24px}
 .engine-headline em{font-style:italic;color:var(--t2)}
-.engine-body{font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;color:var(--t3);line-height:1.85;text-transform:uppercase;max-width:380px;margin-bottom:36px}
+.engine-body{font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:var(--t3);line-height:1.85;text-transform:uppercase;max-width:380px;margin-bottom:36px}
 .engine-specs{display:flex;gap:32px}
 .engine-spec{display:flex;flex-direction:column;gap:6px}
-.es-label{font-family:var(--mono);font-size:8px;letter-spacing:0.35em;color:rgba(30,91,255,0.45);text-transform:uppercase}
+.es-label{font-family:var(--mono);font-size:12px;letter-spacing:0.35em;color:var(--gold-text);text-transform:uppercase}
 .es-val{font-family:var(--mono);font-size:22px;letter-spacing:0.1em;color:var(--t1)}
 .engine-canvas-wrap{position:relative;width:100%;aspect-ratio:1/1;max-width:560px;justify-self:center}
 #engine-canvas{width:100%;height:100%;display:block}
@@ -342,8 +342,8 @@ nav.scrolled{
 .engine-hud-tr{top:0;right:0;border-width:1px 1px 0 0}
 .engine-hud-bl{bottom:0;left:0;border-width:0 0 1px 1px}
 .engine-hud-br{bottom:0;right:0;border-width:0 1px 1px 0}
-.engine-label-tl{position:absolute;top:-20px;left:0;font-family:var(--mono);font-size:8px;letter-spacing:0.3em;color:rgba(30,91,255,0.35);text-transform:uppercase}
-.engine-label-br{position:absolute;bottom:-20px;right:0;font-family:var(--mono);font-size:8px;letter-spacing:0.3em;color:rgba(30,91,255,0.35);text-transform:uppercase}
+.engine-label-tl{position:absolute;top:-20px;left:0;font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--gold-text);text-transform:uppercase}
+.engine-label-br{position:absolute;bottom:-20px;right:0;font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--gold-text);text-transform:uppercase}
 @media(max-width:900px){
   .engine-inner{grid-template-columns:1fr}
   .engine-canvas-wrap{max-width:340px;margin:0 auto}
@@ -377,8 +377,8 @@ nav.scrolled{
 }
 .pillar:hover::before{transform:scaleX(1)}
 .pillar-num{
-  font-family:var(--mono);font-size:8px;letter-spacing:0.32em;
-  color:var(--gold);margin-bottom:40px;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.32em;
+  color:var(--gold-text);margin-bottom:40px;
 }
 .pillar-icon{width:32px;height:32px;margin-bottom:20px;opacity:0.45;transform-origin:center;transition:opacity .3s var(--ease-out),transform .4s var(--ease-out)}
 .pillar:hover .pillar-icon{opacity:0.75;transform:scale(1.1)}
@@ -424,14 +424,14 @@ nav.scrolled{
   display:grid;grid-template-columns:64px 1fr auto auto;
   align-items:center;gap:28px;padding:24px 0;cursor:pointer;
 }
-.tier-num{font-family:var(--mono);font-size:8px;letter-spacing:0.3em;color:var(--gold)}
+.tier-num{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--gold-text)}
 .tier-name{
   font-family:var(--serif);
   font-size:clamp(20px,3vw,36px);
   font-weight:300;color:var(--t1);
 }
 .tier-tag{
-  font-family:var(--mono);font-size:7px;letter-spacing:0.25em;text-transform:uppercase;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.25em;text-transform:uppercase;
   color:var(--void);background:var(--gold);padding:3px 9px;
   opacity:0;transform:translateX(6px);
   transition:opacity .2s,transform .2s;
@@ -460,7 +460,7 @@ nav.scrolled{
 .tier-desc{font-size:13px;line-height:1.95;color:var(--t2);letter-spacing:0.015em}
 .tier-features{list-style:none;display:flex;flex-direction:column;gap:8px}
 .tier-features li{
-  font-family:var(--mono);font-size:9px;color:var(--t2);
+  font-family:var(--mono);font-size:12px;color:var(--t2);
   letter-spacing:0.04em;display:flex;align-items:center;gap:10px;
 }
 .tier-features li::before{
@@ -468,7 +468,7 @@ nav.scrolled{
   background:var(--gold);opacity:0.45;flex-shrink:0;
 }
 .tier-cta{
-  display:inline-block;font-family:var(--mono);font-size:8px;
+  display:inline-block;font-family:var(--mono);font-size:12px;
   letter-spacing:0.22em;text-transform:uppercase;
   color:var(--void);background:var(--t1);
   padding:12px 22px;text-decoration:none;border:none;
@@ -494,8 +494,8 @@ nav.scrolled{
 .intel-stat:hover{background:var(--s2)}
 .intel-stat:hover::before{opacity:0.35}
 .intel-label{
-  font-family:var(--mono);font-size:7px;letter-spacing:0.44em;
-  text-transform:uppercase;color:var(--gold);margin-bottom:18px;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.44em;
+  text-transform:uppercase;color:var(--gold-text);margin-bottom:18px;
 }
 .intel-value{
   font-family:var(--serif);
@@ -503,7 +503,7 @@ nav.scrolled{
   font-weight:300;color:var(--t1);line-height:1;
 }
 .intel-unit{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.2em;color:var(--t3);margin-top:8px;
 }
 .intel-sparkline{
@@ -529,8 +529,8 @@ nav.scrolled{
   opacity:0;
 }
 .waitlist-eyebrow{
-  font-family:var(--mono);font-size:7px;letter-spacing:0.5em;
-  text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.5em;
+  text-transform:uppercase;color:var(--gold-text);margin-bottom:28px;opacity:0;
 }
 .waitlist-headline{
   font-family:var(--serif);
@@ -541,7 +541,7 @@ nav.scrolled{
 }
 .waitlist-headline em{font-style:italic;color:var(--t2)}
 .waitlist-sub{
-  font-family:var(--mono);font-size:9px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.22em;text-transform:uppercase;
   color:var(--t3);margin-bottom:56px;opacity:0;
 }
@@ -552,13 +552,13 @@ nav.scrolled{
 .waitlist-form:focus-within{border-color:var(--gold-d)}
 .waitlist-input{
   flex:1;background:transparent;border:none;outline:none;
-  padding:17px 20px;font-family:var(--mono);font-size:11px;
+  padding:17px 20px;font-family:var(--mono);font-size:12px;
   color:var(--t1);letter-spacing:0.06em;
 }
 .waitlist-input::placeholder{color:var(--t3);letter-spacing:0.1em}
 .waitlist-submit{
   background:var(--t1);border:none;padding:17px 28px;
-  font-family:var(--mono);font-size:8px;letter-spacing:0.22em;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.22em;
   text-transform:uppercase;color:var(--void);
   transition:background .2s;white-space:nowrap;
 }
@@ -566,21 +566,21 @@ nav.scrolled{
 .waitlist-submit:disabled{opacity:.4;cursor:not-allowed}
 .waitlist-note{
   margin-top:14px;font-family:var(--mono);
-  font-size:8px;letter-spacing:0.15em;color:var(--t3);
+  font-size:12px;letter-spacing:0.15em;color:var(--t3);
 }
 .waitlist-error{
   margin-top:12px;font-family:var(--mono);
-  font-size:8px;letter-spacing:0.1em;
+  font-size:12px;letter-spacing:0.1em;
   color:rgba(200,80,80,.75);display:none;
 }
 .waitlist-success{display:none;text-align:center}
 .waitlist-success-title{
   font-family:var(--serif);font-style:italic;
   font-size:clamp(28px,4vw,52px);font-weight:300;
-  color:var(--gold);letter-spacing:0.04em;margin-bottom:10px;
+  color:var(--gold-text);letter-spacing:0.04em;margin-bottom:10px;
 }
 .waitlist-success-note{
-  font-family:var(--mono);font-size:8px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.2em;color:var(--t3);
 }
 
@@ -596,7 +596,7 @@ footer{
   color:var(--t3);padding-right:0.48em;
 }
 .footer-copy{
-  font-family:var(--mono);font-size:7px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.18em;color:var(--t3);text-align:center;
 }
 .footer-status{display:flex;align-items:center;gap:6px}
@@ -605,7 +605,7 @@ footer{
   animation:blink 2.2s ease-in-out infinite;
 }
 .footer-status-text{
-  font-family:var(--mono);font-size:7px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.24em;text-transform:uppercase;color:var(--t3);
 }
 
@@ -643,7 +643,7 @@ footer{
   .waitlist-submit{padding:14px}
   nav{padding-left:20px;padding-right:20px}
   .nav-link{display:none}
-  .nav-cta{padding:9px 14px;font-size:7.5px;letter-spacing:0.14em}
+  .nav-cta{padding:9px 14px;font-size:12px;letter-spacing:0.14em}
   .hero-status,.hero-coords,.hero-access{display:none}
   footer{grid-template-columns:1fr;text-align:center;gap:12px}
   .footer-copy,.footer-status{justify-content:center;text-align:center}
@@ -651,7 +651,7 @@ footer{
 }
 
 /* ── SKIP LINK ─────────────────────────────────────────── */
-.skip-link{position:fixed;top:0;left:0;z-index:99999;background:var(--t1);color:var(--void);font-family:var(--mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:12px 20px;text-decoration:none;transform:translateY(-100%);transition:transform .2s}
+.skip-link{position:fixed;top:0;left:0;z-index:99999;background:var(--t1);color:var(--void);font-family:var(--mono);font-size:12px;letter-spacing:0.15em;text-transform:uppercase;padding:12px 20px;text-decoration:none;transform:translateY(-100%);transition:transform .2s}
 .skip-link:focus{transform:translateY(0)}
 
 /* ── HERO INTEL PANEL ──────────────────────────────────── */
@@ -663,11 +663,11 @@ footer{
 }
 .hip-row{
   display:flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:7px;letter-spacing:0.18em;
-  text-transform:uppercase;color:rgba(30,91,255,0.45);
+  font-family:var(--mono);font-size:12px;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--gold-text);
 }
-.hip-header{color:rgba(30,91,255,0.25);letter-spacing:0.3em;margin-bottom:3px}
-.hip-id{min-width:58px;flex-shrink:0;color:rgba(30,91,255,0.55)}
+.hip-header{color:var(--gold-text);letter-spacing:0.3em;margin-bottom:3px}
+.hip-id{min-width:58px;flex-shrink:0;color:var(--gold-text)}
 .hip-bar{flex:1;height:1px;background:rgba(30,91,255,0.1);position:relative;overflow:hidden}
 .hip-bar-fill{
   position:absolute;top:0;left:0;height:100%;
@@ -676,15 +676,15 @@ footer{
   transition:transform 1.8s var(--ease-out);
 }
 .hero-intel-panel.reveal .hip-bar-fill{transform:scaleX(1)}
-.hip-val{min-width:70px;text-align:right;color:rgba(30,91,255,0.3)}
+.hip-val{min-width:70px;text-align:right;color:var(--gold-text)}
 @media(max-width:900px){.hero-intel-panel{display:none}}
 
 /* ── LOADER INIT LOG ───────────────────────────────────── */
 .loader-init-log{
   position:absolute;bottom:68px;left:60px;
   display:flex;flex-direction:column;gap:3px;
-  font-family:var(--mono);font-size:8px;letter-spacing:0.18em;
-  color:rgba(30,91,255,0.38);text-transform:uppercase;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.18em;
+  color:var(--gold-text);text-transform:uppercase;
 }
 .loader-init-line{
   opacity:0;transform:translateX(-8px);
@@ -692,7 +692,7 @@ footer{
   display:flex;gap:12px;
 }
 .loader-init-line.show{opacity:1;transform:translateX(0)}
-.loader-init-ok{color:rgba(30,91,255,0.7)}
+.loader-init-ok{color:var(--gold-text)}
 
 /* ── TELEMETRY BAR ─────────────────────────────────────── */
 .tbar{
@@ -700,8 +700,8 @@ footer{
   height:28px;background:rgba(0,0,0,0.94);
   border-top:1px solid rgba(30,91,255,0.1);
   display:flex;align-items:center;gap:0;
-  font-family:var(--mono);font-size:7px;letter-spacing:0.18em;
-  text-transform:uppercase;color:rgba(30,91,255,0.45);
+  font-family:var(--mono);font-size:12px;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--gold-text);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   opacity:0;transition:opacity 1s ease;
 }
@@ -717,9 +717,9 @@ footer{
   background:var(--gold);
   animation:blink 2.2s ease-in-out infinite;flex-shrink:0;
 }
-.tbar-sys{color:rgba(30,91,255,0.7)}
+.tbar-sys{color:var(--gold-text)}
 .tbar-sep{opacity:0.25}
-.tbar-agents{color:rgba(30,91,255,0.35)}
+.tbar-agents{color:var(--gold-text)}
 .tbar-ticker-wrap{
   flex:1;overflow:hidden;height:100%;
   display:flex;align-items:center;padding:0 14px;
@@ -734,7 +734,7 @@ footer{
   white-space:nowrap;
   display:inline-block;
   animation:tbar-scroll 55s linear infinite;
-  color:rgba(30,91,255,0.5);
+  color:var(--gold-text);
 }
 @keyframes tbar-scroll{
   0%{transform:translateX(100vw)}
@@ -762,8 +762,8 @@ footer{
 }
 .feed-live-badge{
   display:flex;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:8px;letter-spacing:0.3em;
-  color:var(--gold);text-transform:uppercase;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.3em;
+  color:var(--gold-text);text-transform:uppercase;
   border:1px solid rgba(30,91,255,0.22);
   padding:5px 12px;
 }
@@ -783,7 +783,7 @@ footer{
   clip-path:inset(0 0 100% 0);
 }
 .feed-caption{
-  font-family:var(--mono);font-size:9px;letter-spacing:0.1em;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.1em;
   color:var(--t3);text-transform:uppercase;line-height:1.8;
   max-width:360px;
 }
@@ -803,7 +803,7 @@ footer{
   gap:16px;align-items:baseline;
   padding:11px 20px;
   border-bottom:1px solid rgba(30,91,255,0.04);
-  font-family:var(--mono);font-size:9px;
+  font-family:var(--mono);font-size:12px;
   letter-spacing:0.07em;text-transform:uppercase;
   animation:feed-slide-in 0.4s ease both;
   transition:background .2s;
@@ -814,27 +814,27 @@ footer{
   to{opacity:1;transform:none}
 }
 .feed-agent-id{
-  color:var(--gold);font-size:8.5px;letter-spacing:0.28em;
+  color:var(--gold-text);font-size:12px;letter-spacing:0.28em;
   flex-shrink:0;
 }
 .feed-event-text{color:rgba(240,237,232,0.65);line-height:1.6}
 .feed-event-time{
-  color:rgba(30,91,255,0.3);font-size:8px;
+  color:var(--gold-text);font-size:12px;
   white-space:nowrap;flex-shrink:0;text-align:right;
 }
 .feed-footer-row{
   display:flex;justify-content:space-between;align-items:center;
   margin-top:14px;
-  font-family:var(--mono);font-size:8px;letter-spacing:0.2em;
-  color:rgba(30,91,255,0.3);text-transform:uppercase;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.2em;
+  color:var(--gold-text);text-transform:uppercase;
 }
-.feed-footer-count{color:rgba(30,91,255,0.5)}
+.feed-footer-count{color:var(--gold-text)}
 
 /* ── AGENT CARD NEW BADGE ──────────────────────────────── */
 .agent-card--new{position:relative}
 .agent-new-badge{
   position:absolute;top:12px;right:12px;
-  font-family:var(--mono);font-size:7px;letter-spacing:0.25em;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.25em;
   color:var(--void);background:var(--gold);
   padding:2px 7px;text-transform:uppercase;
 }
@@ -856,59 +856,59 @@ footer{
 .alfred-demo-inner{max-width:1400px;margin:0 auto}
 .alfred-demo-header{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;margin-bottom:56px}
 .alfred-demo-headline{font-family:var(--serif);font-size:clamp(36px,5vw,68px);font-weight:300;line-height:1.05;color:var(--t1);overflow:hidden;clip-path:inset(0 0 100% 0)}
-.alfred-demo-headline em{font-style:italic;color:var(--gold)}
+.alfred-demo-headline em{font-style:italic;color:var(--gold-text)}
 .alfred-tabs{display:flex;gap:0;border:1px solid var(--line-hi);flex-wrap:wrap}
-.alfred-tab{font-family:var(--mono);font-size:7.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--t2);padding:10px 18px;background:none;border:none;border-right:1px solid var(--line);transition:color .2s,background .2s;white-space:nowrap}
+.alfred-tab{font-family:var(--mono);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--t2);padding:10px 18px;background:none;border:none;border-right:1px solid var(--line);transition:color .2s,background .2s;white-space:nowrap}
 .alfred-tab:last-child{border-right:none}
 .alfred-tab:hover{color:var(--t1);background:var(--surf)}
-.alfred-tab.active{color:var(--gold);background:var(--surf)}
+.alfred-tab.active{color:var(--gold-text);background:var(--surf)}
 .alfred-terminal{border:1px solid var(--line-hi);background:#030303;min-height:380px;display:flex;flex-direction:column;overflow:hidden;position:relative}
 .alfred-term-header{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;border-bottom:1px solid var(--line);flex-shrink:0}
-.alfred-term-title{font-family:var(--mono);font-size:7.5px;letter-spacing:0.3em;color:rgba(30,91,255,0.4);text-transform:uppercase}
+.alfred-term-title{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--gold-text);text-transform:uppercase}
 .alfred-term-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 1.8s ease-in-out infinite}
 .alfred-term-body{padding:28px 32px;flex:1;display:flex;flex-direction:column;gap:20px}
 .alfred-term-prompt{display:flex;gap:12px;align-items:flex-start}
-.atp-label{font-family:var(--mono);font-size:8px;letter-spacing:0.22em;color:rgba(30,91,255,0.35);text-transform:uppercase;flex-shrink:0;padding-top:2px;white-space:nowrap}
-.atp-text{font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;color:rgba(240,237,232,0.4);text-transform:uppercase;line-height:1.6}
+.atp-label{font-family:var(--mono);font-size:12px;letter-spacing:0.22em;color:var(--gold-text);text-transform:uppercase;flex-shrink:0;padding-top:2px;white-space:nowrap}
+.atp-text{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:rgba(240,237,232,0.62);text-transform:uppercase;line-height:1.6}
 .alfred-term-response{font-family:var(--serif);font-size:clamp(15px,1.8vw,22px);font-weight:300;font-style:italic;color:rgba(240,237,232,0.88);line-height:1.8;letter-spacing:0.02em;min-height:100px}
 .alfred-blink-cursor{display:inline-block;width:2px;height:0.85em;background:var(--gold);vertical-align:text-bottom;animation:blink 1s step-end infinite;margin-left:2px}
 .alfred-term-enter{display:flex;align-items:center;gap:10px;cursor:pointer;opacity:0;transition:opacity .4s;pointer-events:none;padding:10px 0 4px}
 .alfred-term-enter.visible{opacity:1;pointer-events:auto}
-.alfred-enter-key{font-family:var(--mono);font-size:7px;letter-spacing:.2em;color:var(--bg);background:var(--gold);padding:3px 8px;border-radius:2px;line-height:1.4}
-.alfred-enter-label{font-family:var(--mono);font-size:7px;letter-spacing:.2em;color:var(--t3);text-transform:uppercase}
-.alfred-term-enter:hover .alfred-enter-label{color:var(--gold);transition:color .2s}
+.alfred-enter-key{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--bg);background:var(--gold);padding:3px 8px;border-radius:2px;line-height:1.4}
+.alfred-enter-label{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--t3);text-transform:uppercase}
+.alfred-term-enter:hover .alfred-enter-label{color:var(--gold-text);transition:color .2s}
 .alfred-term-meta{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);display:flex;gap:32px;flex-shrink:0;flex-wrap:wrap}
 .atm-item{display:flex;flex-direction:column;gap:4px}
-.atm-label{font-family:var(--mono);font-size:7px;letter-spacing:0.38em;color:rgba(30,91,255,0.25);text-transform:uppercase}
-.atm-val{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:rgba(30,91,255,0.7)}
-@media(max-width:768px){.alfred-demo-header{grid-template-columns:1fr}.alfred-tabs{order:-1}.alfred-tab{padding:9px 12px;font-size:7px}}
+.atm-label{font-family:var(--mono);font-size:12px;letter-spacing:0.38em;color:var(--gold-text);text-transform:uppercase}
+.atm-val{font-family:var(--mono);font-size:12px;letter-spacing:0.12em;color:var(--gold-text)}
+@media(max-width:768px){.alfred-demo-header{grid-template-columns:1fr}.alfred-tabs{order:-1}.alfred-tab{padding:9px 12px;font-size:12px}}
 
 /* ── FOUNDER OS SECTION ────────────────────────────────── */
 .founder-os{padding:var(--sv) var(--sh);border-top:1px solid var(--line);background:var(--surf)}
 .founder-os-inner{max-width:1400px;margin:0 auto}
 .founder-os-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px;gap:40px;flex-wrap:wrap}
 .founder-os-headline{font-family:var(--serif);font-size:clamp(36px,5vw,68px);font-weight:300;line-height:1.05;color:var(--t1);overflow:hidden;clip-path:inset(0 0 100% 0)}
-.founder-os-headline em{font-style:italic;color:var(--gold)}
-.founder-os-sub{font-family:var(--mono);font-size:9px;letter-spacing:0.18em;color:var(--t2);text-transform:uppercase;max-width:340px;line-height:1.85}
+.founder-os-headline em{font-style:italic;color:var(--gold-text)}
+.founder-os-sub{font-family:var(--mono);font-size:12px;letter-spacing:0.18em;color:var(--t2);text-transform:uppercase;max-width:340px;line-height:1.85}
 .os-dashboard{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:var(--line);border:1px solid var(--line)}
 .os-card{background:#050505;padding:28px 24px;position:relative;transition:background .3s;overflow:hidden}
 .os-card:hover{background:var(--surf)}
 .os-card--wide{grid-column:1/3}
 .os-card--tall{grid-column:3;grid-row:1/3}
-.os-card-label{font-family:var(--mono);font-size:7px;letter-spacing:0.44em;color:rgba(30,91,255,0.35);text-transform:uppercase;margin-bottom:18px}
+.os-card-label{font-family:var(--mono);font-size:12px;letter-spacing:0.44em;color:var(--gold-text);text-transform:uppercase;margin-bottom:18px}
 .os-card-title{font-family:var(--serif);font-size:clamp(18px,2vw,24px);font-weight:300;color:var(--t1);margin-bottom:10px;line-height:1.2}
 .os-card-body{font-size:12.5px;line-height:1.85;color:var(--t2);letter-spacing:0.01em}
 /* briefing card */
 .os-briefing-lines{display:flex;flex-direction:column;gap:10px;margin-top:16px}
 .os-briefing-line{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid rgba(30,91,255,0.07);background:rgba(0,0,0,0.4)}
-.os-bl-agent{font-family:var(--mono);font-size:7px;letter-spacing:0.2em;color:rgba(30,91,255,0.5);text-transform:uppercase;flex-shrink:0;width:64px}
-.os-bl-text{font-family:var(--mono);font-size:8px;letter-spacing:0.06em;color:rgba(240,237,232,0.5);line-height:1.55}
+.os-bl-agent{font-family:var(--mono);font-size:12px;letter-spacing:0.2em;color:var(--gold-text);text-transform:uppercase;flex-shrink:0;width:64px}
+.os-bl-text{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:rgba(240,237,232,0.62);line-height:1.55}
 /* metrics */
 .os-metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
 .os-metric{display:flex;flex-direction:column;gap:4px;padding:12px;border:1px solid rgba(30,91,255,0.07)}
 .os-metric-val{font-family:var(--serif);font-size:clamp(22px,2.5vw,32px);font-weight:300;color:var(--t1);line-height:1}
-.os-metric-label{font-family:var(--mono);font-size:7px;letter-spacing:0.3em;color:rgba(30,91,255,0.4);text-transform:uppercase}
-.os-metric-delta{font-family:var(--mono);font-size:8px;letter-spacing:0.1em;margin-top:2px}
+.os-metric-label{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--gold-text);text-transform:uppercase}
+.os-metric-delta{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;margin-top:2px}
 .os-metric-delta.up{color:rgba(110,156,255,0.7)}
 .os-metric-delta.down{color:rgba(210,120,120,0.7)}
 /* priorities */
@@ -920,16 +920,16 @@ footer{
 .os-priority.done .os-pri-text{text-decoration:line-through;color:var(--t3)}
 .os-pri-check-mark{width:7px;height:5px;border-left:1px solid var(--gold);border-bottom:1px solid var(--gold);transform:rotate(-45deg) translateY(-1px);opacity:0;transition:opacity .15s}
 .os-priority.done .os-pri-check-mark{opacity:1}
-.os-pri-text{font-family:var(--mono);font-size:8px;letter-spacing:0.1em;color:rgba(240,237,232,0.55);text-transform:uppercase;line-height:1.4;transition:color .2s}
-.os-pri-tag{margin-left:auto;font-family:var(--mono);font-size:7px;letter-spacing:0.18em;text-transform:uppercase;padding:2px 7px;flex-shrink:0}
-.os-pri-tag.high{border:1px solid rgba(30,91,255,0.3);color:rgba(30,91,255,0.6)}
-.os-pri-tag.med{border:1px solid rgba(240,237,232,0.1);color:rgba(240,237,232,0.3)}
+.os-pri-text{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:rgba(240,237,232,0.62);text-transform:uppercase;line-height:1.4;transition:color .2s}
+.os-pri-tag{margin-left:auto;font-family:var(--mono);font-size:12px;letter-spacing:0.18em;text-transform:uppercase;padding:2px 7px;flex-shrink:0}
+.os-pri-tag.high{border:1px solid rgba(30,91,255,0.3);color:var(--gold-text)}
+.os-pri-tag.med{border:1px solid rgba(240,237,232,0.1);color:rgba(240,237,232,0.62)}
 /* agent collab */
 .os-agent-flow{display:flex;flex-direction:column;gap:6px;margin-top:14px}
 .os-agent-msg{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-left:2px solid transparent;transition:border-color .2s}
 .os-agent-msg.pulse{border-left-color:var(--gold)}
-.os-agent-id{font-family:var(--mono);font-size:7.5px;letter-spacing:0.2em;color:rgba(30,91,255,0.55);text-transform:uppercase;flex-shrink:0;width:72px;padding-top:1px}
-.os-agent-content{font-family:var(--mono);font-size:7.5px;letter-spacing:0.07em;color:rgba(240,237,232,0.4);line-height:1.55}
+.os-agent-id{font-family:var(--mono);font-size:12px;letter-spacing:0.2em;color:var(--gold-text);text-transform:uppercase;flex-shrink:0;width:72px;padding-top:1px}
+.os-agent-content{font-family:var(--mono);font-size:12px;letter-spacing:0.07em;color:rgba(240,237,232,0.62);line-height:1.55}
 @media(max-width:1100px){.os-dashboard{grid-template-columns:1fr 1fr}.os-card--wide{grid-column:1/-1}}
 @media(max-width:700px){.os-dashboard{grid-template-columns:1fr}.os-card--tall{grid-row:auto}}
 
@@ -937,35 +937,35 @@ footer{
 .assessment{padding:var(--sv) var(--sh);text-align:center;position:relative;overflow:hidden}
 .assessment-glow{position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:700px;height:350px;background:radial-gradient(ellipse,rgba(30,91,255,0.05) 0%,transparent 70%);pointer-events:none}
 .assessment-rule{width:1px;height:56px;margin:0 auto 44px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:0}
-.assessment-eyebrow{font-family:var(--mono);font-size:7px;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0}
+.assessment-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold-text);margin-bottom:28px;opacity:0}
 .assessment-headline{font-family:var(--serif);font-size:clamp(52px,8vw,110px)!important;font-weight:300;line-height:0.9;color:var(--t1);max-width:900px;margin:0 auto 28px;overflow:hidden;opacity:0}
 .assessment-headline em{font-style:italic;color:var(--t2)}
-.assessment-sub{font-family:var(--mono);font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--t3);margin-bottom:52px;opacity:0}
+.assessment-sub{font-family:var(--mono);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--t3);margin-bottom:52px;opacity:0}
 /* steps */
 .assessment-steps{max-width:640px;margin:0 auto;opacity:0;transition:opacity .4s}
 .assessment-steps.visible{opacity:1}
 .assessment-step{display:none}
 .assessment-step.active{display:block}
-.assessment-step-label{font-family:var(--mono);font-size:8px;letter-spacing:0.4em;color:rgba(30,91,255,0.4);text-transform:uppercase;margin-bottom:32px}
+.assessment-step-label{font-family:var(--mono);font-size:12px;letter-spacing:0.4em;color:var(--gold-text);text-transform:uppercase;margin-bottom:32px}
 .assessment-step-q{font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,36px);font-weight:300;color:var(--t1);margin-bottom:36px;line-height:1.3}
 .assessment-options{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.assessment-option{font-family:var(--mono);font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--t2);padding:11px 22px;background:none;border:1px solid var(--line-hi);transition:color .2s,border-color .2s,background .2s}
+.assessment-option{font-family:var(--mono);font-size:12px;letter-spacing:0.25em;text-transform:uppercase;color:var(--t2);padding:11px 22px;background:none;border:1px solid var(--line-hi);transition:color .2s,border-color .2s,background .2s}
 .assessment-option:hover{color:var(--t1);border-color:rgba(30,91,255,0.3);background:var(--surf)}
-.assessment-option.selected{color:var(--gold);border-color:var(--gold);background:rgba(30,91,255,0.06)}
+.assessment-option.selected{color:var(--gold-text);border-color:var(--gold);background:rgba(30,91,255,0.06)}
 /* profile card */
 .assessment-profile{border:1px solid rgba(30,91,255,0.2);background:#030303;padding:32px;text-align:left;margin-bottom:32px;animation:modal-up .4s ease both;position:relative;overflow:hidden}
 .assessment-profile::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
 .ap-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(30,91,255,0.08)}
 .ap-title{font-family:var(--serif);font-size:clamp(20px,2.5vw,28px);font-weight:300;color:var(--t1)}
-.ap-badge{font-family:var(--mono);font-size:7px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);padding:4px 10px;border:1px solid rgba(30,91,255,0.3)}
-.ap-body{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;color:rgba(240,237,232,0.5);line-height:1.85;text-transform:uppercase}
-.ap-body strong{color:rgba(30,91,255,0.75);font-weight:400}
+.ap-badge{font-family:var(--mono);font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold-text);padding:4px 10px;border:1px solid rgba(30,91,255,0.3)}
+.ap-body{font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:rgba(240,237,232,0.62);line-height:1.85;text-transform:uppercase}
+.ap-body strong{color:var(--gold-text);font-weight:400}
 .ap-agents{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;padding-top:20px;border-top:1px solid rgba(30,91,255,0.08)}
-.ap-agent-chip{font-family:var(--mono);font-size:7px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(30,91,255,0.6);padding:4px 10px;border:1px solid rgba(30,91,255,0.2)}
+.ap-agent-chip{font-family:var(--mono);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-text);padding:4px 10px;border:1px solid rgba(30,91,255,0.2)}
 /* email step */
 .assessment-email-form{display:flex;max-width:480px;margin:0 auto;border:1px solid var(--line-hi);transition:border-color .3s}
 .assessment-email-form:focus-within{border-color:var(--gold-d)}
-.assessment-note{margin-top:12px;font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:var(--t3)}
+.assessment-note{margin-top:12px;font-family:var(--mono);font-size:12px;letter-spacing:0.15em;color:var(--t3)}
 .assessment-progress{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:40px;opacity:0}
 .assessment-progress.visible{opacity:1}
 .ap-dot{width:6px;height:6px;border-radius:50%;background:var(--line-hi);transition:background .3s}
@@ -998,7 +998,7 @@ footer{
 .nav-cta:active,.tier-cta:active,.waitlist-submit:active{transform:scale(0.97);transition:transform .08s}
 
 /* ── AGENT CARD INTERACTIVITY ──────────────────────────── */
-.agent-card::after{content:'VIEW';position:absolute;bottom:14px;right:18px;font-family:var(--mono);font-size:7px;letter-spacing:0.2em;color:rgba(30,91,255,0.35);opacity:0;transition:opacity .3s;pointer-events:none}
+.agent-card::after{content:'VIEW';position:absolute;bottom:14px;right:18px;font-family:var(--mono);font-size:12px;letter-spacing:0.2em;color:var(--gold-text);opacity:0;transition:opacity .3s;pointer-events:none}
 .agent-card:hover::after{opacity:1}
 
 /* ── AGENT MODAL ───────────────────────────────────────── */
@@ -1008,28 +1008,28 @@ footer{
 .agent-modal-panel{position:relative;width:min(540px,92vw);max-height:80vh;background:#050505;border:1px solid rgba(30,91,255,0.18);display:flex;flex-direction:column;overflow:hidden;animation:modal-up .35s ease both}
 @keyframes modal-up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .agent-modal-header{padding:20px 22px 16px;border-bottom:1px solid rgba(30,91,255,0.08);display:flex;align-items:flex-start;gap:16px;flex-shrink:0}
-.agent-modal-id{font-family:var(--mono);font-size:10px;letter-spacing:0.32em;color:var(--gold);text-transform:uppercase}
-.agent-modal-role{font-size:12px;font-weight:300;color:rgba(240,237,232,0.55);letter-spacing:0.04em;flex:1}
-.agent-modal-status{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:7.5px;letter-spacing:0.2em;color:rgba(30,91,255,0.5);text-transform:uppercase;flex-shrink:0}
+.agent-modal-id{font-family:var(--mono);font-size:12px;letter-spacing:0.32em;color:var(--gold-text);text-transform:uppercase}
+.agent-modal-role{font-size:12px;font-weight:300;color:rgba(240,237,232,0.62);letter-spacing:0.04em;flex:1}
+.agent-modal-status{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;letter-spacing:0.2em;color:var(--gold-text);text-transform:uppercase;flex-shrink:0}
 .agent-modal-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.7;flex-shrink:0;animation:jarvis-dot-pulse 2s ease-in-out infinite}
-.agent-modal-close{background:none;border:none;color:rgba(30,91,255,0.4);width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:color .2s;margin-left:auto}
-.agent-modal-close:hover{color:var(--gold)}
+.agent-modal-close{background:none;border:none;color:var(--gold-text);width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:color .2s;margin-left:auto}
+.agent-modal-close:hover{color:var(--gold-text)}
 .agent-modal-close svg{width:13px;height:13px}
-.agent-modal-last-action{padding:12px 22px;border-bottom:1px solid rgba(30,91,255,0.06);font-family:var(--mono);font-size:8px;letter-spacing:0.1em;color:rgba(30,91,255,0.3);text-transform:uppercase;display:flex;gap:12px;align-items:baseline;flex-shrink:0}
-.agent-modal-la-label{color:rgba(30,91,255,0.18);font-size:7px;letter-spacing:0.22em;flex-shrink:0}
+.agent-modal-last-action{padding:12px 22px;border-bottom:1px solid rgba(30,91,255,0.06);font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--gold-text);text-transform:uppercase;display:flex;gap:12px;align-items:baseline;flex-shrink:0}
+.agent-modal-la-label{color:var(--gold-text);font-size:12px;letter-spacing:0.22em;flex-shrink:0}
 .agent-modal-response{flex:1;overflow-y:auto;padding:16px 22px;min-height:120px;max-height:280px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:rgba(30,91,255,0.12) transparent}
 .agent-modal-response::-webkit-scrollbar{width:2px}
 .agent-modal-response::-webkit-scrollbar-thumb{background:rgba(30,91,255,0.15)}
-.modal-log-line{font-family:var(--mono);font-size:9px;letter-spacing:0.07em;line-height:1.7;text-transform:uppercase;display:flex;gap:9px;align-items:flex-start;animation:jlog-in .3s ease}
-.modal-log-user .modal-log-text{color:rgba(240,237,232,0.55)}
-.modal-log-system .modal-log-text{color:rgba(30,91,255,0.8)}
-.modal-log-prefix{color:var(--gold);flex-shrink:0;font-size:10px;line-height:1.4}
+.modal-log-line{font-family:var(--mono);font-size:12px;letter-spacing:0.07em;line-height:1.7;text-transform:uppercase;display:flex;gap:9px;align-items:flex-start;animation:jlog-in .3s ease}
+.modal-log-user .modal-log-text{color:rgba(240,237,232,0.62)}
+.modal-log-system .modal-log-text{color:var(--gold-text)}
+.modal-log-prefix{color:var(--gold-text);flex-shrink:0;font-size:12px;line-height:1.4}
 .agent-modal-input-row{padding:14px 22px;border-top:1px solid rgba(30,91,255,0.08);display:flex;gap:8px;flex-shrink:0}
-.agent-modal-input{flex:1;background:rgba(30,91,255,0.04);border:1px solid rgba(30,91,255,0.16);color:var(--t1);font-family:var(--mono);font-size:8.5px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 12px;outline:none;transition:border-color .2s;cursor:text}
-.agent-modal-input::placeholder{color:rgba(30,91,255,0.2)}
+.agent-modal-input{flex:1;background:rgba(30,91,255,0.04);border:1px solid rgba(30,91,255,0.16);color:var(--t1);font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 12px;outline:none;transition:border-color .2s;cursor:text}
+.agent-modal-input::placeholder{color:var(--gold-text)}
 .agent-modal-input:focus{border-color:rgba(30,91,255,0.42)}
-.agent-modal-send{background:rgba(30,91,255,0.08);border:1px solid rgba(30,91,255,0.22);color:rgba(30,91,255,0.7);font-family:var(--mono);font-size:7.5px;letter-spacing:0.18em;text-transform:uppercase;padding:0 16px;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
-.agent-modal-send:hover{background:rgba(30,91,255,0.16);color:var(--gold);border-color:rgba(30,91,255,0.4)}
+.agent-modal-send{background:rgba(30,91,255,0.08);border:1px solid rgba(30,91,255,0.22);color:var(--gold-text);font-family:var(--mono);font-size:12px;letter-spacing:0.18em;text-transform:uppercase;padding:0 16px;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
+.agent-modal-send:hover{background:rgba(30,91,255,0.16);color:var(--gold-text);border-color:rgba(30,91,255,0.4)}
 .agent-modal-thinking{display:flex;gap:5px;align-items:center;padding:4px 0}
 .agent-modal-thinking span{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.4;animation:think-bounce .9s ease-in-out infinite}
 .agent-modal-thinking span:nth-child(2){animation-delay:.15s}
@@ -1075,15 +1075,15 @@ footer{
 .agents-section{padding:clamp(80px,12vw,140px) clamp(24px,6vw,80px)}
 .agents-inner{max-width:1100px;margin:0 auto}
 .agents-headline{font-size:clamp(32px,5vw,58px);font-weight:300;letter-spacing:-0.02em;line-height:1.1;color:var(--t1);margin:28px 0 16px;clip-path:inset(0 0 100% 0)}
-.agents-sub{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--t3);text-transform:uppercase;margin-bottom:52px;max-width:520px}
+.agents-sub{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;color:var(--t3);text-transform:uppercase;margin-bottom:52px;max-width:520px}
 .agents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(30,91,255,0.1);border:1px solid rgba(30,91,255,0.1)}
 .agent-card{background:var(--bg);padding:36px 28px;position:relative;transition:background .3s}
 .agent-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(30,91,255,0.3),transparent);opacity:0;transition:opacity .4s}
 .agent-card:hover{background:rgba(30,91,255,0.03)}
 .agent-card:hover::before{opacity:1}
-.agent-id{font-family:var(--mono);font-size:9px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.agent-id{font-family:var(--mono);font-size:12px;letter-spacing:0.3em;color:var(--gold-text);text-transform:uppercase;margin-bottom:10px}
 .agent-role{font-size:clamp(13px,1.2vw,15px);font-weight:400;color:var(--t1);letter-spacing:0.02em;margin-bottom:14px;line-height:1.3}
-.agent-desc{font-family:var(--mono);font-size:10px;letter-spacing:0.06em;color:var(--t4);line-height:1.7;text-transform:uppercase}
+.agent-desc{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:var(--t4);line-height:1.7;text-transform:uppercase}
 @media(max-width:768px){
   .agents-grid{grid-template-columns:repeat(2,1fr)}
   .agents-section{padding:clamp(60px,10vw,100px) 24px}
@@ -1098,11 +1098,11 @@ footer{
 .voice-inner{max-width:1200px;margin:0 auto}
 .voice-split{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:center;margin-top:40px}
 .voice-headline{font-size:clamp(32px,4vw,54px);font-weight:300;letter-spacing:-0.02em;line-height:1.1;color:var(--t1);margin:0 0 22px;clip-path:inset(0 0 100% 0)}
-.voice-body{font-family:var(--mono);font-size:10.5px;letter-spacing:0.07em;color:var(--t3);line-height:1.9;text-transform:uppercase;margin-bottom:32px;max-width:440px}
+.voice-body{font-family:var(--mono);font-size:12px;letter-spacing:0.07em;color:var(--t3);line-height:1.9;text-transform:uppercase;margin-bottom:32px;max-width:440px}
 .voice-features{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
-.voice-features li{font-family:var(--mono);font-size:9.5px;letter-spacing:0.08em;color:var(--t4);text-transform:uppercase;display:flex;gap:14px;align-items:flex-start;line-height:1.6;padding-bottom:14px;border-bottom:1px solid rgba(30,91,255,0.07)}
+.voice-features li{font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:var(--t4);text-transform:uppercase;display:flex;gap:14px;align-items:flex-start;line-height:1.6;padding-bottom:14px;border-bottom:1px solid rgba(30,91,255,0.07)}
 .voice-features li:last-child{border-bottom:none}
-.vf-label{color:var(--gold);min-width:110px;flex-shrink:0}
+.vf-label{color:var(--gold-text);min-width:110px;flex-shrink:0}
 /* no border box — just floating elements on dark background */
 .vhud-frame{
   position:relative;border:none;padding:40px 20px;
@@ -1110,9 +1110,9 @@ footer{
   background:none;overflow:hidden;min-height:460px;
 }
 .vhud-bg-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.vhud-label{font-family:var(--mono);font-size:8px;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;opacity:0.7;position:relative;z-index:1}
+.vhud-label{font-family:var(--mono);font-size:12px;letter-spacing:0.22em;color:var(--gold-text);text-transform:uppercase;opacity:0.7;position:relative;z-index:1}
 .vhud-ring{width:320px;height:320px;position:relative;z-index:1}
-.vhud-status{font-family:var(--mono);font-size:8px;letter-spacing:0.28em;color:rgba(30,91,255,0.6);text-transform:uppercase;position:relative;z-index:1}
+.vhud-status{font-family:var(--mono);font-size:12px;letter-spacing:0.28em;color:var(--gold-text);text-transform:uppercase;position:relative;z-index:1}
 @media(max-width:768px){
   .voice-split{grid-template-columns:1fr;gap:48px}
   .voice-hud-preview{display:none}
@@ -1174,8 +1174,8 @@ footer{
 }
 .hero-eyebrow{
   display:flex;align-items:center;justify-content:center;gap:16px;
-  font-size:10.5px;letter-spacing:0.46em;font-weight:500;
-  color:rgba(30,91,255,0.9);text-indent:0.46em;margin-bottom:44px;
+  font-size:12px;letter-spacing:0.46em;font-weight:500;
+  color:var(--gold-text);text-indent:0.46em;margin-bottom:44px;
 }
 .hero-eyebrow::before,.hero-eyebrow::after{
   content:"";display:block;width:38px;height:1px;flex-shrink:0;
@@ -1193,7 +1193,7 @@ footer{
   width:4px;height:4px;transform:translate(-50%,-50%) rotate(45deg);
   background:var(--gold);
 }
-.sec-label{font-size:9.5px;letter-spacing:0.34em}
+.sec-label{font-size:12px;letter-spacing:0.34em}
 .assessment-step-label,.assessment-eyebrow,.waitlist-eyebrow{letter-spacing:0.32em}
 
 /* Fine print labels / metrics — keep crisp, slightly tighter than mono */
@@ -1231,10 +1231,10 @@ footer{
 /* ── RESPONSIVE TYPE TUNING ───────────────────────────────────────── */
 @media(max-width:768px){
   .hero-subtitle{font-size:17px;line-height:1.55}
-  .hero-eyebrow{font-size:8.5px;letter-spacing:0.34em;gap:10px;text-indent:0.34em;margin-bottom:32px}
+  .hero-eyebrow{font-size:12px;letter-spacing:0.34em;gap:10px;text-indent:0.34em;margin-bottom:32px}
   .hero-eyebrow::before,.hero-eyebrow::after{width:22px}
   .hero-rule{width:56px;margin:32px auto}
-  .sec-label{font-size:9px;letter-spacing:0.3em;margin-bottom:40px}
+  .sec-label{font-size:12px;letter-spacing:0.3em;margin-bottom:40px}
   .manifesto-headline,.engine-headline,.system-headline,.access-headline,
   .waitlist-headline,.feed-headline,.alfred-demo-headline,.founder-os-headline{
     line-height:1.08;
@@ -1279,20 +1279,20 @@ footer{
 .es-label,.os-card-label,.os-metric-label,.atp-label,.atm-label,
 .assessment-step-label,.jarvis-panel-label,.alfred-term-title,
 .af-panel-label,.agent-modal-la-label,.tier-num,.vhud-label,.vhud-status{
-  color:rgba(30,91,255,0.78)!important;
+  color:var(--gold-text)!important;
 }
 /* Enlarge the smallest labels for legibility */
-.hero-eyebrow{font-size:11.5px}
-.sec-label{font-size:10.5px}
+.hero-eyebrow{font-size:12px}
+.sec-label{font-size:12px}
 .es-label,.os-card-label,.os-metric-label,.assessment-step-label,
 .atp-label,.atm-label,.af-panel-label,.jarvis-panel-label,.alfred-term-title{
-  font-size:9px;
+  font-size:12px;
 }
-.tier-num,.pillar-num{font-size:9px}
+.tier-num,.pillar-num{font-size:12px}
 /* Larger, brighter body copy & descriptions */
 .manifesto-body p{font-size:16px;color:rgba(240,237,232,0.74)}
 .tier-desc,.pillar-desc,.access-sub{font-size:14px;color:rgba(240,237,232,0.7)}
-.engine-body,.agent-desc{font-size:11.5px;color:rgba(240,237,232,0.62)}
+.engine-body,.agent-desc{font-size:12px;color:rgba(240,237,232,0.62)}
 .hero-subtitle{color:rgba(240,237,232,0.78)}
 /* Nav brighter */
 .nav-link{color:rgba(240,237,232,0.7)}
@@ -1324,7 +1324,7 @@ footer{
 }
 .hero-statement em{
   font-family:var(--serif);font-style:italic;font-weight:400;
-  color:var(--gold);font-variation-settings:normal;letter-spacing:0.012em;
+  color:var(--gold-text);font-variation-settings:normal;letter-spacing:0.012em;
 }
 /* Section headlines — large, elegant, optical Roman, refined tracking */
 .manifesto-headline,.engine-headline,.system-headline,.access-headline,
@@ -1342,14 +1342,14 @@ footer{
   font-family:var(--serif);font-style:italic;font-variation-settings:normal;
 }
 .manifesto-headline em,.system-headline em,.founder-os-headline em,
-.outcomes-headline em,.architect-headline em{font-weight:400;color:var(--gold)}
+.outcomes-headline em,.architect-headline em{font-weight:400;color:var(--gold-text)}
 .hero-subtitle{
   font-family:var(--serif);font-style:italic;font-weight:400;
   font-size:clamp(15px,1.6vw,18px);line-height:1.7;letter-spacing:0.01em;
   color:rgba(240,237,232,0.7);max-width:50ch;margin-left:auto;margin-right:auto;
 }
 /* Refined eyebrow / section label — quieter, less "stamped on everything" */
-.sec-label{font-weight:400;letter-spacing:0.30em;color:rgba(30,91,255,0.62)}
+.sec-label{font-weight:400;letter-spacing:0.30em;color:var(--gold-text)}
 .sec-label-line{width:36px;opacity:0.45}
 
 /* ── HERO CTA ROW ─────────────────────────────────────────────────── */
@@ -1358,7 +1358,7 @@ footer{
   margin-top:40px;flex-wrap:wrap;opacity:0;
 }
 .hero-btn{
-  font-family:var(--ui);font-size:11px;font-weight:500;
+  font-family:var(--ui);font-size:12px;font-weight:500;
   letter-spacing:0.18em;text-transform:uppercase;padding:15px 30px;
   text-decoration:none;display:inline-flex;align-items:center;gap:10px;
   transition:background .4s var(--ease-out),color .4s var(--ease-out),border-color .4s var(--ease-out);
@@ -1366,12 +1366,12 @@ footer{
 .hero-btn.primary{background:var(--gold);color:#0A0A0A;border:1px solid var(--gold)}
 .hero-btn.primary:hover{background:#6E9CFF;border-color:#6E9CFF}
 .hero-btn.ghost{background:transparent;color:var(--t1);border:1px solid rgba(240,237,232,0.22)}
-.hero-btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
-.hero-btn .hb-mark{font-size:9px;opacity:0.65}
+.hero-btn.ghost:hover{border-color:var(--gold);color:var(--gold-text)}
+.hero-btn .hb-mark{font-size:12px;opacity:0.65}
 @media(max-width:768px){
   .hero-statement{font-size:clamp(19px,5.6vw,26px);max-width:18ch}
   .hero-cta{margin-top:32px;gap:10px}
-  .hero-btn{padding:13px 22px;font-size:10px;letter-spacing:0.14em}
+  .hero-btn{padding:13px 22px;font-size:12px;letter-spacing:0.14em}
 }
 
 /* ═══ OPERATOR OUTCOMES ════════════════════════════════════════════ */
@@ -1383,12 +1383,12 @@ footer{
 .outcomes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .outcome{background:var(--void);padding:38px 34px 40px;display:flex;flex-direction:column;min-height:380px;position:relative;transition:background .5s var(--ease-out)}
 .outcome:hover{background:#060606}
-.outcome-class{font-family:var(--ui);font-size:9px;font-weight:500;letter-spacing:0.26em;text-transform:uppercase;color:rgba(30,91,255,0.7);display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}
-.outcome-class .projected{color:rgba(240,237,232,0.34)}
+.outcome-class{font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold-text);display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.outcome-class .projected{color:rgba(240,237,232,0.62)}
 .outcome-role{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:'opsz' 144;font-weight:360;font-size:26px;color:var(--t1);margin:26px 0 4px;letter-spacing:0.004em}
-.outcome-domain{font-family:var(--ui);font-size:9.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--t3);margin-bottom:30px}
-.outcome-metric-val{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:'opsz' 144;font-weight:340;font-size:clamp(46px,5vw,60px);line-height:1;color:var(--gold);letter-spacing:0.01em;font-feature-settings:'tnum' 1,'lnum' 1}
-.outcome-metric-label{font-family:var(--ui);font-size:11px;font-weight:400;letter-spacing:0.02em;color:rgba(240,237,232,0.7);margin-top:12px;line-height:1.5;max-width:26ch}
+.outcome-domain{font-family:var(--ui);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--t3);margin-bottom:30px}
+.outcome-metric-val{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:'opsz' 144;font-weight:340;font-size:clamp(46px,5vw,60px);line-height:1;color:var(--gold-text);letter-spacing:0.01em;font-feature-settings:'tnum' 1,'lnum' 1}
+.outcome-metric-label{font-family:var(--ui);font-size:12px;font-weight:400;letter-spacing:0.02em;color:rgba(240,237,232,0.7);margin-top:12px;line-height:1.5;max-width:26ch}
 .outcome-lines{list-style:none;margin:auto 0 0;padding-top:24px;border-top:1px solid var(--line)}
 .outcome-lines li{font-family:var(--ui);font-size:12.5px;font-weight:400;line-height:1.5;color:rgba(240,237,232,0.62);padding-left:18px;position:relative;margin-bottom:12px}
 .outcome-lines li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border:1px solid var(--gold);transform:rotate(45deg);opacity:0.55}
@@ -1399,19 +1399,19 @@ footer{
 .architect{padding:clamp(104px,14vw,184px) var(--sh);border-top:1px solid var(--line);position:relative;overflow:hidden}
 .architect::after{content:"";position:absolute;top:50%;left:50%;width:min(86vw,720px);height:min(86vw,720px);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(30,91,255,0.055),transparent 62%);pointer-events:none;z-index:0}
 .architect-inner{max-width:780px;margin:0 auto;text-align:center;position:relative;z-index:2}
-.architect-eyebrow{font-family:var(--ui);font-size:10px;font-weight:500;letter-spacing:0.34em;text-transform:uppercase;color:rgba(30,91,255,0.6);margin-bottom:46px;display:inline-flex;align-items:center;gap:14px}
+.architect-eyebrow{font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0.34em;text-transform:uppercase;color:var(--gold-text);margin-bottom:46px;display:inline-flex;align-items:center;gap:14px}
 .architect-eyebrow::before,.architect-eyebrow::after{content:"";width:30px;height:1px;background:rgba(30,91,255,0.4)}
 .architect-body{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:'opsz' 144;font-weight:340;font-size:clamp(25px,3.3vw,40px);line-height:1.34;letter-spacing:-0.004em;color:var(--t1)}
 .architect-body .lead{display:block;margin-bottom:6px}
-.architect-body em{font-family:var(--serif);font-style:italic;color:var(--gold);font-variation-settings:normal}
+.architect-body em{font-family:var(--serif);font-style:italic;color:var(--gold-text);font-variation-settings:normal}
 .architect-sign{margin-top:54px;display:flex;flex-direction:column;align-items:center;gap:18px}
 .architect-rule{width:1px;height:42px;background:linear-gradient(to bottom,transparent,rgba(30,91,255,0.5))}
-.architect-name{font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:0.42em;text-transform:uppercase;color:rgba(240,237,232,0.72)}
+.architect-name{font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0.42em;text-transform:uppercase;color:rgba(240,237,232,0.72)}
 @media(max-width:768px){.architect-body{font-size:clamp(22px,6vw,30px);line-height:1.4}}
 
 /* ═══ BRAND CREED DIVIDER (preserves the founding line) ════════════ */
 .brand-creed{padding:clamp(72px,10vw,124px) var(--sh);text-align:center;border-top:1px solid var(--line)}
-.brand-creed p{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(20px,2.6vw,30px);line-height:1.5;letter-spacing:0.01em;color:rgba(240,237,232,0.5);max-width:24ch;margin:0 auto}
+.brand-creed p{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(20px,2.6vw,30px);line-height:1.5;letter-spacing:0.01em;color:rgba(240,237,232,0.62);max-width:24ch;margin:0 auto}
 
 /* ═══ MISSION LOGS ═════════════════════════════════════════════════ */
 .missions{padding:var(--sv) var(--sh);max-width:1440px;margin:0 auto;border-top:1px solid var(--line)}
@@ -1422,9 +1422,9 @@ footer{
 .mission{border-bottom:1px solid var(--line)}
 .mission-bar{width:100%;background:none;border:0;text-align:left;display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:28px;padding:30px 4px;color:var(--t1);transition:padding-left .4s var(--ease-out)}
 .mission-bar:hover{padding-left:14px}
-.mission-id{font-family:var(--ui);font-size:10px;font-weight:500;letter-spacing:0.26em;text-transform:uppercase;color:rgba(30,91,255,0.78);white-space:nowrap}
+.mission-id{font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold-text);white-space:nowrap}
 .mission-title{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:'opsz' 144;font-weight:360;font-size:clamp(22px,2.8vw,34px);letter-spacing:0.004em;color:var(--t1);line-height:1.1}
-.mission-status{font-family:var(--ui);font-size:9px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,237,232,0.42);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.mission-status{font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(240,237,232,0.62);display:flex;align-items:center;gap:8px;white-space:nowrap}
 .mission-status::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0.85}
 .mission-toggle{position:relative;width:14px;height:14px;flex-shrink:0}
 .mission-toggle::before,.mission-toggle::after{content:"";position:absolute;background:rgba(30,91,255,0.8);transition:transform .4s var(--ease-out),opacity .3s}
@@ -1437,9 +1437,9 @@ footer{
 .mission-brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line);margin-top:2px}
 .mb-block{background:var(--void);padding:30px 32px 34px}
 .mb-block.mb-outcome{background:#070707}
-.mb-key{font-family:var(--ui);font-size:9px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:rgba(30,91,255,0.7);display:block;margin-bottom:14px}
+.mb-key{font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold-text);display:block;margin-bottom:14px}
 .mb-block p{font-family:var(--ui);font-size:13.5px;font-weight:400;line-height:1.7;color:rgba(240,237,232,0.7);margin:0}
-.mb-block.mb-outcome .mb-key{color:var(--gold)}
+.mb-block.mb-outcome .mb-key{color:var(--gold-text)}
 .mb-block.mb-outcome p{color:rgba(240,237,232,0.84)}
 @media(max-width:760px){
   .mission-bar{grid-template-columns:1fr auto;gap:6px 16px;padding:24px 2px}
@@ -1452,11 +1452,11 @@ footer{
 
 /* ═══ ACCESS REVIEW — long-form steps ══════════════════════════════ */
 .assessment-field{width:100%;max-width:560px;margin:0 auto;display:block;background:rgba(255,255,255,0.02);border:1px solid var(--line-hi);color:var(--t1);font-family:var(--ui);font-size:14.5px;line-height:1.6;padding:16px 18px;resize:vertical;min-height:118px;letter-spacing:0.01em;transition:border-color .3s}
-.assessment-field::placeholder{color:rgba(240,237,232,0.3)}
+.assessment-field::placeholder{color:rgba(240,237,232,0.62)}
 .assessment-field:focus{outline:none;border-color:rgba(30,91,255,0.55)}
 .assessment-nav{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:26px}
-.assessment-back,.assessment-continue{font-family:var(--ui);font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:14px 28px;transition:background .35s var(--ease-out),color .35s,border-color .35s}
-.assessment-back{background:transparent;border:1px solid var(--line-hi);color:rgba(240,237,232,0.6)}
+.assessment-back,.assessment-continue{font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:14px 28px;transition:background .35s var(--ease-out),color .35s,border-color .35s}
+.assessment-back{background:transparent;border:1px solid var(--line-hi);color:rgba(240,237,232,0.62)}
 .assessment-back:hover{border-color:var(--t2);color:var(--t1)}
 .assessment-continue{background:var(--gold);border:1px solid var(--gold);color:#0A0A0A}
 .assessment-continue:hover{background:#6E9CFF;border-color:#6E9CFF}
@@ -1503,7 +1503,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 .hero-statement em,.manifesto-headline em,.engine-headline em,.system-headline em,.access-headline em,
 .waitlist-headline em,.alfred-demo-headline em,.founder-os-headline em,.assessment-headline em,
 .outcomes-headline em,.missions-headline em{
-  -webkit-text-fill-color:#1E5BFF !important;color:#1E5BFF !important;background:none !important;
+  -webkit-text-fill-color:#1E5BFF !important;color:var(--gold-text) !important;background:none !important;
 }
 @media(prefers-reduced-motion:reduce){
   .hero-title,.hero-char,.nav-logo,.loader-logo,.footer-logo,.hero-statement,.manifesto-headline,
@@ -1513,13 +1513,13 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 }
 
 /* ── PHASE 1: honesty tags, tiers, access review ───────────────────── */
-.sample-tag{display:inline-block;vertical-align:middle;margin-left:10px;padding:2px 7px;border:1px solid rgba(255,255,255,0.22);font-family:var(--ui);font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.62);line-height:1.4;white-space:nowrap}
-.tier-type{display:block;margin-bottom:8px;font-family:var(--ui);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold)}
+.sample-tag{display:inline-block;vertical-align:middle;margin-left:10px;padding:2px 7px;border:1px solid rgba(255,255,255,0.22);font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.62);line-height:1.4;white-space:nowrap}
+.tier-type{display:block;margin-bottom:8px;font-family:var(--ui);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-text)}
 .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
 .assessment-err{min-height:1.4em;margin-top:10px;font-family:var(--ui);font-size:13px;color:#ff8a8a}
 .assessment-tiers{margin-bottom:28px}
-.af-mic{font-family:var(--ui);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.7);padding:0 14px;min-height:44px;cursor:pointer}
-.af-mic[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+.af-mic{font-family:var(--ui);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.7);padding:0 14px;min-height:44px;cursor:pointer}
+.af-mic[aria-pressed="true"]{border-color:var(--gold);color:var(--gold-text)}
 
 /* ── PHASE 2: fast first paint ───────────────────────────────────── */
 .hero-eyebrow,.hero-statement,.hero-cta,.hero-char,.hero-status,.hero-access,.hero-coords,.hero-scroll,#hero-intel-panel{opacity:1;transform:none}
@@ -1529,6 +1529,77 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 @keyframes nyxLoaderOut{to{opacity:0;visibility:hidden}}
 .no-boot .loader{display:none}
 .static-scenes .engine-canvas-wrap{background:radial-gradient(circle at 50% 50%,rgba(30,91,255,0.12),transparent 62%)}
+
+/* ── PHASE 3: readability ───────────────────────────────────────────── */
+.engine-body,.waitlist-sub,.feed-caption,.atp-text,.assessment-sub,.ap-body,.agents-sub,.agent-desc,.voice-body,.voice-features li,.alfred-hub-sub{text-transform:none!important;letter-spacing:0.01em!important}
+.tier-desc,.tier-features li,.agent-desc,.pillar-desc,.outcome-lines li,.outcome-metric-label,.mb-block p,.feed-event-text,.assessment-note,.waitlist-error,.voice-features li,.ap-body,.engine-body,.agents-sub,.hub-panel-note,.os-bl-text,.modal-log-text,.af-response,.waitlist-success-note,.footer-copy{font-size:max(14px,1em)!important;line-height:1.7}
+.manifesto-body p,.access-sub p,.outcomes-sub,.missions-sub,.voice-body,.assessment-sub,.access-note,.alfred-hub-sub,.waitlist-sub{font-size:16px!important;line-height:1.75}
+p{max-width:70ch}
+.hero-statement,.architect-body{max-width:none}
+.voice-headline,.feed-headline{clip-path:none!important}
+
+/* ── PHASE 3: hero ──────────────────────────────────────────────────── */
+@media(max-width:480px){.hero-eyebrow{white-space:nowrap;font-size:12px!important;letter-spacing:0.18em!important}}
+.hero-btn{min-height:44px;display:inline-flex;align-items:center}
+.hero-btn.primary{background:var(--t1);color:#000;border:1px solid var(--t1)}
+
+/* ── PHASE 3: merged Alfred section ─────────────────────────────────── */
+.alfred-hub-sub{color:var(--t2);margin-top:16px}
+.hub-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line-hi);margin-bottom:28px;overflow-x:auto}
+.hub-tab{font-family:var(--ui);font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--t2);background:none;border:0;border-bottom:2px solid transparent;padding:0 18px;min-height:48px;cursor:pointer;white-space:nowrap}
+.hub-tab[aria-selected="true"]{color:var(--t1);border-bottom-color:var(--gold)}
+.hub-panel-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.hub-panel-head .sample-tag{margin-left:0}
+.hub-panel-note{color:var(--t2)}
+.hub-panel .feed-terminal,.hub-panel .voice-split{margin-top:0}
+.alfred-term-enter{background:none;border:1px solid var(--line-hi);color:var(--t1);min-height:44px;padding:0 18px;cursor:pointer;font-family:var(--ui);font-size:12px;letter-spacing:0.18em;text-transform:uppercase}
+
+/* ── PHASE 3: mobile — tap targets, overflow, tiers, overlay ─────────── */
+button,.nav-cta,.tier-cta,.assessment-option,.assessment-back,.assessment-continue,.waitlist-submit,.af-send,.af-close-btn,.agent-modal-close,.alfred-tab,.motion-toggle{min-height:44px;min-width:44px}
+.nav-cta{display:inline-flex;align-items:center}
+.af-close-btn,.agent-modal-close{display:inline-flex;align-items:center;justify-content:center;padding:0 12px}
+.hero,.tbar,.tbar-ticker-wrap,.orrery-wrap,.engine-canvas-wrap,.voice-hud-preview{overflow:clip}
+html,body{overflow-x:clip}
+@media(max-width:680px){
+  .tier-header{grid-template-columns:40px 1fr auto;row-gap:6px}
+  .tier-tag{display:inline-block!important;opacity:1;transform:none;grid-column:2;grid-row:2;justify-self:start}
+  .tier-chevron{grid-column:3;grid-row:1}
+  .nav-cta{padding:0 16px;font-size:12px!important}
+}
+#alfred-overlay{height:100dvh}
+@media(max-width:680px){
+  #alfred-overlay .af-panel{display:none}
+  #alfred-overlay .af-bottom{left:12px;right:12px;width:auto;transform:none;bottom:max(16px,env(safe-area-inset-bottom))}
+  #alfred-overlay .af-hint{display:none}
+}
+
+/* ── PHASE 3: motion — one orchestrated moment, everything else calm ── */
+.nyx-rot-cw,.nyx-rot-ccw,.nyx-rot-cw-slow{animation:none!important}
+#nyx-fx{display:none}
+.hero-glow{animation:none!important;opacity:0.6}
+.orrery-wrap,#nyx-crest,#hero-canvas{filter:none!important}
+.motion-paused *,.motion-paused *::before,.motion-paused *::after{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important;scroll-behavior:auto!important}
+  .tbar-ticker{animation:none!important}
+}
+.motion-toggle{font-family:var(--ui);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;background:none;border:1px solid var(--line-hi);color:var(--t1);padding:0 12px;margin-left:12px;cursor:pointer}
+
+.tbar{height:44px;padding-bottom:env(safe-area-inset-bottom)}
+.tbar-ticker-wrap{flex:1;min-width:0}
+.tbar-right{flex-shrink:0;display:flex;align-items:center;padding-right:8px}
+.nav-link,.nav-logo{min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:680px){
+  .nav-link{display:none}
+  .tbar-left{display:none}
+  .tbar-ticker-wrap{padding-left:12px}
+}
+#waitlist{overflow:clip}
+@media(max-width:680px){.alfred-tabs{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto;gap:6px}.alfred-tab{white-space:nowrap;flex:0 0 auto}}
+footer{padding-bottom:64px}
+/* ── PHASE 3: focus ─────────────────────────────────────────────────── */
+:focus-visible{outline:2px solid var(--gold-text)!important;outline-offset:3px}
+.assessment-field:focus-visible,.waitlist-input:focus-visible,.af-text-in:focus-visible{outline-offset:0}
 </style>
 </head>
 <body>
@@ -1555,19 +1626,20 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 </div>
 
 <!-- TELEMETRY BAR (fixed bottom) -->
-<div class="tbar" id="tbar" aria-hidden="true">
-  <div class="tbar-left">
+<div class="tbar" id="tbar">
+  <div class="tbar-left" aria-hidden="true">
     <span class="tbar-dot"></span>
     <span class="tbar-sys">NYX.SYS&nbsp;/&nbsp;ACTIVE</span>
     <span class="tbar-sep">|</span>
     <span class="tbar-agents">08 AGENTS · SAMPLE</span>
   </div>
-  <div class="tbar-ticker-wrap">
+  <div class="tbar-ticker-wrap" aria-hidden="true">
     <div class="tbar-ticker" id="tbar-ticker"></div>
   </div>
   <div class="tbar-right">
-    <span class="tbar-label">UTC</span>
-    <span id="tbar-time">--:--:--</span>
+    <span class="tbar-label" aria-hidden="true">UTC</span>
+    <span id="tbar-time" aria-hidden="true">--:--:--</span>
+    <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">Pause</button>
   </div>
 </div>
 
@@ -1575,12 +1647,11 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 <nav id="nav" aria-label="Main navigation">
   <a href="#" class="nav-logo">NYX</a>
   <div class="nav-links">
-    <a href="#system" class="nav-link">System</a>
+    <a href="#about" class="nav-link">System</a>
     <a href="#agents" class="nav-link">Agents</a>
-    <a href="#alfred-demo" class="nav-link">Alfred</a>
-    <a href="#founder-os" class="nav-link">Founder OS</a>
-    <a href="#access" class="nav-link">Access</a>
-    <a href="#waitlist" class="nav-cta" data-magnetic>Get Access</a>
+    <a href="#alfred" class="nav-link">Alfred</a>
+    <a href="#access" class="nav-link">Options</a>
+    <a href="#waitlist" class="nav-cta" data-inquire="" data-magnetic>Access</a>
   </div>
 </nav>
 
@@ -1606,15 +1677,12 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   </div>
   <div class="hero-content">
     <p class="hero-eyebrow">Autonomous AI Operating System</p>
-    <h1 class="hero-title">
-      <span class="hero-char">N</span>
-      <span class="hero-char">Y</span>
-      <span class="hero-char">X</span>
-    </h1>
+    <h1 class="hero-title" aria-label="NYX"><span class="hero-char" aria-hidden="true">N</span><span class="hero-char" aria-hidden="true">Y</span><span class="hero-char" aria-hidden="true">X</span></h1>
     <div class="hero-rule"></div>
     <h2 class="hero-statement">The Operating System Behind <em>Elite Performance</em></h2>
     <div class="hero-cta">
-      <a href="#mission-logs" class="hero-btn ghost">View Mission Logs <span class="hb-mark">↗</span></a>
+      <a href="#waitlist" class="hero-btn primary" data-inquire="">Inquire</a>
+      <a href="#about" class="hero-btn ghost">See the System</a>
     </div>
   </div>
   <div class="hero-coords">
@@ -1762,7 +1830,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 <section class="engine-section" id="engine" aria-label="The Engine">
   <div class="engine-inner">
     <div class="engine-copy">
-      <div class="sec-label"><span class="sec-label-line"></span>002 — The Engine</div>
+      <div class="sec-label"><span class="sec-label-line"></span>The Engine</div>
       <h2 class="engine-headline">Precision<br><em>in motion.</em></h2>
       <p class="engine-body">NYX operates as a self-regulating system. Eight agents. Continuous rotation. No part stops so another can move — every layer runs simultaneously, without instruction.</p>
       <div class="engine-specs">
@@ -1783,10 +1851,178 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   </div>
 </section>
 
+<!-- AGENT NETWORK -->
+<section class="agents-section" id="agents" aria-label="Agent Network">
+  <div class="agents-inner">
+    <div class="sec-label"><span class="sec-label-line"></span>002 — Agent Network</div>
+    <h2 class="agents-headline">Eight minds.<br>One operating system.</h2>
+    <p class="agents-sub">Each agent operates as a specialist. They coordinate, delegate, and execute — continuously, without instruction.</p>
+    <div class="agents-grid">
+      <div class="agent-card" data-agent="apex" data-role="Chief Executive Officer" role="button" tabindex="0" aria-label="Open APEX agent">
+        <div class="agent-id">APEX</div>
+        <div class="agent-role">Chief Executive Officer</div>
+        <div class="agent-desc">Strategic oversight. Routes intelligence across the entire network. The only agent with authority to delegate to all others.</div>
+      </div>
+      <div class="agent-card" data-agent="oracle" data-role="Research Intelligence" role="button" tabindex="0" aria-label="Open ORACLE agent">
+        <div class="agent-id">ORACLE</div>
+        <div class="agent-role">Research Intelligence</div>
+        <div class="agent-desc">Continuous market scanning. Processes competitive signals and synthesizes intelligence reports on demand.</div>
+      </div>
+      <div class="agent-card" data-agent="signal" data-role="Marketing Operations" role="button" tabindex="0" aria-label="Open SIGNAL agent">
+        <div class="agent-id">SIGNAL</div>
+        <div class="agent-role">Marketing Operations</div>
+        <div class="agent-desc">Audience intelligence and content strategy. Operates across channels with precision timing and message calibration.</div>
+      </div>
+      <div class="agent-card" data-agent="convert" data-role="Revenue Intelligence" role="button" tabindex="0" aria-label="Open CONVERT agent">
+        <div class="agent-id">CONVERT</div>
+        <div class="agent-role">Revenue Intelligence</div>
+        <div class="agent-desc">Pipeline analysis and conversion optimization. Identifies leverage points across the entire revenue system.</div>
+      </div>
+      <div class="agent-card" data-agent="forge" data-role="Systems Engineering" role="button" tabindex="0" aria-label="Open FORGE agent">
+        <div class="agent-id">FORGE</div>
+        <div class="agent-role">Systems Engineering</div>
+        <div class="agent-desc">Technical architecture and build execution. Monitors system health, automates infrastructure decisions.</div>
+      </div>
+      <div class="agent-card" data-agent="ledger" data-role="Financial Intelligence" role="button" tabindex="0" aria-label="Open LEDGER agent">
+        <div class="agent-id">LEDGER</div>
+        <div class="agent-role">Financial Intelligence</div>
+        <div class="agent-desc">Cash flow modeling, burn analysis, and financial forecasting. Runs continuously against live operational data.</div>
+      </div>
+      <div class="agent-card agent-card--new" data-agent="cipher" data-role="Security & Compliance" role="button" tabindex="0" aria-label="Open CIPHER agent">
+        <div class="agent-id">CIPHER</div>
+        <div class="agent-role">Security & Compliance</div>
+        <div class="agent-desc">Threat surface monitoring, compliance tracking, access governance. Operates silently across every system layer — nothing leaves without clearance.</div>
+        <div class="agent-new-badge">NEW</div>
+      </div>
+      <div class="agent-card agent-card--new" data-agent="meridian" data-role="Operations Intelligence" role="button" tabindex="0" aria-label="Open MERIDIAN agent">
+        <div class="agent-id">MERIDIAN</div>
+        <div class="agent-role">Operations Intelligence</div>
+        <div class="agent-desc">Cross-functional process mapping, operational bottleneck detection, and resource allocation optimization. Keeps execution frictionless at every altitude.</div>
+        <div class="agent-new-badge">NEW</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALFRED (merged: briefing, live feed, voice) -->
+<section class="alfred-demo alfred-hub" id="alfred" aria-label="Alfred">
+  <div class="alfred-demo-inner">
+    <div class="sec-label"><span class="sec-label-line"></span>003 — Alfred</div>
+    <div class="alfred-demo-header" style="margin-bottom:32px">
+      <h2 class="alfred-demo-headline">Your Chief of Staff<br><em>never sleeps.</em></h2>
+      <p class="alfred-hub-sub">Alfred briefs you, watches the agent network and takes commands by voice or chat. Everything below is a simulated view of the system at work.</p>
+    </div>
+    <div class="hub-tabs" role="tablist" aria-label="Alfred demo">
+      <button type="button" role="tab" class="hub-tab" id="hub-tab-brief" aria-controls="hub-brief" aria-selected="true">Morning Briefing</button>
+      <button type="button" role="tab" class="hub-tab" id="hub-tab-feed" aria-controls="hub-feed" aria-selected="false" tabindex="-1">Live Feed</button>
+      <button type="button" role="tab" class="hub-tab" id="hub-tab-voice" aria-controls="hub-voice" aria-selected="false" tabindex="-1">Voice</button>
+    </div>
+    <div class="hub-panel" id="hub-brief" role="tabpanel" aria-labelledby="hub-tab-brief" tabindex="0">
+      <div id="alfred-demo">
+      <div class="hub-panel-head"><span class="sample-tag">Sample</span></div>
+      <div class="alfred-tabs" id="alfred-tabs">
+        <button class="alfred-tab active" data-brief="briefing">Morning Briefing</button>
+        <button class="alfred-tab" data-brief="opportunity">Opportunity Alert</button>
+        <button class="alfred-tab" data-brief="strategy">Strategic Report</button>
+        <button class="alfred-tab" data-brief="market">Market Intelligence</button>
+        <button class="alfred-tab" data-brief="performance">Performance Review</button>
+      </div>
+      <div class="alfred-terminal">
+      <div class="alfred-term-header">
+        <span class="alfred-term-title" id="alfred-term-title">ALFRED — DAILY EXECUTIVE BRIEFING</span><span class="sample-tag">Sample</span>
+        <span class="alfred-term-dot"></span>
+      </div>
+      <div class="alfred-term-body">
+        <div class="alfred-term-prompt">
+          <span class="atp-label">YOU →</span>
+          <span class="atp-text" id="alfred-prompt-text">Alfred, give me my morning briefing.</span>
+        </div>
+        <div class="alfred-term-response" id="alfred-response-text"></div>
+        <button type="button" class="alfred-term-enter" id="alfred-enter-prompt">
+          <span class="alfred-enter-label">Next brief</span>
+        </button>
+        <div class="alfred-term-meta">
+          <div class="atm-item"><div class="atm-label">Agent</div><div class="atm-val" id="alfred-meta-agent">ALFRED</div></div>
+          <div class="atm-item"><div class="atm-label">Mode</div><div class="atm-val" id="alfred-meta-mode">EXECUTIVE BRIEFING</div></div>
+          <div class="atm-item"><div class="atm-label">Sources</div><div class="atm-val" id="alfred-meta-sources">8 agents</div></div>
+          <div class="atm-item"><div class="atm-label">Generated</div><div class="atm-val" id="alfred-meta-time">06:00 UTC</div></div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="hub-panel" id="hub-feed" role="tabpanel" aria-labelledby="hub-tab-feed" tabindex="0" hidden>
+      <div class="hub-panel-head"><span class="sample-tag">Sample</span><span class="hub-panel-note">A simulated view of the system at work.</span></div>
+      <div class="feed-terminal" id="feed-terminal" aria-live="polite" aria-label="Agent activity feed">
+      <!-- populated by JS -->
+    </div>
+    <div class="feed-footer-row">
+      <span class="feed-footer-label">SAMPLE ACTIVITY LOG</span>
+      <span class="feed-footer-count" id="feed-count">0 events</span>
+    </div>
+    </div>
+    <div class="hub-panel" id="hub-voice" role="tabpanel" aria-labelledby="hub-tab-voice" tabindex="0" hidden>
+      <div class="hub-panel-head"><span class="sample-tag">Sample</span></div>
+      <div class="voice-split">
+      <div class="voice-copy">
+        <h3 class="voice-headline">Speak.<br>The system executes.</h3>
+        <p class="voice-body">Alfred transforms NYX into a voice-native operating system. Full-screen HUD. Always listening. Your agents respond, act, and report in real time.</p>
+        <ul class="voice-features">
+          <li><span class="vf-label">ALFRED HUD</span> Full-screen tactical interface with live agent status and waveform visualization</li>
+          <li><span class="vf-label">VOICE COMMANDS</span> Natural language triggers across all eight agents, logged and indexed</li>
+          <li><span class="vf-label">MEMORY CONTEXT</span> Every conversation stored, recalled, and linked to decisions</li>
+          <li><span class="vf-label">DEVICE AWARE</span> Optimized for desktop, mobile, and wearable input</li>
+        </ul>
+      </div>
+      <!-- Alfred preview — click anywhere to activate -->
+      <div class="voice-hud-preview">
+        <div class="vhud-frame" id="jarvis-activate-hud" role="button" tabindex="0" aria-label="Activate Alfred">
+          <!-- animated background canvas -->
+          <canvas class="vhud-bg-canvas" id="vhud-bg"></canvas>
+          <div class="vhud-label">ALFRED.MODE / ACTIVE</div>
+          <div class="vhud-ring">
+            <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- outermost ghost -->
+              <circle cx="150" cy="150" r="138" stroke="#1E5BFF" stroke-width="0.3" opacity="0.10"/>
+              <!-- slow rotating dashed -->
+              <circle cx="150" cy="150" r="118" stroke="#1E5BFF" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 14">
+                <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="38s" repeatCount="indefinite"/>
+              </circle>
+              <!-- medium counter-rotating dashed -->
+              <circle cx="150" cy="150" r="94" stroke="#1E5BFF" stroke-width="0.8" opacity="0.28" stroke-dasharray="3 9">
+                <animateTransform attributeName="transform" type="rotate" from="360 150 150" to="0 150 150" dur="22s" repeatCount="indefinite"/>
+              </circle>
+              <!-- main breathing ring -->
+              <circle cx="150" cy="150" r="66" stroke="#1E5BFF" stroke-width="1.4" opacity="0.60">
+                <animate attributeName="r" values="66;72;66" dur="3.2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.60;0.85;0.60" dur="3.2s" repeatCount="indefinite"/>
+              </circle>
+              <!-- inner ring -->
+              <circle cx="150" cy="150" r="42" stroke="#1E5BFF" stroke-width="0.9" opacity="0.38"/>
+              <!-- axis ticks -->
+              <line x1="150" y1="12" x2="150" y2="32" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
+              <line x1="150" y1="268" x2="150" y2="288" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
+              <line x1="12" y1="150" x2="32" y2="150" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
+              <line x1="268" y1="150" x2="288" y2="150" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
+              <!-- core dot -->
+              <circle cx="150" cy="150" r="12" fill="#1E5BFF" opacity="0.95">
+                <animate attributeName="opacity" values="0.95;1;0.95" dur="1.6s" repeatCount="indefinite"/>
+                <animate attributeName="r" values="12;14;12" dur="1.6s" repeatCount="indefinite"/>
+              </circle>
+            </svg>
+          </div>
+          <div class="vhud-status">LISTENING</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
 <!-- SYSTEM PILLARS -->
-<section class="system" id="system" aria-label="Architecture">
+<section class="system" id="system" aria-label="How It Works">
   <div class="system-inner">
-    <div class="sec-label"><span class="sec-label-line"></span>003 — Architecture</div>
+    <div class="sec-label"><span class="sec-label-line"></span>004 — How It Works</div>
     <h2 class="system-headline">Four principles.<br>One operating system.</h2>
     <div class="pillars">
       <div class="pillar" data-num="01">
@@ -1889,281 +2125,12 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   </div>
 </section>
 
-<!-- AGENT NETWORK -->
-<section class="agents-section" id="agents" aria-label="Agent Network">
-  <div class="agents-inner">
-    <div class="sec-label"><span class="sec-label-line"></span>004 — Agent Network</div>
-    <h2 class="agents-headline">Eight minds.<br>One operating system.</h2>
-    <p class="agents-sub">Each agent operates as a specialist. They coordinate, delegate, and execute — continuously, without instruction.</p>
-    <div class="agents-grid">
-      <div class="agent-card" data-agent="apex" data-role="Chief Executive Officer" role="button" tabindex="0" aria-label="Open APEX agent">
-        <div class="agent-id">APEX</div>
-        <div class="agent-role">Chief Executive Officer</div>
-        <div class="agent-desc">Strategic oversight. Routes intelligence across the entire network. The only agent with authority to delegate to all others.</div>
-      </div>
-      <div class="agent-card" data-agent="oracle" data-role="Research Intelligence" role="button" tabindex="0" aria-label="Open ORACLE agent">
-        <div class="agent-id">ORACLE</div>
-        <div class="agent-role">Research Intelligence</div>
-        <div class="agent-desc">Continuous market scanning. Processes competitive signals and synthesizes intelligence reports on demand.</div>
-      </div>
-      <div class="agent-card" data-agent="signal" data-role="Marketing Operations" role="button" tabindex="0" aria-label="Open SIGNAL agent">
-        <div class="agent-id">SIGNAL</div>
-        <div class="agent-role">Marketing Operations</div>
-        <div class="agent-desc">Audience intelligence and content strategy. Operates across channels with precision timing and message calibration.</div>
-      </div>
-      <div class="agent-card" data-agent="convert" data-role="Revenue Intelligence" role="button" tabindex="0" aria-label="Open CONVERT agent">
-        <div class="agent-id">CONVERT</div>
-        <div class="agent-role">Revenue Intelligence</div>
-        <div class="agent-desc">Pipeline analysis and conversion optimization. Identifies leverage points across the entire revenue system.</div>
-      </div>
-      <div class="agent-card" data-agent="forge" data-role="Systems Engineering" role="button" tabindex="0" aria-label="Open FORGE agent">
-        <div class="agent-id">FORGE</div>
-        <div class="agent-role">Systems Engineering</div>
-        <div class="agent-desc">Technical architecture and build execution. Monitors system health, automates infrastructure decisions.</div>
-      </div>
-      <div class="agent-card" data-agent="ledger" data-role="Financial Intelligence" role="button" tabindex="0" aria-label="Open LEDGER agent">
-        <div class="agent-id">LEDGER</div>
-        <div class="agent-role">Financial Intelligence</div>
-        <div class="agent-desc">Cash flow modeling, burn analysis, and financial forecasting. Runs continuously against live operational data.</div>
-      </div>
-      <div class="agent-card agent-card--new" data-agent="cipher" data-role="Security & Compliance" role="button" tabindex="0" aria-label="Open CIPHER agent">
-        <div class="agent-id">CIPHER</div>
-        <div class="agent-role">Security & Compliance</div>
-        <div class="agent-desc">Threat surface monitoring, compliance tracking, access governance. Operates silently across every system layer — nothing leaves without clearance.</div>
-        <div class="agent-new-badge">NEW</div>
-      </div>
-      <div class="agent-card agent-card--new" data-agent="meridian" data-role="Operations Intelligence" role="button" tabindex="0" aria-label="Open MERIDIAN agent">
-        <div class="agent-id">MERIDIAN</div>
-        <div class="agent-role">Operations Intelligence</div>
-        <div class="agent-desc">Cross-functional process mapping, operational bottleneck detection, and resource allocation optimization. Keeps execution frictionless at every altitude.</div>
-        <div class="agent-new-badge">NEW</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ALFRED DEMO -->
-<section class="alfred-demo" id="alfred-demo" aria-label="Alfred Intelligence Demo">
-  <div class="alfred-demo-inner">
-    <div class="alfred-demo-header">
-      <div class="sec-label" style="margin-bottom:0"><span class="sec-label-line"></span>004.2 — Alfred Intelligence</div>
-    </div>
-    <div class="alfred-demo-header" style="margin-bottom:56px">
-      <h2 class="alfred-demo-headline">Your Chief of Staff<br><em>never sleeps.</em></h2>
-      <div class="alfred-tabs" id="alfred-tabs">
-        <button class="alfred-tab active" data-brief="briefing">Morning Briefing</button>
-        <button class="alfred-tab" data-brief="opportunity">Opportunity Alert</button>
-        <button class="alfred-tab" data-brief="strategy">Strategic Report</button>
-        <button class="alfred-tab" data-brief="market">Market Intelligence</button>
-        <button class="alfred-tab" data-brief="performance">Performance Review</button>
-      </div>
-    </div>
-    <div class="alfred-terminal">
-      <div class="alfred-term-header">
-        <span class="alfred-term-title" id="alfred-term-title">ALFRED — DAILY EXECUTIVE BRIEFING</span><span class="sample-tag">Sample</span>
-        <span class="alfred-term-dot"></span>
-      </div>
-      <div class="alfred-term-body">
-        <div class="alfred-term-prompt">
-          <span class="atp-label">YOU →</span>
-          <span class="atp-text" id="alfred-prompt-text">Alfred, give me my morning briefing.</span>
-        </div>
-        <div class="alfred-term-response" id="alfred-response-text"></div>
-        <div class="alfred-term-enter" id="alfred-enter-prompt">
-          <span class="alfred-enter-key">ENTER</span>
-          <span class="alfred-enter-label">NEXT BRIEF</span>
-        </div>
-        <div class="alfred-term-meta">
-          <div class="atm-item"><div class="atm-label">Agent</div><div class="atm-val" id="alfred-meta-agent">ALFRED</div></div>
-          <div class="atm-item"><div class="atm-label">Mode</div><div class="atm-val" id="alfred-meta-mode">EXECUTIVE BRIEFING</div></div>
-          <div class="atm-item"><div class="atm-label">Sources</div><div class="atm-val" id="alfred-meta-sources">8 agents</div></div>
-          <div class="atm-item"><div class="atm-label">Generated</div><div class="atm-val" id="alfred-meta-time">06:00 UTC</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOUNDER OS DASHBOARD -->
-<section class="founder-os" id="founder-os" aria-label="Founder Operating System">
-  <div class="founder-os-inner">
-    <div class="founder-os-header">
-      <div>
-        <div class="sec-label" style="margin-bottom:16px"><span class="sec-label-line"></span>004.7 — Founder OS <span class="sample-tag">Sample</span></div>
-        <h2 class="founder-os-headline">The operating system<br><em>for your day.</em></h2>
-      </div>
-      <p class="founder-os-sub">Every morning NYX assembles your world. Pipeline. Priorities. Agent reports. Opportunities. Delivered before you open your eyes.</p>
-    </div>
-    <div class="os-dashboard">
-      <!-- Morning Briefing card (wide) -->
-      <div class="os-card os-card--wide">
-        <div class="os-card-label">Alfred — Morning Briefing · Today</div>
-        <div class="os-card-title">Good morning. Here is your world.</div>
-        <div class="os-briefing-lines">
-          <div class="os-briefing-line"><span class="os-bl-agent">ORACLE</span><span class="os-bl-text">Competitor raised Series B. Positioning overlap at 62%. Recommend accelerating distribution play this quarter.</span></div>
-          <div class="os-briefing-line os-agent-msg" id="os-pulse-1"><span class="os-bl-agent">LEDGER</span><span class="os-bl-text">Runway extended to 18 months following last week's close. Cash efficiency ratio improved 14% month-over-month.</span></div>
-          <div class="os-briefing-line"><span class="os-bl-agent">CONVERT</span><span class="os-bl-text">Pipeline velocity increased 22%. 3 high-value deals entered final stage. Projected close probability: 78%.</span></div>
-          <div class="os-briefing-line os-agent-msg" id="os-pulse-2"><span class="os-bl-agent">SIGNAL</span><span class="os-bl-text">Your LinkedIn post from Tuesday is still gaining traction. 4.2K impressions, 340 engagements. Recommend a follow-up thread today.</span></div>
-        </div>
-      </div>
-      <!-- Today's Priorities -->
-      <div class="os-card">
-        <div class="os-card-label">Today's Priorities</div>
-        <div class="os-card-title">3 actions. High leverage.</div>
-        <div class="os-priorities" id="os-priorities">
-          <div class="os-priority done" data-pri="1">
-            <div class="os-pri-check"><div class="os-pri-check-mark"></div></div>
-            <span class="os-pri-text">Review Q3 financial model with LEDGER</span>
-            <span class="os-pri-tag high">DONE</span>
-          </div>
-          <div class="os-priority" data-pri="2">
-            <div class="os-pri-check"><div class="os-pri-check-mark"></div></div>
-            <span class="os-pri-text">Close Series A term sheet — send counter</span>
-            <span class="os-pri-tag high">HIGH</span>
-          </div>
-          <div class="os-priority" data-pri="3">
-            <div class="os-pri-check"><div class="os-pri-check-mark"></div></div>
-            <span class="os-pri-text">Approve SIGNAL content calendar for THIS MONTH</span>
-            <span class="os-pri-tag med">MED</span>
-          </div>
-          <div class="os-priority" data-pri="4">
-            <div class="os-pri-check"><div class="os-pri-check-mark"></div></div>
-            <span class="os-pri-text">APEX: review hiring pipeline shortlist</span>
-            <span class="os-pri-tag med">MED</span>
-          </div>
-        </div>
-      </div>
-      <!-- Metrics -->
-      <div class="os-card">
-        <div class="os-card-label">Metrics · Ledger Report</div>
-        <div class="os-metrics-grid">
-          <div class="os-metric">
-            <div class="os-metric-val" id="os-mrr">$284K</div>
-            <div class="os-metric-label">MRR</div>
-            <div class="os-metric-delta up">↑ 18% MoM</div>
-          </div>
-          <div class="os-metric">
-            <div class="os-metric-val">18mo</div>
-            <div class="os-metric-label">Runway</div>
-            <div class="os-metric-delta up">↑ 3mo</div>
-          </div>
-          <div class="os-metric">
-            <div class="os-metric-val">78%</div>
-            <div class="os-metric-label">Close Rate</div>
-            <div class="os-metric-delta up">↑ 5%</div>
-          </div>
-          <div class="os-metric">
-            <div class="os-metric-val">$1.4M</div>
-            <div class="os-metric-label">Pipeline</div>
-            <div class="os-metric-delta down">↓ 2%</div>
-          </div>
-        </div>
-      </div>
-      <!-- Agent Activity (tall) -->
-      <div class="os-card os-card--tall">
-        <div class="os-card-label">Agent Network · Live Activity</div>
-        <div class="os-card-title">8 agents running.</div>
-        <div class="os-agent-flow" id="os-agent-flow">
-          <div class="os-agent-msg"><span class="os-agent-id">APEX</span><span class="os-agent-content">Routing: pipeline brief → CONVERT. Decision: accelerate enterprise tier.</span></div>
-          <div class="os-agent-msg"><span class="os-agent-id">ORACLE</span><span class="os-agent-content">Scanning: 14 market signals. 2 flagged for review. Competitor analysis updated.</span></div>
-          <div class="os-agent-msg"><span class="os-agent-id">CIPHER</span><span class="os-agent-content">Access audit complete. No anomalies. All endpoints secured.</span></div>
-          <div class="os-agent-msg"><span class="os-agent-id">SIGNAL</span><span class="os-agent-content">Content calendar: 3 posts queued. Distribution optimized for Tuesday 9am.</span></div>
-          <div class="os-agent-msg"><span class="os-agent-id">MERIDIAN</span><span class="os-agent-content">Ops review: fulfillment lag resolved. SLA back to 98.4%.</span></div>
-          <div class="os-agent-msg"><span class="os-agent-id">LEDGER</span><span class="os-agent-content">Budget variance flagged: $12K over in paid. Recommending reallocation.</span></div>
-          <div class="os-agent-msg"><span class="os-agent-id">FORGE</span><span class="os-agent-content">API latency normalized post-deploy. System health: nominal.</span></div>
-          <div class="os-agent-msg"><span class="os-agent-id">CONVERT</span><span class="os-agent-content">3 deals updated. Follow-up sequences triggered. Probability model recalculated.</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LIVE INTELLIGENCE FEED -->
-<section class="feed-section" id="intel-feed" aria-label="Live Intelligence Feed">
-  <div class="feed-inner">
-    <div class="feed-header">
-      <div class="sec-label" style="margin-bottom:0"><span class="sec-label-line"></span>004.5 — Live Intelligence</div>
-      <div class="feed-live-badge"><span class="feed-live-dot"></span>SAMPLE FEED</div>
-    </div>
-    <div class="feed-subhead">
-      <h2 class="feed-headline">The system never sleeps.</h2>
-      <p class="feed-caption">A simulated view of the system at work.</p>
-    </div>
-    <div class="feed-terminal" id="feed-terminal" aria-live="polite" aria-label="Agent activity feed">
-      <!-- populated by JS -->
-    </div>
-    <div class="feed-footer-row">
-      <span class="feed-footer-label">SAMPLE ACTIVITY LOG</span>
-      <span class="feed-footer-count" id="feed-count">0 events</span>
-    </div>
-  </div>
-</section>
-
-<!-- VOICE OS -->
-<section class="voice-section" id="voice-os" aria-label="Voice Operating System">
-  <div class="voice-inner">
-    <div class="sec-label"><span class="sec-label-line"></span>005 — Voice OS</div>
-    <div class="voice-split">
-      <div class="voice-copy">
-        <h2 class="voice-headline">Speak.<br>The system executes.</h2>
-        <p class="voice-body">Alfred transforms NYX into a voice-native operating system. Full-screen HUD. Always listening. Your agents respond, act, and report in real time.</p>
-        <ul class="voice-features">
-          <li><span class="vf-label">ALFRED HUD</span> Full-screen tactical interface with live agent status and waveform visualization</li>
-          <li><span class="vf-label">VOICE COMMANDS</span> Natural language triggers across all eight agents, logged and indexed</li>
-          <li><span class="vf-label">MEMORY CONTEXT</span> Every conversation stored, recalled, and linked to decisions</li>
-          <li><span class="vf-label">DEVICE AWARE</span> Optimized for desktop, mobile, and wearable input</li>
-        </ul>
-      </div>
-      <!-- Alfred preview — click anywhere to activate -->
-      <div class="voice-hud-preview">
-        <div class="vhud-frame" id="jarvis-activate-hud" role="button" tabindex="0" aria-label="Activate Alfred">
-          <!-- animated background canvas -->
-          <canvas class="vhud-bg-canvas" id="vhud-bg"></canvas>
-          <div class="vhud-label">ALFRED.MODE / ACTIVE</div>
-          <div class="vhud-ring">
-            <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- outermost ghost -->
-              <circle cx="150" cy="150" r="138" stroke="#1E5BFF" stroke-width="0.3" opacity="0.10"/>
-              <!-- slow rotating dashed -->
-              <circle cx="150" cy="150" r="118" stroke="#1E5BFF" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 14">
-                <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="38s" repeatCount="indefinite"/>
-              </circle>
-              <!-- medium counter-rotating dashed -->
-              <circle cx="150" cy="150" r="94" stroke="#1E5BFF" stroke-width="0.8" opacity="0.28" stroke-dasharray="3 9">
-                <animateTransform attributeName="transform" type="rotate" from="360 150 150" to="0 150 150" dur="22s" repeatCount="indefinite"/>
-              </circle>
-              <!-- main breathing ring -->
-              <circle cx="150" cy="150" r="66" stroke="#1E5BFF" stroke-width="1.4" opacity="0.60">
-                <animate attributeName="r" values="66;72;66" dur="3.2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.60;0.85;0.60" dur="3.2s" repeatCount="indefinite"/>
-              </circle>
-              <!-- inner ring -->
-              <circle cx="150" cy="150" r="42" stroke="#1E5BFF" stroke-width="0.9" opacity="0.38"/>
-              <!-- axis ticks -->
-              <line x1="150" y1="12" x2="150" y2="32" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
-              <line x1="150" y1="268" x2="150" y2="288" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
-              <line x1="12" y1="150" x2="32" y2="150" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
-              <line x1="268" y1="150" x2="288" y2="150" stroke="#1E5BFF" stroke-width="0.7" opacity="0.3"/>
-              <!-- core dot -->
-              <circle cx="150" cy="150" r="12" fill="#1E5BFF" opacity="0.95">
-                <animate attributeName="opacity" values="0.95;1;0.95" dur="1.6s" repeatCount="indefinite"/>
-                <animate attributeName="r" values="12;14;12" dur="1.6s" repeatCount="indefinite"/>
-              </circle>
-            </svg>
-          </div>
-          <div class="vhud-status">LISTENING</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ACCESS TIERS -->
-<section id="access" aria-label="Access Tiers">
+<section id="access" aria-label="Options">
   <div class="access">
-    <div class="sec-label"><span class="sec-label-line"></span>006 — Access Tiers</div>
+    <div class="sec-label"><span class="sec-label-line"></span>005 — Options</div>
     <div class="access-header">
-      <h2 class="access-headline">Structured access.<br>Earned depth.</h2>
+      <h2 class="access-headline">Four options.<br>One system.</h2>
       <div class="access-sub">
         <p>Start with design, subscribe to the agents, or take the full system. Pricing is private and shared after inquiry.</p>
       </div>
@@ -2283,9 +2250,9 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 </section>
 
 <!-- OPERATOR OUTCOMES -->
-<section class="outcomes" id="outcomes" aria-label="Operator Outcomes">
+<section class="outcomes" id="outcomes" aria-label="Projected Outcomes">
   <div class="outcomes-head">
-    <div class="sec-label"><span class="sec-label-line"></span>007 — Operator Outcomes</div>
+    <div class="sec-label"><span class="sec-label-line"></span>006 — Projected Outcomes</div>
     <h2 class="outcomes-headline">Outcome reports. <em>Not testimonials.</em></h2>
     <p class="outcomes-sub">What changes when the system runs. Projected from how the system is designed to operate. <b>Not guarantees.</b></p>
   </div>
@@ -2333,10 +2300,10 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 </section>
 
 <!-- MISSION LOGS -->
-<section class="missions" id="mission-logs" aria-label="Mission Logs">
+<section class="missions" id="mission-logs" aria-label="Sample Missions">
   <div class="missions-head">
-    <div class="sec-label"><span class="sec-label-line"></span>008 — Mission Logs</div>
-    <h2 class="missions-headline">Field record. <em>Redacted by design.</em></h2>
+    <div class="sec-label"><span class="sec-label-line"></span>007 — Sample Missions</div>
+    <h2 class="missions-headline">Sample missions. <em>How a deployment runs.</em></h2>
     <p class="missions-sub">Sample operations, showing how the system is designed to run. Every log follows the same briefing structure — objective, constraints, actions, outcome.</p>
   </div>
   <div class="missions-list" id="missions-list">
@@ -2428,7 +2395,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 <!-- A NOTE FROM THE ARCHITECT -->
 <section class="architect" id="architect" aria-label="A Note from the Architect">
   <div class="architect-inner">
-    <div class="architect-eyebrow">A Note from the Architect</div>
+    <div class="architect-eyebrow">008 — A Note from the Architect</div>
     <p class="architect-body">
       <span class="lead">NYX was built around a simple belief:</span>
       High performers do not need more tools. <em>They need fewer decisions.</em>
@@ -2442,10 +2409,10 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 </section>
 
 <!-- INTELLIGENCE ASSESSMENT -->
-<section class="assessment waitlist" id="waitlist" aria-label="Intelligence Assessment">
+<section class="assessment waitlist" id="waitlist" aria-label="Access Review">
   <div class="assessment-glow"></div>
   <div class="waitlist-rule assessment-rule"></div>
-  <p class="waitlist-eyebrow assessment-eyebrow">Access Review</p>
+  <p class="waitlist-eyebrow assessment-eyebrow">009 — Access Review</p>
   <h2 class="waitlist-headline assessment-headline">
     We need to know<br><em>who you are.</em>
   </h2>

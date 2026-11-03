@@ -2,6 +2,10 @@
 gsap.registerPlugin(ScrollTrigger);
 const _touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 const _pRM   = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+// One switch for every ticker, clock and feed: reduced motion or the Pause button.
+const nyxPaused = () => _pRM || document.documentElement.classList.contains('motion-paused');
+// Reduced motion: GSAP tweens finish instantly, so content is never left hidden.
+if (_pRM) gsap.globalTimeline.timeScale(100);
 
 /* ── LOOP HELPER ────────────────────────────────────────
    Runs step() every frame only while el is near the viewport and the tab is
@@ -35,17 +39,7 @@ function nyxLoop(el, step){
     return c.toDataURL();
   }
 
-  if(pRM){
-    el.style.backgroundImage = `url(${makeGrain(18)})`;
-  } else {
-    const frames = [makeGrain(18), makeGrain(22), makeGrain(15)];
-    let idx = 0;
-    el.style.backgroundImage = `url(${frames[0]})`;
-    setInterval(() => {
-      idx = (idx + 1) % 3;
-      el.style.backgroundImage = `url(${frames[idx]})`;
-    }, 200);
-  }
+  el.style.backgroundImage = `url(${makeGrain(18)})`;
 })();
 /* ── LIVE CLOCK ─────────────────────────────────────── */
 (function(){
@@ -66,7 +60,7 @@ function nyxLoop(el, step){
     const hs = document.getElementById('hero-session');
     if(hs){ const t = Math.floor((Date.now() - T0)/1000); hs.textContent = `${pad(Math.floor(t/3600))}:${pad(Math.floor(t/60)%60)}:${pad(t%60)}`; }
   }
-  tick(); setInterval(tick, 1000);
+  tick(); setInterval(() => { if (!nyxPaused()) tick(); }, 1000);
 })();
 /* ── HERO SCAN LINE ─────────────────────────────────── */
 function startScanLine(){
@@ -93,6 +87,7 @@ function startScanLine(){
 
 /* ── HERO PARALLAX (multi-layer, scrub) ─────────────── */
 (function(){
+  if (_pRM) return;
   const tl = gsap.timeline({
     scrollTrigger:{
       trigger:'#hero', start:'top top', end:'bottom top', scrub:true
@@ -211,28 +206,6 @@ function startScanLine(){
     }
   );
 
-  // Voice OS headline — clip-path wipe
-  gsap.to('.voice-headline', {
-    clipPath:'inset(0 0 0% 0)', duration:1.1, ease:'power4.out',
-    scrollTrigger:{ trigger:'.voice-headline', start:'top 78%' }
-  });
-
-  // Voice copy + features
-  gsap.fromTo(['.voice-body', '.voice-features'],
-    { opacity:0, y:22 },
-    { opacity:1, y:0, stagger:0.15, duration:0.9, ease:'power3.out',
-      scrollTrigger:{ trigger:'.voice-copy', start:'top 72%' }
-    }
-  );
-
-  // Voice HUD preview
-  gsap.fromTo('.vhud-frame',
-    { opacity:0, scale:0.95 },
-    { opacity:1, scale:1, duration:1.2, ease:'power3.out',
-      scrollTrigger:{ trigger:'.voice-hud-preview', start:'top 75%' }
-    }
-  );
-
   // Access headline — clip-path wipe
   gsap.to('.access-headline', {
     clipPath:'inset(0 0 0% 0)', duration:1.1, ease:'power4.out',
@@ -329,7 +302,7 @@ function startScanLine(){
     const pad = n => String(n).padStart(2,'0');
     if (timeEl) timeEl.textContent = `${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}`;
   }
-  tick(); setInterval(tick, 1000);
+  tick(); setInterval(() => { if (!nyxPaused()) tick(); }, 1000);
 
   // Show after loader exits
   setTimeout(() => tbar.classList.add('show'), 3200);
@@ -472,4 +445,21 @@ function startScanLine(){
     +'<g class="nyx-rot-cw-slow">'+star+'<path d="'+out+'" fill="none" stroke="rgba('+G+',0.18)" stroke-width="0.8"/></g>'
     +'<circle cx="'+C+'" cy="'+C+'" r="64" fill="none" stroke="rgba('+G+',0.3)" stroke-width="0.8"/>'
     +'<circle cx="'+C+'" cy="'+C+'" r="2.4" fill="rgba('+G+',0.85)"/></svg>';
+})();
+
+/* ── MOTION TOGGLE ──────────────────────────────────────
+   Pauses tickers, clocks, the feed and SVG motion. Remembered per visitor. */
+(function(){
+  const btn = document.getElementById('motion-toggle');
+  let paused = false;
+  try { paused = localStorage.getItem('nyx_motion') === 'paused'; } catch(e) {}
+  function apply(v){
+    paused = v;
+    document.documentElement.classList.toggle('motion-paused', v);
+    if (btn) { btn.setAttribute('aria-pressed', v ? 'true' : 'false'); btn.textContent = v ? 'Play' : 'Pause'; }
+    document.querySelectorAll('svg').forEach(svg => { try { (v || _pRM) ? svg.pauseAnimations() : svg.unpauseAnimations(); } catch(e) {} });
+    try { localStorage.setItem('nyx_motion', v ? 'paused' : ''); } catch(e) {}
+  }
+  apply(paused);
+  if (btn) btn.addEventListener('click', () => apply(!paused));
 })();

@@ -192,3 +192,38 @@ document.addEventListener('click', e => {
   if(btn) btn.addEventListener('click', submit);
   if(inp) inp.addEventListener('keydown', e => { if(e.key==='Enter') submit(); });
 })();
+
+/* ── ACCESS REVIEW KEYBOARD ─────────────────────────────
+   Arrow keys move between options in a step; Enter on a choice selects it
+   (native button). In the text steps Enter continues, Shift+Enter adds a line. */
+(function(){
+  document.querySelectorAll('.assessment-options').forEach(group => {
+    group.addEventListener('keydown', e => {
+      const opts = [...group.querySelectorAll('.assessment-option')];
+      const i = opts.indexOf(document.activeElement);
+      if (i < 0) return;
+      const k = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: opts.length - 1 }[e.key];
+      if (k === undefined) return;
+      e.preventDefault();
+      opts[(k + opts.length) % opts.length].focus();
+    });
+  });
+  ['as-challenge', 'as-outcome'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' || e.shiftKey) return;
+      e.preventDefault();
+      const next = el.closest('.assessment-step').querySelector('[data-next]');
+      if (next) next.click();
+    });
+  });
+  // Moving between steps puts focus on the new step's first control.
+  new MutationObserver(muts => muts.forEach(m => {
+    const step = m.target;
+    if (step.classList.contains('active') && !step.contains(document.activeElement) && document.activeElement && document.activeElement.closest('#assessment-steps')) {
+      const f = step.querySelector('.assessment-option.selected, .assessment-option, textarea, input:not(.hp), button');
+      if (f) f.focus();
+    }
+  })).observe(document.getElementById('assessment-steps') || document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
+})();
