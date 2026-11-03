@@ -180,6 +180,9 @@ Local runs on a compressed static server (`serve`), Lighthouse 12.8.2, simulated
 | 4 Sections | 98 | 97 | 100 | 100 | 2.3 s | 0 ms | 0.002 | status bar label only |
 | 5 Chrome + motion | 97 | 100 | 100 | 100 | 2.4 s | 0 ms | 0.001 | GSAP removed, status bar gone |
 | 6 Details | 97 | 100 | 100 | 100 | 2.4 s | 0 ms | 0.001 | 250 dead CSS rules purged (123 → 97 KB) |
+| **Production (mobile)** | **98** | **100** | **100** | **100** | **2.2 s** | **0 ms** | **0.001** | nyxsystem.online after deploy |
+| **Production (desktop)** | **100** | **100** | **100** | **100** | **0.4 s** | **0 ms** | **0.001** | |
+| Before this pass (mobile, prod) | 90–93 | 97 | 100 | 100 | 2.9 s | 0 ms | 0.001 | |
 
 ## 6. Final token sheet
 `--night #070A12` base · `--dusk #0D1220` raised · `--slate #161D2D` overlay · `--indigo #3C4A86` structure · `--moon #EEE8DC` signal · `--mist #D5D9E3` text-1 · `--text-2 #A5ACBC` · `--text-3 #8189A0`.
