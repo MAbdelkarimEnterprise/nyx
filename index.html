@@ -1595,7 +1595,7 @@ html,body{overflow-x:clip}
 .motion-toggle{font-family:var(--ui);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;background:none;border:1px solid var(--line-hi);color:var(--t1);padding:0 12px;margin-left:12px;cursor:pointer}
 
 .tbar{height:44px;padding-bottom:env(safe-area-inset-bottom)}
-.tbar-ticker-wrap{flex:1;min-width:0}
+.tbar-ticker-wrap{flex:1;min-width:0;background:#000}
 .tbar-right{flex-shrink:0;display:flex;align-items:center;padding-right:8px}
 .nav-link,.nav-logo{min-height:44px;display:inline-flex;align-items:center}
 @media(max-width:680px){
@@ -1604,6 +1604,7 @@ html,body{overflow-x:clip}
   .tbar-ticker-wrap{padding-left:12px}
 }
 #waitlist{overflow:clip}
+@media(max-width:768px){#grain{display:none}nav.scrolled,.tbar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(0,0,0,0.96)}}
 @media(max-width:680px){.alfred-tabs{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto;gap:6px}.alfred-tab{white-space:nowrap;flex:0 0 auto}}
 footer{padding-bottom:64px}
 /* ── PHASE 5 ───────────────────────────────────────────────────────── */
@@ -2545,15 +2546,20 @@ footer{padding-bottom:64px}
   </div>
 </footer>
 
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.nyxTrack=function(n,d){try{window.va("event",{name:n,data:d||{}})}catch(e){}};</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script defer src="/js/core.js"></script>
-<script defer src="/js/demo.js"></script>
-<script defer src="/js/access.js"></script>
-<script defer src="/js/agents.js"></script>
-<script type="module" src="/js/scenes.js"></script>
+<!-- Scripts start after the first frame is painted, so the hero never waits on them.
+     Vercel Web Analytics: once enabled in the Vercel dashboard, add "/_vercel/insights/script.js" to the list. -->
+<script>
+(function(){
+  var list = ['https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
+              'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
+              '/js/core.js', '/js/demo.js', '/js/access.js', '/js/agents.js'];
+  function load(){
+    list.forEach(function(src){ var e = document.createElement('script'); e.src = src; e.async = false; document.body.appendChild(e); });
+    var m = document.createElement('script'); m.type = 'module'; m.src = '/js/scenes.js'; document.body.appendChild(m);
+  }
+  requestAnimationFrame(function(){ setTimeout(load, 0); });
+})();
+</script>
 
 <!-- ═══════════════════════════════════════════════════════
      PHASE 2 — AGENT MODAL

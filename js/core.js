@@ -394,7 +394,8 @@ function startScanLine(){
     if (heroCanvas) heroCanvas.classList.add('show');
     startScanLine();
   }
-  if (!loader || document.documentElement.classList.contains('no-boot')) { settle(); return; }
+  // If the CSS fallback already cleared the loader before this script ran, don't replay the hero.
+  if (!loader || document.documentElement.classList.contains('no-boot') || getComputedStyle(loader).visibility === 'hidden') { settle(); return; }
 
   const reveal = gsap.timeline({ paused:true })
     .fromTo('.hero-eyebrow', { opacity:0, y:14 }, { opacity:1, y:0, duration:0.6, ease:'power3.out' }, 0)
