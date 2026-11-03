@@ -1,5 +1,12 @@
 'use strict';
 gsap.registerPlugin(ScrollTrigger);
+// Palette for canvas drawing, read from the CSS tokens (no colors defined in JS).
+const nyxColor = (name, a = 1) => {
+  const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const n = parseInt(v.slice(1), 16);
+  return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`;
+};
+const nyxHex = (name) => parseInt(getComputedStyle(document.documentElement).getPropertyValue(name).trim().slice(1), 16);
 const _touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 const _pRM   = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 // One switch for every ticker, clock and feed: reduced motion or the Pause button.

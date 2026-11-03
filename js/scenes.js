@@ -78,7 +78,7 @@ function heroScene(THREE){
     const hubGeo = new THREE.BufferGeometry();
     hubGeo.setAttribute('position', new THREE.BufferAttribute(hubArr, 3));
     group.add(new THREE.Points(hubGeo,
-      new THREE.PointsMaterial({ color:0x1E5BFF, size:4.8, transparent:true, opacity:0.62, sizeAttenuation:true })
+      new THREE.PointsMaterial({ color:nyxHex('--indigo'), size:4.8, transparent:true, opacity:0.62, sizeAttenuation:true })
     ));
 
     // ── Edges ──
@@ -109,7 +109,7 @@ function heroScene(THREE){
     for(let p = 0; p < PULSES; p++){
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.Float32BufferAttribute([0,0,0], 3));
-      const mat = new THREE.PointsMaterial({ color:0x1E5BFF, size:5.5, transparent:true, opacity:0, sizeAttenuation:true });
+      const mat = new THREE.PointsMaterial({ color:nyxHex('--indigo'), size:5.5, transparent:true, opacity:0, sizeAttenuation:true });
       const mesh = new THREE.Points(geo, mat);
       group.add(mesh);
       const src = Math.floor(Math.random() * N);
@@ -194,12 +194,12 @@ function engineScene(THREE){
   renderer.setClearColor(0x000000, 0);
 
   // ── MATERIALS ─────────────────────────────────────────
-  const gold     = new THREE.LineBasicMaterial({ color: 0x1E5BFF, transparent: true, opacity: 0.75 });
-  const goldDim  = new THREE.LineBasicMaterial({ color: 0x1E5BFF, transparent: true, opacity: 0.25 });
-  const goldFade = new THREE.LineBasicMaterial({ color: 0x1E5BFF, transparent: true, opacity: 0.12 });
-  const white    = new THREE.LineBasicMaterial({ color: 0xF0EDE8, transparent: true, opacity: 0.18 });
-  const steel    = new THREE.LineBasicMaterial({ color: 0x4A4A4A, transparent: true, opacity: 0.62 });
-  const steelDim = new THREE.LineBasicMaterial({ color: 0x4A4A4A, transparent: true, opacity: 0.34 });
+  const gold     = new THREE.LineBasicMaterial({ color: nyxHex('--indigo'), transparent: true, opacity: 0.75 });
+  const goldDim  = new THREE.LineBasicMaterial({ color: nyxHex('--indigo'), transparent: true, opacity: 0.25 });
+  const goldFade = new THREE.LineBasicMaterial({ color: nyxHex('--indigo'), transparent: true, opacity: 0.12 });
+  const white    = new THREE.LineBasicMaterial({ color: nyxHex('--mist'), transparent: true, opacity: 0.18 });
+  const steel    = new THREE.LineBasicMaterial({ color: nyxHex('--text-3'), transparent: true, opacity: 0.62 });
+  const steelDim = new THREE.LineBasicMaterial({ color: nyxHex('--text-3'), transparent: true, opacity: 0.34 });
 
   // ── HELPER: edges from geometry ───────────────────────
   function edges(geo, mat) {
@@ -296,7 +296,7 @@ function engineScene(THREE){
   const ghost = wireframe(new THREE.SphereGeometry(3.0, 24, 16), steelDim);
   engine.add(ghost);
 
-  // ── DEEP-REFLECTION DETAIL LAYER (#4A4A4A) ───────────
+  // ── DETAIL LAYER (structure tone) ───────────
   // Graduated outer measurement scale
   const scaleRing = new THREE.Group();
   for (let i = 0; i < 120; i++) {

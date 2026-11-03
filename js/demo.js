@@ -121,12 +121,12 @@
         const y = H - v * H;
         i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
       });
-      ctx.strokeStyle = 'rgba(30,91,255,0.35)';
+      ctx.strokeStyle = nyxColor('--indigo', 0.35);
       ctx.lineWidth = 1;
       ctx.stroke();
       // fill area
       ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
-      ctx.fillStyle = 'rgba(30,91,255,0.04)';
+      ctx.fillStyle = nyxColor('--indigo', 0.04);
       ctx.fill();
     }
     nyxLoop(card, draw);
@@ -295,7 +295,7 @@
       const a=(i/24)*Math.PI*2;
       ctx.beginPath(); ctx.moveTo(0,0);
       ctx.lineTo(Math.cos(a)*R*1.1, Math.sin(a)*R*1.1);
-      ctx.strokeStyle='rgba(30,91,255,0.028)';
+      ctx.strokeStyle=nyxColor('--indigo', 0.028);
       ctx.lineWidth=0.5; ctx.stroke();
     }
     ctx.restore();
@@ -305,7 +305,7 @@
     [0.88,1.02,1.16].forEach((f,i)=>{
       ctx.beginPath(); ctx.arc(0,0,R*f,0,Math.PI*2);
       ctx.setLineDash(i===1?[5,16]:[]);
-      ctx.strokeStyle='rgba(30,91,255,0.018)';
+      ctx.strokeStyle=nyxColor('--indigo', 0.018);
       ctx.lineWidth=0.5; ctx.stroke();
     });
     ctx.setLineDash([]); ctx.restore();
@@ -316,7 +316,7 @@
       if(p.x<0)p.x=1; if(p.x>1)p.x=0;
       if(p.y<0)p.y=1; if(p.y>1)p.y=0;
       ctx.beginPath(); ctx.arc(p.x*W, p.y*H, p.r, 0, Math.PI*2);
-      ctx.fillStyle=`rgba(30,91,255,${p.a})`; ctx.fill();
+      ctx.fillStyle=nyxColor('--indigo', p.a); ctx.fill();
     }
   }
   nyxLoop(canvas, draw);
@@ -346,7 +346,7 @@
   style.textContent = `
     #alfred-overlay{
       position:fixed;inset:0;z-index:99998;
-      background:radial-gradient(ellipse at 50% 40%, #0a0a0e 0%, #000 70%);
+      background:var(--night);
       opacity:0;pointer-events:none;
       transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1);
       overflow:hidden;
@@ -357,7 +357,7 @@
     #alfred-overlay::before{
       content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
       background:repeating-linear-gradient(
-        0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px
+        0deg,transparent,transparent 2px,color-mix(in srgb,var(--night) 8%,transparent) 2px,color-mix(in srgb,var(--night) 8%,transparent) 4px
       );
     }
 
@@ -365,13 +365,13 @@
     #af-ring-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 
     /* HUD corners */
-    .af-corner{position:absolute;width:48px;height:48px;border-color:rgba(30,91,255,0.25);border-style:solid;z-index:5}
+    .af-corner{position:absolute;width:48px;height:48px;border-color:color-mix(in srgb,var(--indigo) 25%,transparent);border-style:solid;z-index:5}
     .af-corner.tl{top:20px;left:20px;border-width:1px 0 0 1px}
     .af-corner.tr{top:20px;right:20px;border-width:1px 1px 0 0}
     .af-corner.bl{bottom:20px;left:20px;border-width:0 0 1px 1px}
     .af-corner.br{bottom:20px;right:20px;border-width:0 1px 1px 0}
     /* corner inner dots */
-    .af-corner::after{content:'';position:absolute;width:3px;height:3px;background:rgba(30,91,255,0.5);border-radius:50%}
+    .af-corner::after{content:'';position:absolute;width:3px;height:3px;background:color-mix(in srgb,var(--indigo) 50%,transparent);border-radius:50%}
     .af-corner.tl::after{top:-1px;left:-1px}
     .af-corner.tr::after{top:-1px;right:-1px}
     .af-corner.bl::after{bottom:-1px;left:-1px}
@@ -382,21 +382,21 @@
       position:absolute;top:0;left:0;right:0;z-index:6;
       display:flex;align-items:center;justify-content:space-between;
       padding:20px 36px;
-      border-bottom:1px solid rgba(30,91,255,0.06);
+      border-bottom:1px solid color-mix(in srgb,var(--indigo) 6%,transparent);
     }
     .af-logo{font-family:var(--mono);font-size:12px;letter-spacing:0.55em;color:var(--gold-text);text-transform:uppercase}
     .af-header-mid{font-family:var(--mono);font-size:12px;letter-spacing:0.32em;color:var(--gold-text);text-transform:uppercase;display:flex;align-items:center;gap:8px}
-    .af-status-dot{width:5px;height:5px;border-radius:50%;background:#1E5BFF;animation:af-dot-pulse 1.8s ease-in-out infinite;flex-shrink:0}
+    .af-status-dot{width:5px;height:5px;border-radius:50%;background:var(--indigo);animation:af-dot-pulse 1.8s ease-in-out infinite;flex-shrink:0}
     @keyframes af-dot-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.25;transform:scale(0.5)}}
-    .af-close-btn{font-family:var(--mono);font-size:12px;letter-spacing:0.25em;color:rgba(240,237,232,0.62);text-transform:uppercase;cursor:pointer;transition:color .2s;user-select:none;background:none;border:none;padding:4px 0}
+    .af-close-btn{font-family:var(--mono);font-size:12px;letter-spacing:0.25em;color:var(--text-2);text-transform:uppercase;cursor:pointer;transition:color .2s;user-select:none;background:none;border:none;padding:4px 0}
     .af-close-btn:hover{color:var(--gold-text)}
 
     /* ── LEFT HUD PANEL ────────────────────────────────────── */
     .af-panel{
       position:absolute;top:50%;transform:translateY(-50%);
       z-index:5;width:200px;
-      border:1px solid rgba(30,91,255,0.1);
-      background:rgba(0,0,0,0.55);
+      border:1px solid color-mix(in srgb,var(--indigo) 10%,transparent);
+      background:color-mix(in srgb,var(--night) 55%,transparent);
       backdrop-filter:blur(8px);
       padding:18px 16px;
       display:flex;flex-direction:column;gap:14px;
@@ -408,25 +408,25 @@
     .af-panel-title{
       font-family:var(--mono);font-size:12px;letter-spacing:0.45em;
       color:var(--gold-text);text-transform:uppercase;
-      padding-bottom:10px;border-bottom:1px solid rgba(30,91,255,0.08);
+      padding-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--indigo) 8%,transparent);
     }
     .af-panel-row{display:flex;flex-direction:column;gap:4px}
     .af-panel-label{font-family:var(--mono);font-size:12px;letter-spacing:0.2em;color:var(--gold-text);text-transform:uppercase}
-    .af-panel-val{font-family:var(--mono);font-size:12px;letter-spacing:0.12em;color:rgba(240,237,232,0.62);text-transform:uppercase}
+    .af-panel-val{font-family:var(--mono);font-size:12px;letter-spacing:0.12em;color:var(--text-2);text-transform:uppercase}
     .af-panel-val.live{color:var(--gold-text)}
     .af-agent-row{display:flex;align-items:center;justify-content:space-between;gap:6px}
     .af-agent-name{font-family:var(--mono);font-size:12px;letter-spacing:0.12em;color:var(--gold-text);text-transform:uppercase;flex-shrink:0}
-    .af-agent-bar{flex:1;height:2px;background:rgba(30,91,255,0.1);border-radius:1px;overflow:hidden}
-    .af-agent-bar-fill{height:100%;background:rgba(30,91,255,0.6);border-radius:1px;transition:width 2s ease}
+    .af-agent-bar{flex:1;height:2px;background:color-mix(in srgb,var(--indigo) 10%,transparent);border-radius:1px;overflow:hidden}
+    .af-agent-bar-fill{height:100%;background:color-mix(in srgb,var(--indigo) 60%,transparent);border-radius:1px;transition:width 2s ease}
     .af-agent-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
-    .af-agent-dot.active{background:#1E5BFF;box-shadow:0 0 4px rgba(30,91,255,0.6)}
-    .af-agent-dot.idle{background:rgba(30,91,255,0.2)}
+    .af-agent-dot.active{background:var(--indigo);box-shadow:none}
+    .af-agent-dot.idle{background:color-mix(in srgb,var(--indigo) 20%,transparent)}
 
     /* intel rows in right panel */
-    .af-intel-row{padding:8px 0;border-bottom:1px solid rgba(30,91,255,0.06);display:flex;flex-direction:column;gap:3px}
+    .af-intel-row{padding:8px 0;border-bottom:1px solid color-mix(in srgb,var(--indigo) 6%,transparent);display:flex;flex-direction:column;gap:3px}
     .af-intel-row:last-child{border-bottom:none}
     .af-intel-agent{font-family:var(--mono);font-size:12px;letter-spacing:0.25em;color:var(--gold-text);text-transform:uppercase}
-    .af-intel-text{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:rgba(240,237,232,0.62);line-height:1.5}
+    .af-intel-text{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:var(--text-2);line-height:1.5}
 
     /* center UI */
     .af-center{
@@ -447,7 +447,7 @@
     .af-response{
       font-family:var(--serif);
       font-size:clamp(17px,2.2vw,26px);font-weight:300;font-style:italic;
-      color:rgba(240,237,232,0.88);line-height:1.7;letter-spacing:0.02em;
+      color:var(--text-1);line-height:1.7;letter-spacing:0.02em;
       opacity:0;transition:opacity 0.6s ease;min-height:56px;padding:0 12px;
       margin-top:16px;
     }
@@ -470,27 +470,27 @@
       transition:color .3s;
     }
     .af-status.on{color:var(--gold-text)}
-    .af-input-row{display:flex;gap:0;width:100%;border:1px solid rgba(30,91,255,0.14)}
+    .af-input-row{display:flex;gap:0;width:100%;border:1px solid color-mix(in srgb,var(--indigo) 14%,transparent)}
     .af-text-in{
-      flex:1;background:rgba(0,0,0,0.7);border:none;
-      color:rgba(240,237,232,0.75);font-family:var(--mono);font-size:12px;
+      flex:1;background:color-mix(in srgb,var(--night) 70%,transparent);border:none;
+      color:var(--text-2);font-family:var(--mono);font-size:12px;
       letter-spacing:0.1em;text-transform:uppercase;padding:12px 16px;
       outline:none;transition:background .2s;pointer-events:all;
     }
     .af-text-in::placeholder{color:var(--gold-text)}
-    .af-text-in:focus{background:rgba(30,91,255,0.04)}
+    .af-text-in:focus{background:color-mix(in srgb,var(--indigo) 4%,transparent)}
     .af-send{
-      background:rgba(30,91,255,0.07);border:none;border-left:1px solid rgba(30,91,255,0.14);
+      background:color-mix(in srgb,var(--indigo) 7%,transparent);border:none;border-left:1px solid color-mix(in srgb,var(--indigo) 14%,transparent);
       color:var(--gold-text);font-family:var(--mono);font-size:12px;
       letter-spacing:0.22em;text-transform:uppercase;padding:0 20px;
       cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;pointer-events:all;
     }
-    .af-send:hover{background:rgba(30,91,255,0.14);color:var(--gold-text)}
+    .af-send:hover{background:color-mix(in srgb,var(--indigo) 14%,transparent);color:var(--gold-text)}
 
     .af-hint{
       position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
       font-family:var(--mono);font-size:12px;letter-spacing:0.28em;
-      color:rgba(240,237,232,0.62);text-transform:uppercase;white-space:nowrap;z-index:6;
+      color:var(--text-2);text-transform:uppercase;white-space:nowrap;z-index:6;
     }
 
     /* crosshair reticle */
@@ -498,7 +498,7 @@
       position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
       z-index:2;pointer-events:none;
     }
-    .af-reticle-h,.af-reticle-v{position:absolute;background:rgba(30,91,255,0.04)}
+    .af-reticle-h,.af-reticle-v{position:absolute;background:color-mix(in srgb,var(--indigo) 4%,transparent)}
     .af-reticle-h{width:100vw;height:1px;top:0;left:50%;transform:translateX(-50%)}
     .af-reticle-v{height:100vh;width:1px;left:0;top:50%;transform:translateY(-50%)}
 
@@ -545,7 +545,7 @@
         <div class="af-panel-label">Inference Engine</div>
         <div class="af-panel-val live">RUNNING</div>
       </div>
-      <div style="border-top:1px solid rgba(30,91,255,0.08);padding-top:12px;display:flex;flex-direction:column;gap:8px">
+      <div style="border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px">
         <div class="af-panel-label" style="margin-bottom:2px">Agent Network</div>
         <div class="af-agent-row"><span class="af-agent-name">APEX</span><div class="af-agent-bar"><div class="af-agent-bar-fill" style="width:94%"></div></div><div class="af-agent-dot active"></div></div>
         <div class="af-agent-row"><span class="af-agent-name">ORACLE</span><div class="af-agent-bar"><div class="af-agent-bar-fill" style="width:81%"></div></div><div class="af-agent-dot active"></div></div>
@@ -562,7 +562,7 @@
     <div class="af-panel right" id="af-panel-right">
       <div class="af-panel-title">Sample Intelligence</div>
       <div id="af-intel-rows"></div>
-      <div style="margin-top:auto;padding-top:12px;border-top:1px solid rgba(30,91,255,0.08)">
+      <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--line)">
         <div class="af-panel-label" style="margin-bottom:6px">Session Clock</div>
         <div class="af-panel-val live" id="af-session-time">00:00:00</div>
       </div>
@@ -700,7 +700,7 @@
         ctx.beginPath();
         ctx.moveTo(0,0);
         ctx.lineTo(Math.cos(a)*R*1.1, Math.sin(a)*R*1.1);
-        ctx.strokeStyle='rgba(30,91,255,0.022)';
+        ctx.strokeStyle=nyxColor('--indigo', 0.022);
         ctx.lineWidth=0.5; ctx.stroke();
       }
       ctx.restore();
@@ -710,7 +710,7 @@
       [0.90, 1.04, 1.18].forEach((f,i) => {
         ctx.beginPath(); ctx.arc(0,0,R*f,0,Math.PI*2);
         ctx.setLineDash(i===1 ? [6,18] : []);
-        ctx.strokeStyle='rgba(30,91,255,0.016)';
+        ctx.strokeStyle=nyxColor('--indigo', 0.016);
         ctx.lineWidth=0.5; ctx.stroke();
       });
       ctx.setLineDash([]);
@@ -725,7 +725,7 @@
         const dist=Math.hypot(px-cx,py-cy);
         if(dist<R*1.2){
           ctx.beginPath(); ctx.arc(px,py,p.r,0,Math.PI*2);
-          ctx.fillStyle=`rgba(30,91,255,${p.a})`;
+          ctx.fillStyle=nyxColor('--indigo', p.a);
           ctx.fill();
         }
       }
@@ -750,16 +750,16 @@
       // ── radial glow at center ─────────────────────────────
       const glowR = R * (0.45 + smoothPulse * 0.25 + (isSpeaking ? Math.sin(pulse*2)*0.03 : 0));
       const radGrad = ctx.createRadialGradient(cx,cy,0,cx,cy,glowR);
-      radGrad.addColorStop(0,   `rgba(30,91,255,${0.06 * glow})`);
-      radGrad.addColorStop(0.5, `rgba(30,91,255,${0.03 * glow})`);
-      radGrad.addColorStop(1,   'rgba(30,91,255,0)');
+      radGrad.addColorStop(0,   nyxColor('--indigo', 0.06 * glow));
+      radGrad.addColorStop(0.5, nyxColor('--indigo', 0.03 * glow));
+      radGrad.addColorStop(1,   nyxColor('--indigo', 0));
       ctx.beginPath(); ctx.arc(cx,cy,glowR,0,Math.PI*2);
       ctx.fillStyle = radGrad; ctx.fill();
 
       // ── outermost ghost ring ──────────────────────────────
       const r0 = R * (0.78 + smoothPulse * 0.06);
       ctx.beginPath(); ctx.arc(cx,cy,r0,0,Math.PI*2);
-      ctx.strokeStyle = `rgba(30,91,255,${0.06 * glow})`;
+      ctx.strokeStyle = nyxColor('--indigo', 0.06 * glow);
       ctx.lineWidth = 0.8; ctx.stroke();
 
       // ── large rotating dashed ring ────────────────────────
@@ -767,7 +767,7 @@
       ctx.save(); ctx.translate(cx,cy); ctx.rotate(angle1);
       ctx.beginPath(); ctx.arc(0,0,r1,0,Math.PI*2);
       ctx.setLineDash([8,22]); ctx.lineWidth = 1;
-      ctx.strokeStyle = `rgba(30,91,255,${0.22 * glow})`; ctx.stroke();
+      ctx.strokeStyle = nyxColor('--indigo', 0.22 * glow); ctx.stroke();
       ctx.restore();
 
       // ── medium counter-rotating dashed ring ───────────────
@@ -775,7 +775,7 @@
       ctx.save(); ctx.translate(cx,cy); ctx.rotate(angle2);
       ctx.beginPath(); ctx.arc(0,0,r2,0,Math.PI*2);
       ctx.setLineDash([5,14]); ctx.lineWidth = 1.2;
-      ctx.strokeStyle = `rgba(30,91,255,${0.32 * glow})`; ctx.stroke();
+      ctx.strokeStyle = nyxColor('--indigo', 0.32 * glow); ctx.stroke();
       ctx.restore();
 
       // ── solid breathing ring — the main hero ring ─────────
@@ -786,14 +786,14 @@
       ctx.save(); ctx.translate(cx,cy); ctx.rotate(angle3);
       ctx.beginPath(); ctx.arc(0,0,r3,0,Math.PI*2);
       ctx.setLineDash([]); ctx.lineWidth = 1.5;
-      ctx.strokeStyle = `rgba(30,91,255,${0.55 * glow})`; ctx.stroke();
+      ctx.strokeStyle = nyxColor('--indigo', 0.55 * glow); ctx.stroke();
       // tick marks on this ring
       for(let i=0;i<12;i++){
         const a = (i/12)*Math.PI*2;
         const x1 = Math.cos(a)*r3, y1 = Math.sin(a)*r3;
         const x2 = Math.cos(a)*(r3+8), y2 = Math.sin(a)*(r3+8);
         ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
-        ctx.strokeStyle = `rgba(30,91,255,${(i%3===0 ? 0.5 : 0.2) * glow})`;
+        ctx.strokeStyle = nyxColor('--indigo', (i%3===0 ? 0.5 : 0.2) * glow);
         ctx.lineWidth = i%3===0 ? 1 : 0.5; ctx.stroke();
       }
       ctx.restore();
@@ -802,20 +802,20 @@
       const r4 = R * (0.22 + smoothPulse * 0.06 + (isSpeaking ? Math.sin(pulse*3)*0.01 : 0));
       ctx.beginPath(); ctx.arc(cx,cy,r4,0,Math.PI*2);
       ctx.setLineDash([]); ctx.lineWidth = 1;
-      ctx.strokeStyle = `rgba(30,91,255,${0.38 * glow})`; ctx.stroke();
+      ctx.strokeStyle = nyxColor('--indigo', 0.38 * glow); ctx.stroke();
 
       // ── core dot with halo ────────────────────────────────
       const coreBaseR = R * 0.04;
       const coreR = coreBaseR + smoothPulse * R * 0.07 +
                     (isSpeaking ? Math.sin(pulse*4)*coreBaseR*0.5 : 0);
       const coreGrad = ctx.createRadialGradient(cx,cy,0,cx,cy,coreR*3.5);
-      coreGrad.addColorStop(0,   `rgba(30,91,255,${Math.min(1,0.95*glow)})`);
-      coreGrad.addColorStop(0.4, `rgba(30,91,255,${0.3*glow})`);
-      coreGrad.addColorStop(1,   'rgba(30,91,255,0)');
+      coreGrad.addColorStop(0,   nyxColor('--indigo', Math.min(1,0.95*glow)));
+      coreGrad.addColorStop(0.4, nyxColor('--indigo', 0.3*glow));
+      coreGrad.addColorStop(1,   nyxColor('--indigo', 0));
       ctx.beginPath(); ctx.arc(cx,cy,coreR*3.5,0,Math.PI*2);
       ctx.fillStyle=coreGrad; ctx.fill();
       ctx.beginPath(); ctx.arc(cx,cy,coreR,0,Math.PI*2);
-      ctx.fillStyle=`rgba(30,91,255,${Math.min(1,glow)})`; ctx.fill();
+      ctx.fillStyle=nyxColor('--indigo', Math.min(1,glow)); ctx.fill();
 
       // ── axis lines ────────────────────────────────────────
       [[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx,dy]) => {
@@ -823,7 +823,7 @@
         ctx.beginPath();
         ctx.moveTo(cx+dx*inner,cy+dy*inner);
         ctx.lineTo(cx+dx*outer,cy+dy*outer);
-        ctx.strokeStyle=`rgba(30,91,255,${0.25*glow})`;
+        ctx.strokeStyle=nyxColor('--indigo', 0.25*glow);
         ctx.lineWidth=0.8; ctx.stroke();
       });
 
@@ -835,7 +835,7 @@
         w.alpha *= 0.93;
         if(w.r > w.maxR || w.alpha < 0.01){ waves.splice(i,1); continue; }
         ctx.beginPath(); ctx.arc(cx,cy,w.r,0,Math.PI*2);
-        ctx.strokeStyle=`rgba(30,91,255,${w.alpha * glow})`;
+        ctx.strokeStyle=nyxColor('--indigo', w.alpha * glow);
         ctx.lineWidth=1.5; ctx.stroke();
       }
 
