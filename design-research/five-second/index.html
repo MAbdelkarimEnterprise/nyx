@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Five-second test</title>
+<style>
+  :root{--surface:#02070A;--raised:#051116;--text:#EBF5FA;--text-2:#BCC6CA;--system:#1058FF;--focus:#92B7FF}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--surface);color:var(--text);font:16px/1.6 system-ui,-apple-system,sans-serif;display:grid;place-items:center}
+  main{width:min(640px,100%);padding:24px 16px}
+  h1{font-size:24px;font-weight:500;margin:0 0 12px}
+  p{color:var(--text-2);margin:0 0 16px}
+  label{display:block;margin:20px 0 8px;color:var(--text)}
+  textarea{width:100%;min-height:88px;padding:12px;background:var(--raised);color:var(--text);border:1px solid #5a6468;border-radius:2px;font:inherit}
+  button{min-height:44px;padding:0 20px;background:var(--system);color:var(--text);border:0;border-radius:2px;font:500 15px/1 inherit;cursor:pointer;margin-top:20px}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  #shot{position:fixed;inset:0;background:var(--surface);display:none}
+  #shot img{width:100%;height:100%;object-fit:contain}
+  pre{white-space:pre-wrap;background:var(--raised);padding:12px;color:var(--text);font-size:14px}
+  [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <section id="intro">
+    <h1>Five-second test</h1>
+    <p>You'll see two screens from a website, each for five seconds. Then two short questions. There are no wrong answers. Say what you actually think.</p>
+    <label for="who">First, in a few words: what do you do? (for example: founder, COO, athlete, gym owner)</label>
+    <textarea id="who" style="min-height:44px"></textarea>
+    <button type="button" id="start">Start</button>
+  </section>
+  <section id="ask" hidden>
+    <label for="q1">What is NYX?</label>
+    <textarea id="q1"></textarea>
+    <label for="q2">What would you click first?</label>
+    <textarea id="q2"></textarea>
+    <button type="button" id="done">Finish</button>
+  </section>
+  <section id="end" hidden>
+    <h1>Thank you.</h1>
+    <p>Please copy this and send it back to the person who shared the link.</p>
+    <pre id="out"></pre>
+    <button type="button" id="copy">Copy answers</button>
+  </section>
+</main>
+<div id="shot" role="img" aria-label="Website screenshot"><img alt=""></div>
+<script>
+const $ = id => document.getElementById(id);
+const size = innerWidth < 700 ? '390' : '1440';
+const screens = ['hero-' + size + '.jpg', 'agents-' + size + '.jpg'];
+screens.forEach(s => { const i = new Image(); i.src = s; });   // preload so each gets the full five seconds
+$('start').onclick = async () => {
+  $('intro').hidden = true;
+  const shot = $('shot'), img = shot.querySelector('img');
+  for (const s of screens) { img.src = s; shot.style.display = 'block'; await new Promise(r => setTimeout(r, 5000)); }
+  shot.style.display = 'none'; $('ask').hidden = false; $('q1').focus();
+};
+$('done').onclick = () => {
+  $('ask').hidden = true; $('end').hidden = false;
+  $('out').textContent = `Who: ${$('who').value.trim()}\nDevice: ${size}px\nWhat is NYX? ${$('q1').value.trim()}\nWhat would you click first? ${$('q2').value.trim()}\nAt: ${new Date().toISOString()}`;
+};
+$('copy').onclick = () => navigator.clipboard?.writeText($('out').textContent).then(() => { $('copy').textContent = 'Copied'; });
+</script>
+</body>
+</html>
