@@ -27,6 +27,7 @@ Large text needs 3:1 and Lc 45. Non-text UI (rings, edges, pulses, focus) needs 
 | `system-text` #92B7FF | `raised` #051116 | small | 9.51:1 | 63.0 | pass |
 | `system-text` #92B7FF | `overlay` #0A1B22 | small | 8.75:1 | 62.2 | pass |
 | `text-primary` #EBF5FA | `system` #1058FF | small | 4.91:1 | 73.6 | pass |
+| `text-primary` #EBF5FA | `structure-strong` #0038BF | small | 8.19:1 | 86.3 | pass |
 | `system-text-hi` #CEDFFE | `surface` #02070A | small | 15.05:1 | 86.6 | pass |
 | `system-active` #568CFE | `surface` #02070A | ui | 6.34:1 | 42.9 | pass |
 | `system-active` #568CFE | `raised` #051116 | ui | 5.99:1 | 42.5 | pass |

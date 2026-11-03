@@ -155,7 +155,12 @@ function nyxLoop(el, step){
   const hero = document.getElementById('hero');
   if (!hero || _pRM || !matchMedia('(pointer:fine)').matches) return;
   let tx = 50, ty = 42, x = 50, y = 42, raf = 0;
+  let off = 0;
   hero.addEventListener('pointermove', e => {
+    // Pink means the visitor is about to act: only over a link or button, only while moving.
+    const on = !!e.target.closest('a,button');
+    hero.classList.toggle('glow-on', on);
+    clearTimeout(off); if (on) off = setTimeout(() => hero.classList.remove('glow-on'), 700);
     const r = hero.getBoundingClientRect();
     tx = (e.clientX - r.left) / r.width * 100; ty = (e.clientY - r.top) / r.height * 100;
     if (!raf) raf = requestAnimationFrame(step);

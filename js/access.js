@@ -69,6 +69,7 @@
       b.setAttribute('aria-checked', on ? 'true' : 'false');
     });
     try{ localStorage.setItem('nyx_tier', val); }catch(e){}
+    document.querySelectorAll('.n-card').forEach(c => c.classList.toggle('is-chosen', !!c.querySelector(`[data-inquire="${val}"]`)));
   }
   document.querySelectorAll('#as-tier .assessment-option').forEach(b => b.addEventListener('click', () => selectTier(b.dataset.val)));
   window.__nyxAssessment = { setStep, selectTier, get role(){ return role; }, get goal(){ return goal; } };

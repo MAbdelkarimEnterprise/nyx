@@ -1,0 +1,12 @@
+{
+  "heroRestGlow": false,
+  "heroOverButtonGlow": true,
+  "heroAfterStopGlow": false,
+  "cardsChosenAtRest": 0,
+  "chosenCard": [
+    "Agents"
+  ],
+  "progressBefore": "matrix(0, 0, 0, 1, 0, 0)",
+  "progressAfterOne": "matrix(0.2, 0, 0, 1, 0, 0)",
+  "alfredWorking": "{\"status\":\"PROCESSING\",\"work\":\"true\",\"edge\":\"rgb(216, 57, 149)\"}"
+}

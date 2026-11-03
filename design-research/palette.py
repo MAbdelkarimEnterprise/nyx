@@ -94,6 +94,7 @@ ROLES = {
 PAIRS = [(fg, bg, "body") for fg in ("text-primary",) for bg in ("surface", "raised", "overlay")]
 PAIRS += [(fg, bg, "small") for fg in ("text-secondary", "text-tertiary", "system-text") for bg in ("surface", "raised", "overlay")]
 PAIRS += [("text-primary", "system", "small"),          # label on a primary (blue) button
+          ("text-primary", "structure-strong", "small"),   # primary button label on hover
           ("system-text-hi", "surface", "small"),      # active agent name
           ("system-active", "surface", "ui"), ("system-active", "raised", "ui"),   # active node ring, selected tab
           ("system", "surface", "ui"), ("system", "raised", "ui"),   # anchor fills and pulses: never the only carrier

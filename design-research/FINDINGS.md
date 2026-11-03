@@ -23,9 +23,8 @@ I sent 12 visitor questions (founder, executive, athlete, gym owner, skeptic, pr
 **There is no data, and there could not have been any.**
 - Vercel Web Analytics is not enabled: `/_vercel/insights/script.js` returns 404.
 - `window.nyxTrack`, which every event calls, is never defined anywhere. `inquire_click`, `access_step_N` and `access_submit` were firing into nothing.
-- `alfred_message` was never wired.
 
-Baseline: **0 events on every metric, as of 2026-11-03.** The before/after comparison in Step 4 can only start once the owner enables Analytics, which also needs the Pro plan for custom events. This pass defines `nyxTrack`, wires `alfred_message` and adds `agent_command`, so the baseline week starts counting the day Analytics is switched on.
+Baseline: **0 events on every metric, as of 2026-11-03.** The before/after comparison in Step 4 can only start once the owner enables Analytics, which also needs the Pro plan for custom events. This pass defines `nyxTrack` and adds `agent_command`, so the baseline week starts counting the day Analytics is switched on.
 
 ## 3. Real devices (`trace.mjs`, `traces/baseline*.json`, raw traces `.trace.json.gz`)
 - These are headless Chrome runs with 4× CPU throttling. **No iPhone was connected to this Mac** (USB check came back empty), so there is no Safari trace. That's an open item, not a pass.

@@ -470,7 +470,7 @@ nav#nav.scrolled{
   text-transform:uppercase;color:var(--void);
   transition:background .2s;white-space:nowrap;
 }
-.waitlist-submit:hover{background:var(--gold)}
+.waitlist-submit:hover{background:var(--structure-strong)!important}
 .waitlist-submit:disabled{opacity:.4;cursor:not-allowed}
 .waitlist-note{
   margin-top:14px;font-family:var(--mono);
@@ -1055,7 +1055,7 @@ footer{
   transition:background .4s var(--ease-out),color .4s var(--ease-out),border-color .4s var(--ease-out);
 }
 .hero-btn.primary{background:var(--gold);color:var(--dusk);border:1px solid var(--gold)}
-.hero-btn.primary:hover{background:var(--text-2);border-color:var(--text-2)}
+.hero-btn.primary:hover{background:var(--structure-strong);border-color:var(--structure-strong)}
 .hero-btn.ghost{background:transparent;color:var(--t1);border:1px solid color-mix(in srgb,var(--mist) 22%,transparent)}
 .hero-btn.ghost:hover{border-color:var(--gold);color:var(--gold-text)}
 .hero-btn .hb-mark{font-size:12px;opacity:0.65}
@@ -1148,7 +1148,7 @@ footer{
 .assessment-back{background:transparent;border:1px solid var(--line-hi);color:var(--text-2)}
 .assessment-back:hover{border-color:var(--t2);color:var(--t1)}
 .assessment-continue{background:var(--gold);border:1px solid var(--gold);color:var(--dusk)}
-.assessment-continue:hover{background:var(--text-2);border-color:var(--text-2)}
+.assessment-continue:hover{background:var(--structure-strong)!important;border-color:var(--structure-strong)!important}
 
 /* ═══ GLOWY GOLD — luminous graphics & accents ═════════════════════ */
 
@@ -1357,7 +1357,8 @@ body>section:not(.hero),body>.intel,body>footer,body>.brand-creed{padding-left:c
 html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
 .n-hero #hero-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity var(--d-sig) var(--ease-sig)}
 .n-hero #hero-canvas.show{opacity:1}
-.n-moonglow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 34vmax at var(--mx,50%) var(--my,42%),color-mix(in srgb,var(--moon) 7%,transparent),transparent 70%)}
+.n-moonglow{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 400ms var(--ease-ui);background:radial-gradient(circle 22vmax at var(--mx,50%) var(--my,42%),color-mix(in srgb,var(--command-glow) 14%,transparent),transparent 70%)}
+.n-hero.glow-on .n-moonglow{opacity:1}
 .n-hero-content{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--s3)}
 .n-hero .hero-title{margin:0;color:var(--text-1);padding-left:0.06em;line-height:0.86}
 .n-hero .hero-eyebrow{margin:var(--s2) 0 0;color:var(--text-3)!important;letter-spacing:0.18em!important;text-transform:uppercase!important}
@@ -1365,7 +1366,7 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
 .n-hero .hero-cta{display:flex;gap:var(--s3);align-items:center;margin-top:var(--s4)}
 .hero-btn{border-radius:var(--r1);padding:0 var(--s4)!important;min-height:48px;text-decoration:none;transition:background var(--d-ui) var(--ease-ui),color var(--d-ui) var(--ease-ui),border-color var(--d-ui) var(--ease-ui)}
 .hero-btn.primary{background:var(--system)!important;color:var(--text-primary)!important;border:1px solid var(--system)!important}
-.hero-btn.primary:hover{background:var(--mist)!important;border-color:var(--mist)!important}
+.hero-btn.primary:hover{background:var(--structure-strong)!important;border-color:var(--structure-strong)!important}
 .hero-btn.ghost{background:none!important;border:0!important;color:var(--text-1)!important;padding:0 var(--s2)!important}
 .hero-btn.ghost:hover{color:var(--system-text)!important}
 
@@ -1440,7 +1441,7 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
 .n-card-cta:hover{border-color:var(--mist)}
 .n-card--feature{background:var(--slate);border-color:var(--moon);transform:translateY(-12px)}
 .n-card-cta--primary{background:var(--system);border-color:var(--system);color:var(--text-primary)}
-.n-card-cta--primary:hover{background:var(--mist);border-color:var(--mist)}
+.n-card-cta--primary:hover{background:var(--structure-strong);border-color:var(--structure-strong)}
 .n-card--private{background:color-mix(in srgb,var(--night) 70%,black);border-style:dashed;border-color:var(--line-strong)}
 .n-card-more{margin:0 0 var(--s4)}
 .n-card-more summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:var(--t-small);color:var(--text-2);list-style:none}
@@ -1650,6 +1651,9 @@ footer *{letter-spacing:0.01em!important;text-transform:none!important}
 }
 @media(prefers-reduced-motion:reduce){.n-cmd-status::before,.n-node.is-routing{animation:none!important}}
 .motion-paused .n-cmd-status::before,.motion-paused .n-node.is-routing{animation:none!important}
+/* ══ INTERACTION: PINK FOLLOWS THE VISITOR ══ chosen tier */
+.n-card.is-chosen{border-color:var(--command)!important;box-shadow:inset 0 2px 0 var(--command)}
+.n-cmd-send:hover{background:var(--structure-strong);border-color:var(--structure-strong)}
 </style>
 </head>
 <body>

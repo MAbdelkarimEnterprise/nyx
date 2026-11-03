@@ -249,7 +249,6 @@
 
   let lastFailed = false;
   async function getReply(query){
-    if (window.nyxTrack) window.nyxTrack('alfred_message');
     try{
       const res = await fetch('/api/agent', {
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -394,6 +393,9 @@
       transition:color .3s;
     }
     .af-status.on{color:var(--gold-text)}
+    .af-status[data-work="true"]{color:var(--system-text)}
+    /* the visitor's words: pink edge, never pink text */
+    .af-transcript:not(:empty){border-left:2px solid var(--command);padding-left:10px;color:var(--text-primary)}
     .af-input-row{display:flex;gap:0;width:100%;border:1px solid color-mix(in srgb,var(--indigo) 14%,transparent)}
     .af-text-in{
       flex:1;background:color-mix(in srgb,var(--night) 70%,transparent);border:none;
@@ -808,6 +810,7 @@
 
   function setStatus(text, state) {
     statusEl.textContent = text;
+    statusEl.dataset.work = String(text === 'PROCESSING');   // the system working: blue
     statusEl.classList.toggle('on', state === 'on');
     orbLabel.textContent = state === 'on' ? 'LISTENING' : text === 'PROCESSING' ? 'PROCESSING' : text === 'SPEAKING' ? 'SPEAKING' : 'STANDBY';
     orbLabel.classList.toggle('on', state === 'on');
