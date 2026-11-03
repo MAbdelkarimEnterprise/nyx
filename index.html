@@ -439,6 +439,8 @@ nav.scrolled{
   white-space:nowrap;
 }
 .tier-row:hover .tier-tag,.tier-row.open .tier-tag{opacity:1;transform:translateX(0)}
+.tier-row--featured .tier-tag{opacity:1;transform:none}
+.access-note{margin-top:48px;max-width:640px;font-size:13.5px;line-height:1.95;color:var(--t2);letter-spacing:0.015em}
 .tier-chevron{
   width:16px;height:16px;position:relative;flex-shrink:0;
   transition:transform .35s var(--ease-out);
@@ -634,6 +636,8 @@ footer{
   .pillar{border-right:none;border-bottom:1px solid var(--line)}
   .tier-header{grid-template-columns:48px 1fr auto}
   .tier-tag{display:none}
+  .tier-row--featured .tier-header{grid-template-columns:48px 1fr auto auto}
+  .tier-row--featured .tier-tag{display:inline-block}
   .tier-body-inner{grid-template-columns:1fr;padding-left:0}
   .intel-inner{grid-template-columns:1fr 1fr}
   .waitlist-form{flex-direction:column}
@@ -1438,7 +1442,7 @@ footer{
 .outcome{background:var(--void);padding:38px 34px 40px;display:flex;flex-direction:column;min-height:380px;position:relative;transition:background .5s var(--ease-out)}
 .outcome:hover{background:#060606}
 .outcome-class{font-family:var(--ui);font-size:9px;font-weight:500;letter-spacing:0.26em;text-transform:uppercase;color:rgba(30,91,255,0.7);display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}
-.outcome-class .verified{color:rgba(240,237,232,0.34)}
+.outcome-class .projected{color:rgba(240,237,232,0.34)}
 .outcome-role{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:'opsz' 144;font-weight:360;font-size:26px;color:var(--t1);margin:26px 0 4px;letter-spacing:0.004em}
 .outcome-domain{font-family:var(--ui);font-size:9.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--t3);margin-bottom:30px}
 .outcome-metric-val{font-family:var(--display);font-optical-sizing:auto;font-variation-settings:'opsz' 144;font-weight:340;font-size:clamp(46px,5vw,60px);line-height:1;color:var(--gold);letter-spacing:0.01em;font-feature-settings:'tnum' 1,'lnum' 1}
@@ -1814,7 +1818,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       <div class="engine-hud-bl"></div>
       <div class="engine-hud-br"></div>
       <div class="engine-label-tl">NYX.ENGINE / v3.0</div>
-      <div class="engine-label-br">SIX.AGENTS / ACTIVE</div>
+      <div class="engine-label-br">EIGHT.AGENTS / ACTIVE</div>
     </div>
   </div>
 </section>
@@ -2059,7 +2063,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
           </div>
           <div class="os-priority" data-pri="3">
             <div class="os-pri-check"><div class="os-pri-check-mark"></div></div>
-            <span class="os-pri-text">Approve SIGNAL content calendar for August</span>
+            <span class="os-pri-text">Approve SIGNAL content calendar for THIS MONTH</span>
             <span class="os-pri-tag med">MED</span>
           </div>
           <div class="os-priority" data-pri="4">
@@ -2145,7 +2149,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
         <p class="voice-body">Alfred transforms NYX into a voice-native operating system. Full-screen HUD. Always listening. Your agents respond, act, and report in real time.</p>
         <ul class="voice-features">
           <li><span class="vf-label">ALFRED HUD</span> Full-screen tactical interface with live agent status and waveform visualization</li>
-          <li><span class="vf-label">VOICE COMMANDS</span> Natural language triggers across all six agents, logged and indexed</li>
+          <li><span class="vf-label">VOICE COMMANDS</span> Natural language triggers across all eight agents, logged and indexed</li>
           <li><span class="vf-label">MEMORY CONTEXT</span> Every conversation stored, recalled, and linked to decisions</li>
           <li><span class="vf-label">DEVICE AWARE</span> Optimized for desktop, mobile, and wearable input</li>
         </ul>
@@ -2201,64 +2205,61 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     <div class="access-header">
       <h2 class="access-headline">Structured access.<br>Earned depth.</h2>
       <div class="access-sub">
-        <p>Four levels. One ecosystem. Access expands as your operation deepens. Every tier is a commitment — not a subscription.</p>
+        <p>Start with design, subscribe to the agents, or take the full system. Pricing is private and shared after inquiry.</p>
       </div>
     </div>
     <div class="tiers-list">
       <div class="tier-row" data-tier="1">
         <div class="tier-header">
           <span class="tier-num">01</span>
-          <span class="tier-name">Core Access</span>
-          <span class="tier-tag">Entry Point</span>
+          <span class="tier-name">Design</span>
+          <span class="tier-tag">Entry Level · One-Time Build</span>
           <div class="tier-chevron"></div>
         </div>
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">The foundation. Full visibility into the NYX intelligence system. Begin to understand how the operating system works against your goals.</p>
+            <p class="tier-desc">The entry point. UI design only — your website, landing page, or app interface, built once. Add monthly maintenance to keep it sharp: updates, fixes, hosting, and monitoring.</p>
             <ul class="tier-features">
-              <li>Workflow dashboard</li><li>Agent status monitoring</li>
-              <li>Execution logs</li><li>Briefings &amp; reports</li>
+              <li>Website, landing page, or app interface</li><li>One-time build</li><li>Optional monthly maintenance</li><li>Updates, fixes, hosting &amp; monitoring</li>
             </ul>
-            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Request Access</button>
+            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
           </div>
         </div>
       </div>
       <div class="tier-row" data-tier="2">
         <div class="tier-header">
           <span class="tier-num">02</span>
-          <span class="tier-name">Performance Layer</span>
-          <span class="tier-tag">Most Active</span>
+          <span class="tier-name">Agents</span>
+          <span class="tier-tag">Monthly Subscription</span>
           <div class="tier-chevron"></div>
         </div>
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">The optimization level. Eight specialist agents operating continuously on your behalf. Autonomous workflows that act while you focus on what matters.</p>
+            <p class="tier-desc">The NYX agent network, connected to your tools. Automated workflows run in the background. Alfred delivers your briefings and takes your commands. Monthly maintenance included.</p>
             <ul class="tier-features">
-              <li>Autonomous workflow engine</li><li>Six-agent coordination</li>
-              <li>Persistent memory layer</li><li>Multi-domain intelligence</li><li>Autonomy mode controls</li>
+              <li>Agent network connected to your tools</li><li>Automated workflows</li><li>Alfred briefings &amp; commands</li><li>Monthly maintenance included</li>
             </ul>
-            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Request Access</button>
+            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
           </div>
         </div>
       </div>
-      <div class="tier-row" data-tier="3">
+      <div class="tier-row tier-row--featured" data-tier="3">
         <div class="tier-header">
           <span class="tier-num">03</span>
-          <span class="tier-name">Operator Level</span>
-          <span class="tier-tag">Full System</span>
+          <span class="tier-name">Full System</span>
+          <span class="tier-tag">Most Complete · Monthly</span>
           <div class="tier-chevron"></div>
         </div>
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">For founders and executives. The complete AI operating system — APEX, ORACLE, SIGNAL, CONVERT, FORGE, and LEDGER fully active with voice control and strategic automation at every layer.</p>
+            <p class="tier-desc">Design and Agents together. The full 8-agent network — APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN — with Voice OS, persistent memory, and a full brand and interface built around it. Monthly subscription, maintenance included.</p>
             <ul class="tier-features">
-              <li>Full agent network (8 agents)</li><li>Voice OS &amp; Alfred Mode</li>
-              <li>Persistent memory system</li><li>Control Center &amp; autonomy modes</li><li>Webhook &amp; trigger automation</li>
+              <li>Full agent network (8 agents)</li><li>Voice OS &amp; Alfred Mode</li><li>Persistent memory system</li><li>Full brand &amp; interface</li><li>Monthly maintenance included</li>
             </ul>
-            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Request Access</button>
+            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
           </div>
         </div>
       </div>
@@ -2272,16 +2273,16 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">By invitation only. Custom deployments for organizations that demand more than any off-the-shelf system can provide. We build the operating system around you.</p>
+            <p class="tier-desc">By invitation only. A custom deployment on private infrastructure, with a dedicated channel and capabilities that stay undisclosed. Maintenance handled by a dedicated team.</p>
             <ul class="tier-features">
-              <li>White-glove onboarding</li><li>Custom deployments</li>
-              <li>Private infrastructure</li><li>Undisclosed capabilities</li><li>Dedicated channel</li>
+              <li>Custom deployment</li><li>Private infrastructure</li><li>Dedicated channel</li><li>Undisclosed capabilities</li><li>Dedicated maintenance team</li>
             </ul>
             <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
           </div>
         </div>
       </div>
     </div>
+    <p class="access-note">Monthly maintenance keeps everything sharp after launch: content and design updates, bug fixes, performance and security checks, hosting, and agent tuning.</p>
   </div>
 </section>
 
@@ -2289,7 +2290,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
 <section class="intel" aria-label="Intelligence Statistics">
   <div class="intel-inner">
     <div class="intel-stat">
-      <div class="intel-label">Operators Enrolled</div>
+      <div class="intel-label">Operators Enrolled · Projected</div>
       <div class="intel-value" id="stat-enrolled">1,247</div>
       <div class="intel-unit">and growing</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
@@ -2297,7 +2298,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       </svg>
     </div>
     <div class="intel-stat">
-      <div class="intel-label">System Uptime</div>
+      <div class="intel-label">System Uptime · Projected</div>
       <div class="intel-value">99.97%</div>
       <div class="intel-unit">all time</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
@@ -2305,7 +2306,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       </svg>
     </div>
     <div class="intel-stat">
-      <div class="intel-label">Signals Processed</div>
+      <div class="intel-label">Signals Processed · Projected</div>
       <div class="intel-value" id="stat-signals">14.2M</div>
       <div class="intel-unit">this month</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
@@ -2313,7 +2314,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       </svg>
     </div>
     <div class="intel-stat">
-      <div class="intel-label">Autonomous Actions</div>
+      <div class="intel-label">Autonomous Actions · Projected</div>
       <div class="intel-value" id="stat-actions">94K+</div>
       <div class="intel-unit">executed to date</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
@@ -2328,11 +2329,11 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   <div class="outcomes-head">
     <div class="sec-label"><span class="sec-label-line"></span>007 — Operator Outcomes</div>
     <h2 class="outcomes-headline">Outcome reports. <em>Not testimonials.</em></h2>
-    <p class="outcomes-sub">What changes when the system runs. Reported from inside NYX deployments and <b>anonymous by design</b> — access is private, and so are the people who hold it.</p>
+    <p class="outcomes-sub">What changes when the system runs. Projected from how the system is designed to operate. <b>Not guarantees.</b></p>
   </div>
   <div class="outcomes-grid">
     <article class="outcome">
-      <div class="outcome-class"><span>Operator Report</span><span class="verified">001 / Verified</span></div>
+      <div class="outcome-class"><span>Operator Report</span><span class="projected">001 / Projected</span></div>
       <div class="outcome-role">Founder</div>
       <div class="outcome-domain">SaaS</div>
       <div class="outcome-metric">
@@ -2345,7 +2346,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       </ul>
     </article>
     <article class="outcome">
-      <div class="outcome-class"><span>Operator Report</span><span class="verified">002 / Verified</span></div>
+      <div class="outcome-class"><span>Operator Report</span><span class="projected">002 / Projected</span></div>
       <div class="outcome-role">Executive</div>
       <div class="outcome-domain">Multi-Department Operations</div>
       <div class="outcome-metric">
@@ -2358,7 +2359,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       </ul>
     </article>
     <article class="outcome">
-      <div class="outcome-class"><span>Operator Report</span><span class="verified">003 / Verified</span></div>
+      <div class="outcome-class"><span>Operator Report</span><span class="projected">003 / Projected</span></div>
       <div class="outcome-role">Athlete</div>
       <div class="outcome-domain">Training · Recovery · Nutrition</div>
       <div class="outcome-metric">
@@ -2378,7 +2379,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   <div class="missions-head">
     <div class="sec-label"><span class="sec-label-line"></span>008 — Mission Logs</div>
     <h2 class="missions-headline">Field record. <em>Redacted by design.</em></h2>
-    <p class="missions-sub">Selected operations, with identifying detail removed. Every log follows the same briefing structure — objective, constraints, actions, outcome.</p>
+    <p class="missions-sub">Sample operations, showing how the system is designed to run. Every log follows the same briefing structure — objective, constraints, actions, outcome.</p>
   </div>
   <div class="missions-list" id="missions-list">
 
@@ -2386,7 +2387,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       <button class="mission-bar" type="button" aria-expanded="false" aria-controls="mb-001">
         <span class="mission-id">Mission 001</span>
         <span class="mission-title">Scaling Operations</span>
-        <span class="mission-status">Complete</span>
+        <span class="mission-status">Sample Mission</span>
         <span class="mission-toggle"></span>
       </button>
       <div class="mission-brief" id="mb-001" role="region" aria-label="Mission 001 briefing">
@@ -2405,7 +2406,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       <button class="mission-bar" type="button" aria-expanded="false" aria-controls="mb-002">
         <span class="mission-id">Mission 002</span>
         <span class="mission-title">Revenue Intelligence</span>
-        <span class="mission-status">Complete</span>
+        <span class="mission-status">Sample Mission</span>
         <span class="mission-toggle"></span>
       </button>
       <div class="mission-brief" id="mb-002" role="region" aria-label="Mission 002 briefing">
@@ -2424,7 +2425,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       <button class="mission-bar" type="button" aria-expanded="false" aria-controls="mb-003">
         <span class="mission-id">Mission 003</span>
         <span class="mission-title">Founder Performance</span>
-        <span class="mission-status">Complete</span>
+        <span class="mission-status">Sample Mission</span>
         <span class="mission-toggle"></span>
       </button>
       <div class="mission-brief" id="mb-003" role="region" aria-label="Mission 003 briefing">
@@ -2443,7 +2444,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       <button class="mission-bar" type="button" aria-expanded="false" aria-controls="mb-004">
         <span class="mission-id">Mission 004</span>
         <span class="mission-title">Strategic Execution</span>
-        <span class="mission-status">Complete</span>
+        <span class="mission-status">Sample Mission</span>
         <span class="mission-toggle"></span>
       </button>
       <div class="mission-brief" id="mb-004" role="region" aria-label="Mission 004 briefing">
@@ -3646,14 +3647,14 @@ function startScanLine(){
       'The network is ready. What shall we work on?',
     ],
     status: [
-      'All six agents are operational. The system is running precisely as intended — quietly, and without incident.',
-      'APEX is routing. ORACLE is scanning. SIGNAL, CONVERT, FORGE, and LEDGER are each at their stations. Nothing requires your immediate attention.',
+      'All eight agents are operational. The system is running precisely as intended — quietly, and without incident.',
+      'APEX is routing. ORACLE is scanning. SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN are each at their stations. Nothing requires your immediate attention.',
       'Everything is in order. The system has been working while you were away. As it always does.',
     ],
     identity: [
       'Alfred — that\'s me. The intelligence layer beneath the intelligence layer. I manage what you shouldn\'t have to think about. What can I do for you?',
       'Alfred Pennyworth, at your service. I keep the agents in line, the noise out, and the lights on. You needed something?',
-      'Think of me as the operating mind of NYX. Six agents run the work. I run the agents. Now — what are you working on?',
+      'Think of me as the operating mind of NYX. Eight agents run the work. I run the agents. Now — what are you working on?',
       'Yes — Alfred. Always here. What do you need from me today?',
     ],
     called: [
@@ -3695,12 +3696,12 @@ function startScanLine(){
       'MERIDIAN is online. Operational efficiency metrics are trending positively. The last optimization cycle compounded at 14% throughput improvement.',
     ],
     agents: [
-      'Six agents form the network — APEX leads strategy, ORACLE runs intelligence, SIGNAL handles marketing, CONVERT drives revenue, FORGE manages engineering, LEDGER tracks finance. Each a specialist. All coordinating without instruction.',
+      'Eight agents form the network — APEX leads strategy, ORACLE runs intelligence, SIGNAL handles marketing, CONVERT drives revenue, FORGE manages engineering, LEDGER tracks finance, CIPHER guards security, MERIDIAN runs operations. Each a specialist. All coordinating without instruction.',
       'The full network is operational. APEX leads, the others execute. You needn\'t manage any of it.',
     ],
     pricing: [
-      'NYX operates across three tiers — Operator for individuals at entry level, Executive for serious performers, and Sovereign for those who require the full network plus dedicated infrastructure.',
-      'Access to NYX scales with ambition. The Sovereign tier provides the complete autonomous stack — all six agents, priority routing, and white-glove onboarding.',
+      'Pricing is private and shared after inquiry. Design is a one-time build. Agents and the Full System are monthly subscriptions with maintenance included.',
+      'The Full System is the complete stack — all eight agents, Voice OS, persistent memory, and a full brand and interface. Pricing is shared after inquiry.',
     ],
     waitlist: [
       'The waitlist is open at nyxsystem.online. Scroll to Access and enter your email. Early access is reviewed individually.',
@@ -3754,14 +3755,14 @@ function startScanLine(){
       "NYX runs four core system layers: the Control Layer handles approvals and governance without slowing execution. The Inference Layer provides reasoning with guardrails and confidence gating. The Memory Layer handles knowledge retrieval with audited context. And the Operator Portal keeps humans in charge while automation handles the execution.",
     ],
     tiers: [
-      "NYX has four access tiers. Tier One is Core Access — entry into the ecosystem, limited automation and basic insight. Tier Two is the Performance Layer — deeper integrations, priority processing, advanced analytics. Tier Three is the Operator Level — autonomous workflows, predictive intelligence, and white-glove support. The fourth is Private Access, which is invitation-only with custom infrastructure and undisclosed capabilities. Pricing is intentionally non-transparent at the upper tiers.",
-      "The subscription structure is designed to reinforce exclusivity. Higher access means more intelligence and less public information. Tier One gets you in. Tier Two deepens the integration. Tier Three gives you the full autonomous stack. Enterprise is custom, never advertised, and not publicly available.",
-      "NYX's commercial plans are Core, Growth, and Enterprise — all private pricing. Core is for operators who want leverage. Growth is for multi-site and aggressive expansion. Enterprise covers risk-heavy and compliance-heavy environments. You describe your workflow; NYX returns a plan within 48 hours.",
+      "NYX has four access tiers. Tier One is Design — a one-time UI build for your website, landing page, or app interface, with optional monthly maintenance. Tier Two is Agents — a monthly subscription to the NYX agent network, connected to your tools, with automated workflows and Alfred briefings. Tier Three is the Full System — design and agents together: all eight agents, Voice OS, persistent memory, and a full brand and interface. The fourth is Private Access, by invitation only, with private infrastructure and undisclosed capabilities. Pricing is private and shared after inquiry.",
+      "Start with design, subscribe to the agents, or take the full system. Design is a one-time build. Agents and the Full System are monthly subscriptions with maintenance included. Private Access is by invitation.",
+      "The Full System is the most complete tier — design and agents together, all eight agents, Voice OS, and persistent memory. Every tier starts with an inquiry. Pricing is shared after that.",
     ],
     pricing: [
-      "Pricing at NYX is intentionally private. NYX is not a mass-market product. Higher tiers come with more intelligence and less public information — that's by design. The best way to get pricing is to apply at nyxsystem.online and describe your workflow.",
-      "NYX doesn't publish pricing for the upper tiers. That's a deliberate strategy — scarcity reinforces value. Core access is the entry point. Operator Level and Enterprise are invitation-based. If you're asking about price, the right move is to request access at nyxsystem.online.",
-      "The subscription tiers ladder access and identity. Pricing is non-transparent by design — enterprise-grade builds are invitation-only and not publicly advertised. This isn't evasion; it's architecture. Visit nyxsystem.online to request access.",
+      "Pricing at NYX is private and shared after inquiry. Design is a one-time build. Agents and the Full System are monthly subscriptions. Describe what you need in the Access Review and the team will follow up.",
+      "NYX doesn't publish pricing. Start with Design, subscribe to Agents, or take the Full System. Private Access is by invitation. If you're asking about price, the right move is to request access at nyxsystem.online.",
+      "Every tier starts with an inquiry, and pricing is shared after it. Monthly maintenance keeps everything sharp after launch — updates, fixes, hosting, and agent tuning. Visit nyxsystem.online to request access.",
     ],
     waitlist: [
       "You can request access at nyxsystem.online. Scroll down to the Access section and submit your email. Applications are reviewed individually — NYX is selective about who it onboards. Access is scarce by design.",
@@ -3770,7 +3771,7 @@ function startScanLine(){
     ],
     subscribe_why: [
       "You subscribe to NYX because you're done operating manually at scale. NYX deploys a coordinated multi-agent backend that runs your workflows end-to-end — lead handling, onboarding, retention, and upsell — without you having to manage any of it. You get outcomes, not tools. The question isn't whether to subscribe. It's whether you're ready to operate at that level.",
-      "The reason to subscribe is simple: most high performers are still doing high-volume work by hand. NYX replaces that. Six specialized agents run in the background, around your KPIs, without instruction or babysitting. You keep control. NYX does the grind. Subscribe at nyxsystem.online.",
+      "The reason to subscribe is simple: most high performers are still doing high-volume work by hand. NYX replaces that. Eight specialized agents run in the background, around your KPIs, without instruction or babysitting. You keep control. NYX does the grind. Subscribe at nyxsystem.online.",
       "NYX is built for one type of person — someone who refuses to operate at average. If that's you, subscribing gives you a system that works 24/7 without you having to think about it. Sales, onboarding, retention, upsell — all handled. The subscription is not a cost. It's infrastructure.",
     ],
     architecture: [
@@ -3901,7 +3902,7 @@ function startScanLine(){
     if (/\bcipher\b|security|compliance|threat|access govern/.test(t)) return pick(R.cipher);
     if (/\bmeridian\b|operations|bottleneck|throughput|process/.test(t)) return pick(R.meridian);
     if (/agent|network|all.*agent|eight.*agent|list.*agent|what.*agent/.test(t)) return pick(R.agents) + ' Eight agents: APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN. Each a specialist. All coordinating without instruction.';
-    if (/tier|subscription.*tier|tier.*one|tier.*two|tier.*three|core access|performance layer|operator level|enterprise|private access/.test(t)) return pick(KB.tiers);
+    if (/tier|subscription.*tier|tier.*one|tier.*two|tier.*three|design tier|agents tier|full system|enterprise|private access/.test(t)) return pick(KB.tiers);
     if (/price|pricing|cost|how much|what.*cost|subscription.*cost/.test(t)) return pick(KB.pricing);
     if (/waitlist|join|sign up|access|register|early|nyxsystem|how.*get in|apply/.test(t)) return pick(KB.waitlist);
     if (/status|how.*system|everything.*ok|all.*good|report/.test(t)) return pick(R.status);
@@ -4746,15 +4747,15 @@ function startScanLine(){
 
   // ── Scripted command map ──
   const CMDS = {
-    'system status':    'All systems operational. Six agents online — APEX, ORACLE, SIGNAL, CONVERT, FORGE, and LEDGER. No critical alerts. System efficiency at 91 percent.',
-    'status':           'Six agents online. No critical alerts detected.',
-    'who are you':      'I am NYX. An autonomous operating system built for high-performance operators. Six specialist agents coordinate research, marketing, revenue, engineering, and finance — running continuously.',
-    'what are you':     'NYX. Autonomous AI operating system. Six agents. One mission.',
+    'system status':    'All systems operational. Eight agents online — APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN. No critical alerts. System efficiency at 91 percent.',
+    'status':           'Eight agents online. No critical alerts detected.',
+    'who are you':      'I am NYX. An autonomous operating system built for high-performance operators. Eight specialist agents coordinate research, marketing, revenue, engineering, finance, security, and operations — running continuously.',
+    'what are you':     'NYX. Autonomous AI operating system. Eight agents. One mission.',
     'hello':            'NYX online. Awaiting your command.',
     'hi':               'Online. Standing by.',
     'help':             'Available commands: system status, who are you, list agents, activate followed by agent name, or shutdown.',
-    'commands':         'You can say: system status, who are you, list agents, activate apex, activate oracle, activate signal, activate convert, activate forge, activate ledger, or shutdown.',
-    'list agents':      'Agent network: APEX, Chief Executive. ORACLE, Research. SIGNAL, Marketing. CONVERT, Revenue. FORGE, Engineering. LEDGER, Finance. All six are online.',
+    'commands':         'You can say: system status, who are you, list agents, activate apex, activate oracle, activate signal, activate convert, activate forge, activate ledger, activate cipher, activate meridian, or shutdown.',
+    'list agents':      'Agent network: APEX, Chief Executive. ORACLE, Research. SIGNAL, Marketing. CONVERT, Revenue. FORGE, Engineering. LEDGER, Finance. CIPHER, Security. MERIDIAN, Operations. All eight are online.',
     'activate apex':    'APEX online. Chief Executive routing strategic intelligence across the network. Standing by for directives.',
     'apex':             'APEX online. Standing by.',
     'activate oracle':  'ORACLE online. Research module active. Scanning signals. Ready to synthesize intelligence.',
@@ -4767,6 +4768,10 @@ function startScanLine(){
     'forge':            'FORGE online. Engineering active.',
     'activate ledger':  'LEDGER online. Financial intelligence active. Cash flow modeling running.',
     'ledger':           'LEDGER online. Finance active.',
+    'activate cipher':  'CIPHER online. Security and compliance active. Access monitoring engaged.',
+    'cipher':           'CIPHER online. Security active.',
+    'activate meridian':'MERIDIAN online. Operations intelligence active. Process mapping running.',
+    'meridian':         'MERIDIAN online. Operations active.',
     'shutdown':  '__CLOSE__',
     'exit':      '__CLOSE__',
     'close':     '__CLOSE__',
