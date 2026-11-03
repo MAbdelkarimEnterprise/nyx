@@ -1833,6 +1833,28 @@ html:has(#night-field.show) #hero::before{opacity:0}
 #alfred :is(.hub-tabs,.hub-panel){background:transparent!important}
 #alfred .hub-tabs{border-bottom-color:color-mix(in srgb,var(--blue-4) 30%,transparent)!important}
 @media(max-width:700px){#alfred .hub-tabs{padding:12px 16px 0!important}#alfred .hub-panel{padding:20px 16px!important}#alfred .n-panel{padding:0!important}}
+
+/* ══ BOLD 5: OPTIONS ══ raised cards over the field's band; hover lifts and lights the
+   border blue; Full System wears the blue→pink gradient edge; Private Access is darker
+   and its details sit behind a blur until opened. */
+#access .n-card{position:relative;background:linear-gradient(180deg,color-mix(in srgb,var(--blue-1) 35%,var(--raised)),var(--raised) 40%)!important;border:1px solid color-mix(in srgb,var(--blue-4) 30%,transparent)!important;
+  box-shadow:0 24px 60px -36px var(--system);transition:transform 240ms var(--ease-ui),border-color 240ms var(--ease-ui),box-shadow 240ms var(--ease-ui)}
+#access .n-card:hover{transform:translateY(-6px);border-color:var(--blue-5)!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--blue-4) 50%,transparent),0 30px 70px -30px var(--system),0 0 40px -12px var(--system)}
+#access .n-card-name{color:var(--ink-1)}
+#access .n-card-tag{color:var(--blue-5)}
+#access .n-card--feature{border:1px solid transparent!important;transform:translateY(-14px);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--blue-1) 60%,var(--raised)),var(--raised) 55%) padding-box,linear-gradient(150deg,var(--blue-3),var(--blue-4) 40%,var(--command) 100%) border-box!important;
+  box-shadow:0 0 50px -10px color-mix(in srgb,var(--system) 80%,transparent),0 20px 60px -20px color-mix(in srgb,var(--command) 45%,transparent)}
+#access .n-card--feature:hover{transform:translateY(-20px);border-color:transparent!important;box-shadow:0 0 70px -6px var(--system),0 24px 70px -18px color-mix(in srgb,var(--command) 60%,transparent)}
+#access .n-card-flag{color:var(--pink-glow)!important;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-shadow:0 0 16px color-mix(in srgb,var(--command) 60%,transparent)}
+#access .n-card--private{background:linear-gradient(180deg,color-mix(in srgb,var(--surface) 70%,black),var(--surface))!important;border:1px dashed color-mix(in srgb,var(--blue-4) 40%,transparent)!important}
+#access .n-card-veil{margin:0 0 var(--s4);filter:blur(4px);opacity:.6;user-select:none;pointer-events:none}
+#access .n-card-more[open] + .n-card-veil{display:none}
+#access .n-card-more summary{color:var(--blue-5)}
+#access .n-card-more summary:hover{color:var(--pink-glow)}
+#access .n-card.is-chosen{box-shadow:0 0 0 1px var(--command-hover),var(--glow-pink),0 30px 70px -30px var(--system)!important}
+@media(max-width:1100px){#access .n-card--feature,#access .n-card--feature:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){#access .n-card,#access .n-card:hover{transition:none;transform:none}}
 </style>
 </head>
 <body>
@@ -2183,7 +2205,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
         <h3 class="n-card-name">Private Access</h3>
         <p class="n-card-type">Custom</p>
         <p class="n-card-desc">A system built around you. For organizations off-the-shelf can't serve.</p>
-        <details class="n-card-more"><summary>Details on invitation</summary><ul class="n-card-list"><li>Custom deployment</li><li>Private infrastructure</li><li>Dedicated channel</li><li>Undisclosed capabilities</li><li>Dedicated maintenance team</li></ul></details>
+        <details class="n-card-more"><summary>Details on invitation</summary><ul class="n-card-list"><li>Custom deployment</li><li>Private infrastructure</li><li>Dedicated channel</li><li>Undisclosed capabilities</li><li>Dedicated maintenance team</li></ul></details><ul class="n-card-list n-card-veil" aria-hidden="true"><li>Custom deployment</li><li>Private infrastructure</li><li>Dedicated channel</li><li>Undisclosed capabilities</li></ul>
         <button class="n-card-cta" type="button" data-inquire="Private Access">Inquire</button>
       </li>
     </ul>
