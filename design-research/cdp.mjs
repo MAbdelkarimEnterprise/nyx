@@ -9,7 +9,7 @@ export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export async function launch(extraArgs = []) {
   const port = 9300 + Math.floor(Math.random() * 500);
-  const chrome = spawn(CHROME, ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'nyxcdp-'))}`, '--hide-scrollbars', '--no-first-run', ...extraArgs, 'about:blank'], { stdio: 'ignore' });
+  const chrome = spawn(CHROME, [...(process.env.HEADED ? ['--window-size=1500,1000'] : ['--headless=new']), `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'nyxcdp-'))}`, '--hide-scrollbars', '--no-first-run', ...extraArgs, 'about:blank'], { stdio: 'ignore' });
   let wsUrl;
   for (let i = 0; i < 50 && !wsUrl; i++) {
     try { wsUrl = (await (await fetch(`http://127.0.0.1:${port}/json/list`)).json()).find((t) => t.type === 'page')?.webSocketDebuggerUrl; } catch { await sleep(200); }

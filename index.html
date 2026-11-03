@@ -1391,12 +1391,9 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
 .n-node--apex .n-node-btn{min-width:176px;min-height:76px;background:var(--dusk);border-color:var(--moon)}
 .n-node--apex .n-node-name{font:300 var(--t-h3)/1 var(--display);font-variation-settings:'opsz' 36;letter-spacing:0.08em}
 .n-node-desc{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.n-hub-detail{position:absolute;left:0;bottom:-8px;max-width:360px;padding:var(--s3);background:var(--dusk);border:1px solid var(--line);border-radius:var(--r2)}
-.n-hub-detail-name{margin:0 0 var(--s1);font:500 var(--t-small)/1.4 var(--ui);color:var(--text-1);letter-spacing:0.04em}
-.n-hub-detail-desc{margin:0;font:400 var(--t-small)/1.6 var(--ui);color:var(--text-2)}
 @media(max-width:900px){
   .n-hub{aspect-ratio:auto}
-  .n-hub-lines,.n-hub-detail{display:none}
+  .n-hub-lines{display:none}
   .n-nodes{display:flex;flex-direction:column;border-top:1px solid var(--line)}
   .n-node{position:static;transform:none;padding:var(--s3) 0;border-bottom:1px solid var(--line)}
   .n-node-btn{flex-direction:row;align-items:baseline;justify-content:space-between;width:100%;min-width:0;background:none;border:0;padding:0;min-height:44px;cursor:default}
@@ -1505,8 +1502,7 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
 /* Design 4 — review fixes */
 [hidden]{display:none!important}
 .n-hub{aspect-ratio:auto}
-.n-hub-map{position:relative;aspect-ratio:16/10}
-.n-hub-detail{position:static;margin-top:var(--s4)}
+.n-hub-map{position:relative;aspect-ratio:12/5}
 .n-panel{position:relative}
 .alfred-hub .n-panel-tag{position:absolute;top:var(--s3);right:var(--s4);margin:0}
 .alfred-hub .alfred-tabs{border:0!important;background:none!important;padding:0!important}
@@ -1599,6 +1595,61 @@ footer *{letter-spacing:0.01em!important;text-transform:none!important}
 /* ── PHASE 3: focus ─────────────────────────────────────────────────── */
 :focus-visible{outline:2px solid var(--focus)!important;outline-offset:2px}
 .assessment-field:focus-visible,.waitlist-input:focus-visible,.af-text-in:focus-visible{outline-offset:0}
+
+/* ══ INTERACTION: AGENT NETWORK COMMAND LOOP ══════════════════════════
+   Blue is the system, pink is you. Sizes are reserved up front; states are
+   attribute flips on #n-cmd[data-state]. */
+.n-node-btn[aria-pressed="true"]{border-color:var(--system-active)}
+.n-node-btn[aria-pressed="true"] .n-node-name{color:var(--system-text-hi)}
+.n-node--apex.is-cmd .n-node-btn{border-color:var(--command)}
+.n-node.is-routing .n-node-btn{border-color:var(--system-active)}
+.n-cmd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:var(--s4);margin-top:var(--s4);padding:var(--s4);background:var(--raised);border:1px solid var(--structure);border-radius:var(--r2)}
+.n-cmd-agent{margin:0 0 var(--s2);font:500 var(--t-small)/1.4 var(--ui);letter-spacing:0.04em;color:var(--system-text-hi)}
+.n-cmd-name::after{content:' ·';color:var(--text-tertiary)}
+.n-cmd-role{font-weight:400;color:var(--text-tertiary)}
+.n-cmd-presets{display:flex;flex-direction:column;gap:var(--s1);margin-bottom:var(--s2)}
+.n-cmd-preset{min-height:44px;padding:10px 14px;text-align:left;background:none;border:1px solid var(--structure-strong);border-radius:var(--r1);color:var(--text-primary);font:400 var(--t-small)/1.4 var(--ui);cursor:pointer;transition:border-color var(--d-ui) var(--ease-ui)}
+.n-cmd-preset:hover{border-color:var(--system-active)}
+.n-cmd-preset.is-cmd{border-color:var(--command);box-shadow:inset 2px 0 0 var(--command)}
+.n-cmd-preset.is-cmd:hover{border-color:var(--command-hover)}
+.n-cmd-form{display:flex;gap:var(--s1)}
+.n-cmd-input{flex:1;min-width:0;min-height:44px;padding:0 14px;background:var(--overlay);border:1px solid var(--control);border-radius:var(--r1);color:var(--text-primary);font:400 16px/1 var(--ui)}
+.n-cmd-input::placeholder{color:var(--text-tertiary)}
+.n-cmd-input:focus{border-color:var(--command)}
+.n-cmd-send{min-height:44px;padding:0 var(--s3);background:var(--system);border:1px solid var(--system);border-radius:var(--r1);color:var(--text-primary);font:500 var(--t-small)/1 var(--ui);cursor:pointer}
+.n-cmd-reply{position:relative;height:320px;overflow-y:auto;overscroll-behavior:contain;padding-left:var(--s4);border-left:1px solid var(--structure)}
+.n-cmd-desc{margin:0;font:400 var(--t-small)/1.7 var(--ui);color:var(--text-secondary)}
+.n-cmd-you{margin:0 0 var(--s2);padding-left:var(--s2);border-left:2px solid var(--command);font:400 var(--t-small)/1.5 var(--ui);color:var(--text-primary)}
+.n-cmd-status{display:flex;align-items:center;gap:var(--s1);margin:0 0 var(--s1);font:500 var(--t-caption)/1.4 var(--ui);letter-spacing:0.04em;color:var(--system-text)}
+.n-cmd-text{margin:0;font:400 15px/1.65 var(--ui);color:var(--text-primary);white-space:pre-line}
+.n-cmd-after{display:none;gap:var(--s3);margin-top:var(--s2)}
+.n-cmd-inquire,.n-cmd-retry{display:inline-flex;align-items:center;min-height:44px;padding:0;background:none;border:0;color:var(--system-text);font:500 var(--t-small)/1 var(--ui);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.n-cmd-close{display:none}
+.n-cmd-dot{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:var(--command);box-shadow:0 0 14px 3px color-mix(in srgb,var(--command-glow) 55%,transparent);opacity:0;pointer-events:none;z-index:6}
+.n-cmd[data-state="rest"] :is(.n-cmd-you,.n-cmd-status,.n-cmd-text){display:none}
+.n-cmd:not([data-state="rest"]) .n-cmd-desc{display:none}
+.n-cmd[data-state="routing"] .n-cmd-status::before,.n-cmd[data-state="sent"] .n-cmd-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--system-active);animation:n-wait 900ms var(--ease-ui) infinite alternate}
+@keyframes n-wait{from{opacity:.25}to{opacity:1}}
+.n-cmd:is([data-state="done"],[data-state="limited"],[data-state="error"],[data-state="offline"]) .n-cmd-after{display:flex}
+.n-cmd:is([data-state="done"],[data-state="limited"]) .n-cmd-retry,.n-cmd:is([data-state="error"],[data-state="offline"]) .n-cmd-inquire{display:none}
+.n-cmd:is([data-state="error"],[data-state="offline"],[data-state="limited"]) .n-cmd-status{padding-left:var(--s2);border-left:2px solid var(--structure-strong);color:var(--error);font-size:var(--t-small);letter-spacing:0}
+@media(max-width:900px){
+  .n-node-btn{cursor:pointer}
+  .n-node:has(> [aria-pressed="true"]){box-shadow:-12px 0 0 -10px var(--system-active)}
+  .n-node.is-routing{animation:n-wait 700ms var(--ease-ui) infinite alternate}
+  .n-cmd{position:sticky;bottom:0;z-index:5;display:block;margin:var(--s3) calc(-1 * var(--gutter)) 0;padding:var(--s2) var(--gutter) calc(var(--s2) + env(safe-area-inset-bottom));border-width:1px 0 0;border-radius:0}
+  .n-cmd-agent{margin-bottom:var(--s1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .n-cmd-presets{height:60px;align-items:stretch}
+  .n-cmd-presets{flex-direction:row;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--gutter)) var(--s1);padding:0 var(--gutter);scroll-padding:0 var(--gutter);scroll-snap-type:x mandatory}
+  .n-cmd-presets::-webkit-scrollbar{display:none}
+  .n-cmd-preset{flex:0 0 auto;width:76vw;min-height:0;padding:8px 14px;line-height:1.35;overflow:hidden;scroll-snap-align:start}
+  .n-cmd-reply{position:absolute;left:0;right:0;bottom:100%;height:auto;height:45vh;padding:var(--s2) var(--gutter) var(--s3);border-left:0;border-top:1px solid var(--structure);background:var(--overlay)}
+  .n-cmd[data-state="rest"] .n-cmd-reply,.n-cmd-desc{display:none}
+  .n-cmd-close{display:block;position:sticky;top:0;float:right;min-width:44px;min-height:44px;margin:-8px -12px 0 0;background:none;border:0;color:var(--text-secondary);font:300 24px/1 var(--ui);cursor:pointer}
+  .hub-in-view .ask-alfred{visibility:hidden}
+}
+@media(prefers-reduced-motion:reduce){.n-cmd-status::before,.n-node.is-routing{animation:none!important}}
+.motion-paused .n-cmd-status::before,.motion-paused .n-node.is-routing{animation:none!important}
 </style>
 </head>
 <body>
@@ -1750,10 +1801,30 @@ footer *{letter-spacing:0.01em!important;text-transform:none!important}
       </li>
       </ol>
       </div>
-      <div class="n-hub-detail" aria-hidden="true">
-        <p class="n-hub-detail-name"></p>
-        <p class="n-hub-detail-desc"></p>
+      <div class="n-cmd" id="n-cmd" data-state="rest">
+        <div class="n-cmd-main">
+          <p class="n-cmd-agent"><span class="n-cmd-name">APEX</span> <span class="n-cmd-role">Chief Executive Officer</span></p>
+          <div class="n-cmd-presets" role="group" aria-label="Commands"></div>
+          <form class="n-cmd-form" novalidate>
+            <label class="visually-hidden" for="n-cmd-input">Your command</label>
+            <input id="n-cmd-input" class="n-cmd-input" type="text" maxlength="500" autocomplete="off" enterkeyhint="send" placeholder="Or give your own command">
+            <button type="submit" class="n-cmd-send">Send</button>
+          </form>
+        </div>
+        <div class="n-cmd-reply">
+          <button type="button" class="n-cmd-close" aria-label="Close reply">×</button>
+          <p class="n-cmd-desc"></p>
+          <p class="n-cmd-you"></p>
+          <p class="n-cmd-status"></p>
+          <p class="n-cmd-text"></p>
+          <div class="n-cmd-after">
+            <a class="n-cmd-inquire" href="#waitlist" data-inquire="">Inquire →</a>
+            <button type="button" class="n-cmd-retry">Try again</button>
+          </div>
+        </div>
+        <p class="visually-hidden" id="n-cmd-live" role="status" aria-live="polite"></p>
       </div>
+      <span class="n-cmd-dot" aria-hidden="true"></span>
     </div>
   </div>
 </section>
@@ -2192,6 +2263,11 @@ footer *{letter-spacing:0.01em!important;text-transform:none!important}
   </div>
 </footer>
 
+<script>
+// Analytics: queue for Vercel Web Analytics (custom events). Safe no-op until the script is enabled.
+window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };
+window.nyxTrack = function(name, data){ window.va('event', { name: name, data: data || {} }); };
+</script>
 <!-- Scripts start after the first frame is painted, so the hero never waits on them.
      Vercel Web Analytics: once enabled in the Vercel dashboard, add "/_vercel/insights/script.js" to the list. -->
 <script>

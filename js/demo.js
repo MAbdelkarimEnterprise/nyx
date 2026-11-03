@@ -249,6 +249,7 @@
 
   let lastFailed = false;
   async function getReply(query){
+    if (window.nyxTrack) window.nyxTrack('alfred_message');
     try{
       const res = await fetch('/api/agent', {
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -273,6 +274,8 @@
       overflow:hidden;
     }
     #alfred-overlay.active{opacity:1;pointer-events:all}
+    /* Closed: hidden for clicks and focus too (its input once caught clicks while invisible). */
+    #alfred-overlay:not(.active){visibility:hidden;transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),visibility 0s 0.7s}
 
     /* scan-line overlay */
     #alfred-overlay::before{

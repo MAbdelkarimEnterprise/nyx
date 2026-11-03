@@ -1,0 +1,61 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "at": "2026-11-03T21:47:22.482Z",
+  "cpu": "4x",
+  "runs": {
+    "390": {
+      "hero": {
+        "frames": 299,
+        "fps": 59.8,
+        "p50": 16.7,
+        "p95": 17.6,
+        "max": 32.5,
+        "long": 1
+      },
+      "agents": {
+        "frames": 248,
+        "fps": 60,
+        "p50": 16.7,
+        "p95": 17.6,
+        "max": 17.7,
+        "long": 0
+      },
+      "loop": {
+        "frames": 209,
+        "fps": 60,
+        "p50": 16.7,
+        "p95": 17.6,
+        "max": 17.8,
+        "long": 0,
+        "state": "done"
+      },
+      "interactions": 3,
+      "inp_ms": 88,
+      "slow_events": 12,
+      "worst": [
+        {
+          "n": "pointerdown",
+          "d": 88,
+          "proc": 0.1,
+          "delay": 0.7,
+          "t": "n-node-btn is-on"
+        },
+        {
+          "n": "pointerup",
+          "d": 88,
+          "proc": 0.1,
+          "delay": 0,
+          "t": "n-node-btn is-on"
+        },
+        {
+          "n": "click",
+          "d": 88,
+          "proc": 1,
+          "delay": 0.1,
+          "t": "n-node-btn is-on"
+        }
+      ],
+      "cls": 0.0003
+    }
+  }
+}

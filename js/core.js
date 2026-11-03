@@ -167,38 +167,186 @@ function nyxLoop(el, step){
   }
 })();
 
-/* ── AGENT HUB ── focus/hover shows an agent's link to APEX and its detail;
-   one pulse travels one line every few seconds, never two at once. */
+/* ── AGENT NETWORK: COMMAND LOOP (signature) ─────────────
+   Blue is the system, pink is you. At rest the network pulses on its own.
+   Hover/focus previews an agent; click/Enter selects it; a preset or typed
+   command sends a pink pulse to APEX, APEX routes it in blue, and a real
+   /api/agent reply is revealed. States live on #n-cmd[data-state]:
+   rest → sent → routing → reveal → done | limited | error | offline.
+   Reduced motion (or Pause): no pulses or travel, same states and text. */
 (function(){
   const hub = document.getElementById('hub');
-  if (!hub) return;
-  const nameEl = hub.querySelector('.n-hub-detail-name');
-  const descEl = hub.querySelector('.n-hub-detail-desc');
+  const cmd = document.getElementById('n-cmd');
+  if (!hub || !cmd) return;
+  const $ = s => cmd.querySelector(s);
   const btns = [...hub.querySelectorAll('.n-node-btn')];
-  function show(btn){
-    const k = btn.dataset.agent;
-    hub.dataset.active = k;
-    hub.querySelectorAll('.n-link').forEach(l => l.classList.toggle('is-on', k === 'apex' || l.dataset.agent === k));
-    btns.forEach(b => b.classList.toggle('is-on', b === btn));
-    nameEl.textContent = btn.querySelector('.n-node-name').textContent + ' · ' + btn.querySelector('.n-node-role').textContent;
-    descEl.textContent = document.getElementById('desc-' + k).textContent;
-  }
-  btns.forEach(b => { b.addEventListener('mouseenter', () => show(b)); b.addEventListener('focus', () => show(b)); b.addEventListener('click', () => show(b)); });
-  show(btns[0]);
+  const links = [...hub.querySelectorAll('.n-link')];
+  const pulses = new Map([...hub.querySelectorAll('.n-pulse')].map(p => [p.dataset.agent, p]));
+  const dot = hub.querySelector('.n-cmd-dot');
+  const live = document.getElementById('n-cmd-live');
+  const presetsEl = $('.n-cmd-presets'), input = $('.n-cmd-input'), form = $('.n-cmd-form');
+  const youEl = $('.n-cmd-you'), statusEl = $('.n-cmd-status'), textEl = $('.n-cmd-text'), descEl = $('.n-cmd-desc');
+  const still = () => nyxPaused() || !dot.animate;
+  const name = b => b.querySelector('.n-node-name').textContent;
+  const role = b => b.querySelector('.n-node-role').textContent;
+  const btnOf = k => btns.find(b => b.dataset.agent === k);
 
-  const pulses = [...hub.querySelectorAll('.n-pulse')];
-  if (_pRM || !pulses.length || !pulses[0].animate) return;
-  let visible = false, timer = 0, last = -1;
+  // Questions each agent answers well (asking them to *do* the work gets a polite refusal; see design-research).
+  const PRESETS = {
+    apex: ['How do you decide which agent handles a request?', 'What stays with me, and what do you run?', 'What does a week with NYX look like?'],
+    oracle: ['How do you watch a market without being asked?', 'What would you flag first for a new brand?', 'How do you tell noise from a real shift?'],
+    signal: ['How would you plan a week of content?', 'Where does content usually lose its audience?', "How do you keep an athlete's voice intact?"],
+    convert: ['Where do deals usually leak between demo and close?', 'What would you watch in my pipeline every morning?', 'How do you decide which lead comes first?'],
+    ledger: ["How do you forecast cash once you're connected?", 'What would you flag before it becomes a cash problem?', 'How do you track burn across two businesses?'],
+    meridian: ['Where do bottlenecks usually hide?', 'How do you map a process end to end?', 'How would you run three locations as one?'],
+    cipher: ['How do you decide who gets access to what?', 'What happens when someone leaves the team?', 'What does compliance tracking look like day to day?'],
+    forge: ['How do you connect to the tools I already use?', 'How do you keep the system healthy overnight?', 'What happens when a tool we rely on goes down?'],
+  };
+
+  let selected = 'apex', busy = false, last = null;
+  const say = t => { live.textContent = ''; requestAnimationFrame(() => { live.textContent = t; }); };
+  const setState = s => { cmd.dataset.state = s; hub.dataset.cmd = s; };
+
+  // Preview: light the agent and its line to APEX (hover, focus).
+  function preview(k){
+    hub.dataset.active = k;
+    links.forEach(l => l.classList.toggle('is-on', k === 'apex' || l.dataset.agent === k));
+    btns.forEach(b => b.classList.toggle('is-on', b.dataset.agent === k));
+  }
+  // Select: the panel now commands this agent.
+  function select(k, announce){
+    selected = k;
+    const b = btnOf(k);
+    btns.forEach(x => { x.setAttribute('aria-pressed', String(x === b)); x.tabIndex = x === b ? 0 : -1; });
+    $('.n-cmd-name').textContent = name(b);
+    $('.n-cmd-role').textContent = role(b);
+    descEl.textContent = document.getElementById('desc-' + k).textContent;
+    presetsEl.setAttribute('aria-label', 'Commands for ' + name(b));
+    input.setAttribute('aria-label', 'Your command to ' + name(b));
+    presetsEl.replaceChildren(...PRESETS[k].map(q => {
+      const p = document.createElement('button'); p.type = 'button'; p.className = 'n-cmd-preset'; p.textContent = q; return p;
+    }));
+    if (!busy) { setState('rest'); youEl.textContent = statusEl.textContent = textEl.textContent = ''; }
+    preview(k);
+    if (announce) say(`${name(b)}, ${role(b)}. Three commands below, or type your own.`);
+  }
+
+  btns.forEach((b, i) => {
+    b.addEventListener('mouseenter', () => preview(b.dataset.agent));
+    b.addEventListener('focus', () => preview(b.dataset.agent));
+    b.addEventListener('click', () => select(b.dataset.agent, true));
+    b.addEventListener('keydown', e => {
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+      let j = step ? (i + step + btns.length) % btns.length : e.key === 'Home' ? 0 : e.key === 'End' ? btns.length - 1 : -1;
+      if (j < 0) return;
+      e.preventDefault(); btns.forEach(x => x.tabIndex = -1); btns[j].tabIndex = 0; btns[j].focus();
+    });
+  });
+  hub.querySelector('.n-hub-map').addEventListener('mouseleave', () => preview(selected));
+  hub.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (cmd.contains(document.activeElement)) { btnOf(selected).focus(); return; }
+    if (selected !== 'apex') { select('apex', true); btnOf('apex').focus(); }
+  });
+  $('.n-cmd-close').addEventListener('click', () => { if (!busy) { setState('rest'); btnOf(selected).focus(); } });
+
+  presetsEl.addEventListener('click', e => { const p = e.target.closest('.n-cmd-preset'); if (p) send(p.textContent, p, 'preset'); });
+  form.addEventListener('submit', e => { e.preventDefault(); const t = input.value.trim(); if (t) send(t, input, 'typed'); else input.focus(); });
+  $('.n-cmd-retry').addEventListener('click', () => { if (last) send(last.text, $('.n-cmd-retry'), 'retry'); });
+
+  // Pink: the visitor's command travels from where it was given to APEX.
+  function travel(from){
+    const apex = btnOf('apex');
+    if (still() || !apex.offsetParent) return Promise.resolve();
+    const h = hub.getBoundingClientRect(), f = from.getBoundingClientRect(), t = apex.getBoundingClientRect();
+    const x0 = f.left + f.width / 2 - h.left, y0 = f.top + f.height / 2 - h.top;
+    const x1 = t.left + t.width / 2 - h.left, y1 = t.top + t.height / 2 - h.top;
+    return dot.animate([{ transform: `translate(${x0}px,${y0}px) scale(.6)`, opacity: 0 }, { opacity: 1, offset: .15 },
+      { transform: `translate(${x1}px,${y1}px) scale(1)`, opacity: 1 }], { duration: 520, easing: 'cubic-bezier(.4,0,.2,1)' }).finished.catch(() => {});
+  }
+  // Blue: APEX routes the command out to the agent(s), repeating until the reply lands.
+  function route(k){
+    if (still()) return () => {};
+    let on = true, n = 0;
+    const others = [...pulses.keys()];
+    const target = btnOf(k).closest('.n-node');
+    target.classList.add('is-routing');
+    (function tick(){
+      if (!on) return;
+      const keys = k === 'apex' ? [others[n++ % others.length], others[(n + 3) % others.length]] : [k];
+      keys.forEach(a => pulses.get(a)?.animate([{ strokeDashoffset: 100, opacity: 0 }, { opacity: 1, offset: .2 }, { strokeDashoffset: 0, opacity: 0 }], { duration: 700, easing: 'linear' }));
+      setTimeout(tick, 720);
+    })();
+    return () => { on = false; target.classList.remove('is-routing'); };
+  }
+  // Reveal the reply in word groups inside the reserved box (no layout shift).
+  function reveal(text){
+    const words = text.split(/(\s+)/);
+    if (still()) { textEl.textContent = text; return Promise.resolve(); }
+    const dur = Math.min(900, Math.max(400, words.length * 8)), t0 = performance.now();
+    return new Promise(done => (function f(now){
+      const n = Math.ceil(words.length * Math.min(1, (now - t0) / dur));
+      textEl.textContent = words.slice(0, n).join('');
+      n < words.length ? requestAnimationFrame(f) : done();
+    })(t0));
+  }
+
+  async function send(text, from, source){
+    if (busy) return;
+    busy = true; last = { text };
+    const k = selected, agent = name(btnOf(k));
+    presetsEl.querySelectorAll('.n-cmd-preset').forEach(p => p.classList.toggle('is-cmd', p.textContent === text));
+    youEl.textContent = text; statusEl.textContent = ''; textEl.textContent = '';
+    if (window.nyxTrack) window.nyxTrack('agent_command', { agent: k, source });
+    if (!navigator.onLine) { busy = false; setState('offline'); statusEl.textContent = 'No connection. Your command is still here. Send it again once you are back online.'; say(statusEl.textContent); return; }
+    if (from === input) input.value = '';
+    setState('sent'); say('Sent to APEX.');
+    hub.querySelector('.n-node--apex').classList.add('is-cmd');
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 20000);
+    const req = fetch('/api/agent', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
+      body: JSON.stringify({ agent: k, command: text.slice(0, 500) }) })
+      .then(async r => ({ status: r.status, data: await r.json().catch(() => ({})) }), e => ({ status: e.name === 'AbortError' ? 0 : -1, data: {} }));   // network failure reads as offline; timeout as error
+    await travel(from);
+    hub.querySelector('.n-node--apex').classList.remove('is-cmd');
+    setState('routing');
+    statusEl.textContent = k === 'apex' ? 'APEX is coordinating the network.' : `APEX routed this to ${agent}.`;
+    say(statusEl.textContent);
+    const stop = route(k);
+    const { status, data } = await req;
+    clearTimeout(timer); stop();
+    const msg = data.response;
+    if (status === 200 && msg) {
+      setState('reveal'); statusEl.textContent = agent;
+      await reveal(msg);
+      setState('done'); say(`${agent}: ${msg}`);
+    } else if (status === 429) {
+      setState('limited'); statusEl.textContent = msg || 'The line is busy. Try again in a minute.'; say(statusEl.textContent);
+    } else if (status === -1) {
+      setState('offline'); statusEl.textContent = 'No connection. Your command is still here. Send it again once you are back online.'; say(statusEl.textContent);
+    } else {
+      setState('error'); statusEl.textContent = msg || 'The intelligence layer is offline. Try again shortly.'; say(statusEl.textContent);
+    }
+    busy = false;
+  }
+
+  select('apex', false);
+  // Mobile: the command panel docks at the bottom, so the Ask Alfred launcher steps aside while it's in view.
+  new IntersectionObserver(es => document.documentElement.classList.toggle('hub-in-view', es[0].isIntersecting)).observe(hub);
+
+  // At rest: one quiet blue pulse every 3.5 s, never during a command.
+  if (_pRM || !dot.animate) return;
+  const all = [...pulses.values()];
+  let visible = false, timer = 0, prev = -1;
   new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible && !timer) schedule(); }).observe(hub);
   function schedule(){ timer = setTimeout(fire, 3500); }
   function fire(){
     timer = 0;
-    if (!visible || document.hidden || nyxPaused()) { if (visible) schedule(); return; }
-    let i; do { i = Math.floor(Math.random() * pulses.length); } while (i === last && pulses.length > 1);
-    last = i;
-    const p = pulses[i], out = Math.random() < 0.5;
-    p.animate([{ strokeDashoffset: out ? 100 : 0, opacity: 0 }, { opacity: 1, offset: 0.15 }, { opacity: 1, offset: 0.85 }, { strokeDashoffset: out ? 0 : 100, opacity: 0 }],
-              { duration: 1400, easing: 'linear' });
+    if (!visible || document.hidden || nyxPaused() || busy) { if (visible) schedule(); return; }
+    let i; do { i = Math.floor(Math.random() * all.length); } while (i === prev && all.length > 1);
+    prev = i;
+    const out = Math.random() < 0.5;
+    all[i].animate([{ strokeDashoffset: out ? 100 : 0, opacity: 0 }, { opacity: 1, offset: 0.15 }, { opacity: 1, offset: 0.85 }, { strokeDashoffset: out ? 0 : 100, opacity: 0 }],
+                   { duration: 1400, easing: 'linear' });
     schedule();
   }
 })();

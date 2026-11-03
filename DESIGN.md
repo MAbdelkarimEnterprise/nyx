@@ -249,7 +249,7 @@ Keyboard: arrows move between agents (roving tabindex, APEX first), Enter or Spa
 Desktop (≥ 900 px). The panel's size is fixed, and the reply area is reserved for about 800 characters, so nothing shifts.
 ```
  Eight minds. One operating system.
- ┌──────────────────────── hub map 16:10 ────────────────────────┐
+ ┌──────────────────────── hub map 12:5 ─────────────────────────┐
  │              ORACLE                                           │
  │   FORGE         │          SIGNAL                             │
  │        ╲        │        ╱                                    │
@@ -257,7 +257,7 @@ Desktop (≥ 900 px). The panel's size is fixed, and the reply area is reserved 
  │        ╱                 ╲               from the chosen      │
  │  MERIDIAN               LEDGER           command up to APEX   │
  └───────────────────────────────────────────────────────────────┘
- ┌─ command panel (raised) ──────────────┬─ reply (reserved 240px) ─┐
+ ┌─ command panel (raised) ──────────────┬─ reply (reserved 320px) ─┐
  │ SIGNAL · Marketing Operations         │ ┃ You: How would you…    │  ┃ = pink edge
  │ [How would you plan a week…]  ← chips │ APEX routed to SIGNAL…   │
  │ [Where does content usually leak?]    │ reply text…              │
