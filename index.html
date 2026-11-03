@@ -1874,6 +1874,29 @@ html:has(#night-field.show) #hero::before{opacity:0}
 @keyframes scanDown{0%{top:0;opacity:1}90%{opacity:1}100%{top:calc(100% - 2px);opacity:0}}
 @media(prefers-reduced-motion:reduce){.scan{clip-path:none;transition:none}.scan::after{display:none}}
 @media(max-width:900px){#outcomes .n-report + .n-report{padding-left:var(--s4)!important;border-top:1px solid color-mix(in srgb,var(--blue-4) 28%,transparent)!important}}
+
+/* ══ BOLD 7: ACCESS REVIEW ══ a full-focus panel; the progress line fills blue to the
+   current step and every answered step leaves a pink marker. */
+#waitlist .access-panel{position:relative;max-width:880px;margin:0 auto;padding:clamp(28px,5vw,64px);border:1px solid color-mix(in srgb,var(--blue-4) 35%,transparent);border-radius:var(--r2);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--blue-1) 35%,var(--raised)),var(--raised) 35%);box-shadow:0 0 0 1px color-mix(in srgb,var(--system) 15%,transparent),0 40px 120px -50px var(--system),inset 0 1px 0 color-mix(in srgb,var(--blue-5) 25%,transparent);
+  transition:border-color 300ms var(--ease-ui),box-shadow 300ms var(--ease-ui)}
+#waitlist .access-panel:focus-within{border-color:color-mix(in srgb,var(--blue-5) 70%,transparent);box-shadow:0 0 0 1px color-mix(in srgb,var(--system) 35%,transparent),0 40px 140px -40px var(--system),inset 0 1px 0 color-mix(in srgb,var(--blue-5) 35%,transparent)}
+#waitlist .assessment-headline em{font-style:italic!important;background:linear-gradient(90deg,var(--blue-5),var(--pink-glow))!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important;padding-right:.06em}
+#waitlist .n-progress{height:3px;background:color-mix(in srgb,var(--blue-1) 80%,transparent)}
+#waitlist .n-progress::after{display:none}
+#waitlist .n-progress span{transform:scaleX(.2);height:3px;background:linear-gradient(90deg,var(--blue-3),var(--blue-4))!important;box-shadow:0 0 12px var(--system)}
+#waitlist .n-progress i{position:absolute;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--surface);border:1px solid color-mix(in srgb,var(--blue-4) 60%,transparent);transition:background 300ms var(--ease-ui),box-shadow 300ms var(--ease-ui),border-color 300ms var(--ease-ui)}
+#waitlist .n-progress i:nth-of-type(1){left:20%}#waitlist .n-progress i:nth-of-type(2){left:40%}#waitlist .n-progress i:nth-of-type(3){left:60%}#waitlist .n-progress i:nth-of-type(4){left:80%}#waitlist .n-progress i:nth-of-type(5){left:calc(100% - 4.5px)}
+#waitlist .n-progress i.done{background:var(--command);border-color:var(--pink-glow);box-shadow:0 0 12px 1px color-mix(in srgb,var(--command) 80%,transparent)}
+#waitlist .assessment-option{border-color:color-mix(in srgb,var(--blue-4) 45%,transparent)!important;transition:border-color 200ms var(--ease-ui),box-shadow 200ms var(--ease-ui),color 200ms var(--ease-ui)}
+#waitlist .assessment-option:hover{border-color:var(--blue-5)!important;box-shadow:0 0 22px -6px var(--system)}
+#waitlist .assessment-option.selected{border-color:var(--command-hover)!important;box-shadow:inset 0 0 0 1px var(--command),var(--glow-pink)}
+#waitlist :is(.assessment-field,.waitlist-input):focus{border-color:var(--blue-5)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--system) 35%,transparent)}
+@media(max-width:700px){#waitlist .access-panel{border-radius:var(--r1)}}
+#waitlist .access-panel .assessment-steps{max-width:none!important;margin:0!important}
+#waitlist .access-panel :is(.assessment-step,.assessment-field-wrap,.assessment-nav){margin-left:0!important;margin-right:0!important;text-align:left}
+#waitlist .access-panel :is(textarea,.assessment-field){max-width:640px;margin-left:0!important}
+#waitlist .access-panel .assessment-nav{justify-content:flex-start!important}
 </style>
 </head>
 <body>
@@ -2386,13 +2409,14 @@ html:has(#night-field.show) #hero::before{opacity:0}
 <!-- INTELLIGENCE ASSESSMENT -->
 <section class="assessment waitlist" id="waitlist" aria-label="Access Review" data-field="0.25">
   <p class="assessment-eyebrow visually-hidden">Access review</p>
+  <div class="access-panel">
   <h2 class="waitlist-headline assessment-headline">
     We need to know<br><em>who you are.</em>
   </h2>
   <p class="waitlist-sub assessment-sub">Access is reviewed manually. Five steps. Be precise — the system is calibrating to you.</p>
 
   <!-- Progress dots -->
-  <div class="n-progress" aria-hidden="true"><span id="n-progress-bar"></span></div>
+  <div class="n-progress" aria-hidden="true"><span id="n-progress-bar"></span><i></i><i></i><i></i><i></i><i></i></div>
   <div class="assessment-progress" id="assessment-progress" hidden>
     <div class="ap-dot active" id="ap-dot-1"></div>
     <div class="ap-dot" id="ap-dot-2"></div>
@@ -2479,6 +2503,7 @@ html:has(#night-field.show) #hero::before{opacity:0}
   <div class="waitlist-success" id="success-wrap" role="status" aria-live="polite">
     <p class="waitlist-success-title">Received.</p>
     <p class="waitlist-success-note">Your operation is under review. Expect a response within 48 hours.</p>
+  </div>
   </div>
 </section>
 </main>
