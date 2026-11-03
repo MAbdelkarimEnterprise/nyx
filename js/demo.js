@@ -1100,3 +1100,9 @@
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 })();
+
+/* ── ASK ALFRED LAUNCHER ── */
+(function(){
+  const b = document.getElementById('ask-alfred');
+  if (b) b.addEventListener('click', () => { if (window._openAlfred) window._openAlfred(); });
+})();

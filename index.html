@@ -1606,6 +1606,19 @@ html,body{overflow-x:clip}
 #waitlist{overflow:clip}
 @media(max-width:680px){.alfred-tabs{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto;gap:6px}.alfred-tab{white-space:nowrap;flex:0 0 auto}}
 footer{padding-bottom:64px}
+/* ── PHASE 5 ───────────────────────────────────────────────────────── */
+.ask-alfred{position:fixed;right:16px;bottom:calc(56px + env(safe-area-inset-bottom));z-index:9995;font-family:var(--ui);font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#000;background:var(--t1);border:0;padding:0 20px;min-height:48px;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.6)}
+.ask-alfred:hover{background:var(--gold-text)}
+.assessment-progress-text{font-family:var(--ui);font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--t2);text-align:center;margin:12px auto 0}
+.ap-summary{margin:16px 0 0;display:grid;gap:12px}
+.ap-row{display:grid;grid-template-columns:minmax(120px,30%) 1fr auto;gap:12px;align-items:baseline;border-top:1px solid var(--line);padding-top:12px;text-align:left}
+.ap-row dt{font-family:var(--ui);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-text)}
+.ap-row dd{margin:0;font-size:15px;color:var(--t1);white-space:pre-wrap;overflow-wrap:anywhere}
+.ap-edit{background:none;border:1px solid var(--line-hi);color:var(--t2);font-family:var(--ui);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;padding:0 12px;cursor:pointer}
+@media(max-width:480px){.ap-row{grid-template-columns:1fr auto}.ap-row dt{grid-column:1/-1}}
+.footer-copy p{margin:0 0 6px}
+.footer-copy a{color:var(--t1)}
+.footer-privacy{color:var(--t2);font-size:13px}
 /* ── PHASE 3: focus ─────────────────────────────────────────────────── */
 :focus-visible{outline:2px solid var(--gold-text)!important;outline-offset:3px}
 .assessment-field:focus-visible,.waitlist-input:focus-visible,.af-text-in:focus-visible{outline-offset:0}
@@ -2228,7 +2241,7 @@ footer{padding-bottom:64px}
     <div class="intel-stat">
       <div class="intel-label">Operators Enrolled · Projected</div>
       <div class="intel-value" id="stat-enrolled">1,247</div>
-      <div class="intel-unit">and growing</div>
+      <div class="intel-unit">design projection</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
         <polyline points="0,38 12,32 22,35 34,24 44,28 56,16 66,20 78,10 88,14 100,8" stroke="#1E5BFF" stroke-width="1.2" fill="none"/>
       </svg>
@@ -2250,7 +2263,7 @@ footer{padding-bottom:64px}
     <div class="intel-stat">
       <div class="intel-label">Autonomous Actions · Projected</div>
       <div class="intel-value" id="stat-actions">94K+</div>
-      <div class="intel-unit">executed to date</div>
+      <div class="intel-unit">design projection</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
         <polyline points="0,40 8,36 18,38 28,28 38,32 50,18 62,22 72,10 84,14 94,6 100,8" stroke="#1E5BFF" stroke-width="1.2" fill="none"/>
       </svg>
@@ -2435,6 +2448,7 @@ footer{padding-bottom:64px}
     <div class="ap-dot" id="ap-dot-4"></div>
     <div class="ap-dot" id="ap-dot-5"></div>
   </div>
+  <p class="assessment-progress-text" id="as-progress" aria-live="polite">Step 1 of 5</p>
 
   <div class="assessment-steps" id="assessment-steps">
     <!-- Step 1: Identity -->
@@ -2516,10 +2530,15 @@ footer{padding-bottom:64px}
   </div>
 </section>
 
+<button type="button" class="ask-alfred" id="ask-alfred" aria-haspopup="dialog">Ask Alfred</button>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">NYX</div>
-  <div class="footer-copy">© 2026 NYX Systems. All systems private.</div>
+  <div class="footer-copy">
+    <p>© 2026 NYX Systems · <a href="mailto:labs@nyxsystem.online">labs@nyxsystem.online</a></p>
+    <p class="footer-privacy">Access review answers are used only to review your inquiry and reply to you. They are never sold or shared.</p>
+  </div>
   <div class="footer-status">
     <div class="footer-dot"></div>
     <span class="footer-status-text">Online</span>
@@ -2528,6 +2547,8 @@ footer{padding-bottom:64px}
 
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.nyxTrack=function(n,d){try{window.va("event",{name:n,data:d||{}})}catch(e){}};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/js/core.js"></script>
 <script defer src="/js/demo.js"></script>
 <script defer src="/js/access.js"></script>

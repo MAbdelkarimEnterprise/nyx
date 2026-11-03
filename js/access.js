@@ -5,17 +5,6 @@
   const steps = ['as-step-1','as-step-2','as-step-3','as-step-4','as-step-5'];
   let currentStep = 0;
 
-  const PROFILES = {
-    'Founder+Revenue':   { title:'Revenue-Focused Founder', badge:'GROWTH MODE', agents:['APEX','ORACLE','CONVERT','LEDGER'], body:'NYX will configure <strong>APEX</strong> as your strategic command layer, routing every revenue-critical decision through <strong>CONVERT</strong> and <strong>LEDGER</strong>. Alfred will deliver morning briefings focused on pipeline velocity, burn efficiency, and competitive signals. Your operating system will be calibrated for aggressive, intelligent growth.' },
-    'Founder+Growth':    { title:'Growth-Obsessed Founder', badge:'SCALE MODE', agents:['APEX','SIGNAL','CONVERT','ORACLE'], body:'NYX will position <strong>SIGNAL</strong> as your distribution engine, coordinated with <strong>ORACLE\'s</strong> market intelligence. Alfred will prioritize audience intelligence, brand positioning, and growth loop optimization. Every briefing will open with distribution opportunities and competitive windows.' },
-    'Founder+Operations':{ title:'Operator-Founder', badge:'EFFICIENCY MODE', agents:['MERIDIAN','LEDGER','FORGE','CIPHER'], body:'NYX will assign <strong>MERIDIAN</strong> as your ops command layer, continuously mapping process friction and resource allocation. Alfred will flag operational bottlenecks before you feel them. Your briefings will be precision-tuned for execution speed and system health.' },
-    'Executive+Revenue': { title:'Revenue-Driven Executive', badge:'ENTERPRISE MODE', agents:['APEX','CONVERT','LEDGER','ORACLE'], body:'NYX will configure your system around enterprise pipeline intelligence. <strong>CONVERT</strong> will run continuously against your CRM data. Alfred will deliver weekly strategic reports, deal probability updates, and competitive positioning briefs calibrated for executive decision-making.' },
-    'Athlete+Performance':{ title:'Performance-Oriented Athlete', badge:'PEAK MODE', agents:['APEX','MERIDIAN','LEDGER','FORGE'], body:'NYX will recalibrate its operating layer for personal performance optimization. Alfred will deliver structured daily briefings on training load, recovery signals, and performance trajectory. The system will track the variables that matter — and alert you when they shift.' },
-    'Investor+Growth':   { title:'Growth-Focused Investor', badge:'INTELLIGENCE MODE', agents:['ORACLE','SIGNAL','LEDGER','APEX'], body:'NYX will configure <strong>ORACLE</strong> as your continuous market scanner, surfacing deal signals, sector shifts, and competitive dynamics before the market moves. Alfred will deliver weekly portfolio intelligence reports, emerging opportunity alerts, and strategic briefs on your highest-priority positions.' },
-    'default':           { title:'High-Performance Operator', badge:'FULL ACCESS', agents:['APEX','ORACLE','ALFRED','MERIDIAN'], body:'NYX will deploy your full agent network based on your profile. Alfred will deliver personalized briefings, opportunity alerts, and strategic intelligence calibrated to your specific domain. The system adapts to how you operate — not the other way around.' }
-  };
-
-  function getProfile(r, g){ return PROFILES[`${r}+${g}`] || PROFILES['default']; }
 
   function setStep(idx){
     document.querySelectorAll('.assessment-step').forEach((s, i) => {
@@ -29,6 +18,9 @@
       d.classList.toggle('done', i < idx);
     });
     currentStep = idx;
+    const pt = document.getElementById('as-progress');
+    if(pt) pt.textContent = `Step ${idx + 1} of 5`;
+    if(window.nyxTrack) window.nyxTrack('access_step_' + (idx + 1));
   }
 
   // Step 1 options
@@ -91,21 +83,20 @@
   })();
   document.querySelectorAll('.assessment-back').forEach(b => b.addEventListener('click', () => setStep(Math.max(0, currentStep - 1))));
 
+  // Final step: one-screen summary of the visitor's own answers, each editable.
+  function esc(t){ return String(t || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
   function buildProfile(){
-    const p = getProfile(role, goal);
     const el = document.getElementById('as-profile');
     if(!el) return;
-    el.innerHTML = `
-      <div class="ap-header">
-        <div class="ap-title">${p.title}</div>
-        <div class="ap-badge">${p.badge}</div>
-      </div>
-      <div class="ap-body">${p.body}</div>
-      <div class="ap-agents">
-        ${p.agents.map(a => `<span class="ap-agent-chip">${a}</span>`).join('')}
-        <span class="ap-agent-chip" style="border-style:dashed;opacity:.5">+4 more</span>
-      </div>
-    `;
+    const rows = [
+      ['Identity', role, 0], ['Objective', goal, 1],
+      ['Constraint', challengeEl && challengeEl.value.trim(), 2],
+      ['Resolved looks like', outcomeEl && outcomeEl.value.trim(), 3],
+    ];
+    el.innerHTML = '<div class="ap-title">Your review</div><dl class="ap-summary">' + rows.map(([k, v, step]) =>
+      `<div class="ap-row"><dt>${k}</dt><dd>${esc(v) || '—'}</dd><dd><button type="button" class="ap-edit" data-goto="${step}">Edit</button></dd></div>`
+    ).join('') + '</dl>';
+    el.querySelectorAll('.ap-edit').forEach(b => b.addEventListener('click', () => setStep(+b.dataset.goto)));
   }
 
   // Show progress dots and steps when scrolled to
