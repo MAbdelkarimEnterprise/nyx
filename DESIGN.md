@@ -188,3 +188,103 @@ Local runs on a compressed static server (`serve`), Lighthouse 12.8.2, simulated
 `--night #070A12` base · `--dusk #0D1220` raised · `--slate #161D2D` overlay · `--indigo #3C4A86` structure · `--moon #EEE8DC` signal · `--mist #D5D9E3` text-1 · `--text-2 #A5ACBC` · `--text-3 #8189A0`.
 Type: wordmark clamp(88–232) · statement clamp(44–96) · h2 clamp(34–60) · h3 26 · lead 20 · body 16 · small 14 · caption 12.
 Space: 8 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192. Radius: 0 · 2 · 14. Motion: 160 / 200 / 1200 ms; `cubic-bezier(.2,0,0,1)` UI, `cubic-bezier(.16,1,.3,1)` signature, linear for pulses.
+
+---
+
+# Interaction depth pass (2026-11-03)
+
+One idea: **NYX operates quietly, and you are in command.** Blue is the system, pink is you.
+Raw material: `design-research/FINDINGS.md`. Contrast: `design-research/contrast.md`. Generator: `design-research/palette.py`.
+
+## 7. Token roles
+Components reference roles only. Ramps are OKLCH with even L steps; the three given hex values are kept exact as anchors.
+
+| Role | Token | Hex | Use |
+|---|---|---|---|
+| surface | surface-0 (anchor) | #02070A | page base, ~90% |
+| raised | surface-1 | #051116 | panels, cards |
+| overlay | surface-2 | #0A1B22 | modal, command panel input |
+| edge | surface-3 | #10272F | hairlines on raised |
+| structure | blue-1 | #002078 | resting hub lines, dividers |
+| structure-strong | blue-2 | #0038BF | node borders, line hover |
+| system | blue-3 (anchor) | #1058FF | pulses, primary button fill, routing. Never text. |
+| system-active | blue-4 | #568CFE | active node ring, selected tab, lit link |
+| system-text / focus | blue-5 | #92B7FF | blue text, focus ring |
+| system-text-hi | blue-6 | #CEDFFE | active agent name |
+| text-primary / -secondary / -tertiary | ink-1/2/3 | #EBF5FA / #BCC6CA / #B3BCC0 | text (black's hue, low chroma) |
+| command | pink-rest (anchor) | #D83995 | the visitor's intent: traveling pulse, chosen command edge, chosen option edge, answered progress |
+| command-hover / command-glow | pink-hover / pink-glow | #F152AB / #FA7CBD | hover on a command control; hero cursor glow |
+| error | ink-1 + structure-strong edge | | errors are the system's, so they're never pink; the message carries the meaning |
+
+Rules: pink is never text, never on blue, never at rest. The blue anchor is never text, and never the only carrier of a state (APCA Lc 25.7).
+
+## 8. Command loop: states
+
+```
+            hover/focus                click/Enter                 preset or typed + send
+  REST ───────────────▶ PREVIEW ─────────────────▶ SELECTED ──────────────────────────▶ SENT
+  blue pulses every    node ring blue-4,          panel: agent, role,          pink dot: control → APEX (500 ms)
+  3.5 s (system works) link lit, role line        3 presets, input             live: "Sent to APEX"
+   ▲  ▲                     │ blur                   │ Esc (focus → node)         │
+   │  └─────────────────────┘                        ▼                            ▼
+   │                                               REST                        ROUTING (waiting)
+   │                                                                        APEX → agent blue pulse, repeats
+   │                                                                        until reply (median 1.45 s)
+   │                                                                        live: "APEX routed to SIGNAL"
+   │                        ┌──────────────┬──────────────┬─────────────────┤
+   │                        ▼              ▼              ▼                 ▼
+   │                   REVEALING        LIMITED (429)   ERROR (5xx)      OFFLINE (no network)
+   │                   words in,        API message,    API message,     "No connection."
+   │                   ≤ 900 ms         presets stay     Retry button     Retry when online
+   │                        ▼
+   │                     DONE: reply + "Inquire →" (to access review). live region reads the reply.
+   └──── Esc / pick another agent / new command
+Reduced motion: no dot, no pulses, no reveal. Same states, same text, instant.
+```
+
+Keyboard: arrows move between agents (roving tabindex, APEX first), Enter or Space selects, Esc backs out one level. One polite live region speaks selection, routing, the reply and errors.
+
+## 9. Wireframes
+
+Desktop (≥ 900 px). The panel's size is fixed, and the reply area is reserved for about 800 characters, so nothing shifts.
+```
+ Eight minds. One operating system.
+ ┌──────────────────────── hub map 16:10 ────────────────────────┐
+ │              ORACLE                                           │
+ │   FORGE         │          SIGNAL                             │
+ │        ╲        │        ╱                                    │
+ │ CIPHER ──── [  APEX  ] ──── CONVERT     ● pink dot travels    │
+ │        ╱                 ╲               from the chosen      │
+ │  MERIDIAN               LEDGER           command up to APEX   │
+ └───────────────────────────────────────────────────────────────┘
+ ┌─ command panel (raised) ──────────────┬─ reply (reserved 240px) ─┐
+ │ SIGNAL · Marketing Operations         │ ┃ You: How would you…    │  ┃ = pink edge
+ │ [How would you plan a week…]  ← chips │ APEX routed to SIGNAL…   │
+ │ [Where does content usually leak?]    │ reply text…              │
+ │ [What do you watch every morning?]    │                          │
+ │ [ Or give your own command…   ][Send] │ Inquire →                │
+ └───────────────────────────────────────┴──────────────────────────┘
+```
+
+Mobile (< 900 px). It's a list with APEX on top, and the command panel sticks to the bottom of the screen while the section is in view, in thumb reach. The reply sheet rises above the panel, absolutely positioned, so no layout shifts.
+```
+ ┌──────────────────────┐
+ │ APEX         CEO     │ ← boxed, first
+ │ ORACLE  Research…    │
+ │ SIGNAL  Marketing…   │ ← tapped: blue edge
+ │ …                    │
+ │┌────────────────────┐│
+ ││ reply sheet ≤45vh  ││ ← appears after a command
+ │├────────────────────┤│
+ ││ SIGNAL · Marketing ││ sticky bottom panel
+ ││ [chip][chip][chip]→││ chips scroll sideways
+ ││ [command…   ][Send]││
+ │└────────────────────┘│
+ └──────────────────────┘
+```
+
+Propagation (after the loop passes):
+- Alfred: the visitor's message has a pink edge, and Alfred's working state is blue.
+- Options: the chosen tier gets a pink edge.
+- Access review: the answered part of the progress line is pink.
+- Hero: the cursor glow is pink only while moving over a link or button.
