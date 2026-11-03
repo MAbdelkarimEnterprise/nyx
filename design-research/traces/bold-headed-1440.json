@@ -1,0 +1,61 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "at": "2026-11-03T22:41:42.341Z",
+  "cpu": "4x",
+  "runs": {
+    "1440": {
+      "hero": {
+        "frames": 296,
+        "fps": 59.4,
+        "p50": 16.7,
+        "p95": 17.6,
+        "max": 67.3,
+        "long": 1
+      },
+      "agents": {
+        "frames": 460,
+        "fps": 59.7,
+        "p50": 16.7,
+        "p95": 17.6,
+        "max": 50.9,
+        "long": 1
+      },
+      "loop": {
+        "frames": 194,
+        "fps": 55.7,
+        "p50": 16.7,
+        "p95": 17.6,
+        "max": 99.6,
+        "long": 4,
+        "state": "done"
+      },
+      "interactions": 8,
+      "inp_ms": 72,
+      "slow_events": 27,
+      "worst": [
+        {
+          "n": "pointerdown",
+          "d": 72,
+          "proc": 0,
+          "delay": 1.2,
+          "t": "n-node-role"
+        },
+        {
+          "n": "pointerdown",
+          "d": 72,
+          "proc": 0.1,
+          "delay": 0.2,
+          "t": "n-node-role"
+        },
+        {
+          "n": "pointerup",
+          "d": 72,
+          "proc": 0,
+          "delay": 0.1,
+          "t": "n-node-role"
+        }
+      ],
+      "cls": 0.0001
+    }
+  }
+}

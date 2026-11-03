@@ -326,3 +326,25 @@ What changed in the restoration:
   - scroll drifts the currents and shifts the blue toward violet.
 - **Brightness:** follows `data-field` on the section at mid-viewport. Hero 1, System 0.55, Agents 0.5, Options 0.5, Alfred 0.35, Access 0.25, everything else 0.
 - **Rendering:** stops when the target is 0, when the tab is hidden or when motion is paused. Internal resolution is 0.6× DPR on desktop and 0.5× on small devices. Reduced motion renders one still frame per section.
+
+## 12. Bold rebuild: checks
+| Check | Result |
+|---|---|
+| Lighthouse mobile (local, gzip, ×2) | 97 / 100 / 100 / 100, FCP 1.7 s, LCP 2.4 s, TBT 0 ms, CLS 0.001 |
+| Lighthouse desktop | 100 / 100 / 100 / 100, LCP 0.5 s, CLS 0.013 |
+| 4× CPU, headed Chrome, 1440 (full shader) | hero 59.4 fps, Agent Network 59.7 fps, command loop 55.7 fps; INP 72 ms |
+| 4× CPU, headed Chrome, 390 (lite shader) | 60 / 60 / 60 fps; INP 72 ms; CLS 0.0003 |
+| Text over the live shader (`design-research/field-contrast.mjs`) | 448 visible text elements, 24 screens: 0 below AA |
+| axe-core | 0 violations |
+| Command-loop states (`design-research/loop.mjs`) | success / limited / error / offline, keyboard, CLS 0, with and without reduced motion |
+| Reduced motion | the field renders one still frame; no running animations; 0 px changed over 1.5 s |
+
+- **Contrast tool fixes:** the first runs flagged 42, then 12, elements. All of those were tool artifacts:
+  - the off-screen skip link;
+  - 1 px borders inside small boxes;
+  - gradient text whose clipped gradient survived the glyph hiding;
+  - a higher-specificity rule that kept some glyphs visible in the background capture;
+  - text covered by the docked command panel or clipped by a closed accordion.
+
+  Each was fixed in the tool, not by changing the page. I confirmed the architect lines by eye.
+- **Lighthouse caveat:** Lighthouse's headless Chrome may not run WebGL. The shader starts after `load` plus an idle callback, so it adds nothing before LCP either way.
