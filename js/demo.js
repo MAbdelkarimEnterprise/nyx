@@ -135,7 +135,12 @@
     document.getElementById('alfred-meta-mode').textContent = b.mode;
     document.getElementById('alfred-meta-sources').textContent = b.sources;
     document.getElementById('alfred-meta-time').textContent = b.time;
-    typewrite(document.getElementById('alfred-response-text'), b.text, _pRM ? 0 : 18, onDone);
+    // Alfred is typing: a short designed beat before the words, the dots stay while they arrive.
+    const demo = document.getElementById('alfred-demo'), out = document.getElementById('alfred-response-text');
+    demo.dataset.typing = '';
+    out.innerHTML = '';
+    if (typewriterTimer) clearTimeout(typewriterTimer);
+    typewriterTimer = setTimeout(() => typewrite(out, b.text, _pRM ? 0 : 18, () => { delete demo.dataset.typing; if (onDone) onDone(); }), _pRM ? 0 : 700);
   }
 
   // Tabs
