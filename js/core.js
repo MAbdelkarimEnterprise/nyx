@@ -274,10 +274,15 @@ function nyxLoop(el, step){
     const others = [...pulses.keys()];
     const target = btnOf(k).closest('.n-node');
     target.classList.add('is-routing');
+    const pink = getComputedStyle(document.documentElement).getPropertyValue('--command-hover').trim();
+    let first = true;
     (function tick(){
       if (!on) return;
       const keys = k === 'apex' ? [others[n++ % others.length], others[(n + 3) % others.length]] : [k];
-      keys.forEach(a => pulses.get(a)?.animate([{ strokeDashoffset: 100, opacity: 0 }, { opacity: 1, offset: .2 }, { strokeDashoffset: 0, opacity: 0 }], { duration: 700, easing: 'linear' }));
+      // The visitor's intent leaves APEX in pink once; the system carries it on in blue.
+      const stroke = first ? { stroke: pink } : {};
+      first = false;
+      keys.forEach(a => pulses.get(a)?.animate([{ strokeDashoffset: 100, opacity: 0, ...stroke }, { opacity: 1, offset: .2, ...stroke }, { strokeDashoffset: 0, opacity: 0, ...stroke }], { duration: 700, easing: 'linear' }));
       setTimeout(tick, 720);
     })();
     return () => { on = false; target.classList.remove('is-routing'); };
@@ -336,22 +341,7 @@ function nyxLoop(el, step){
   // Mobile: the command panel docks at the bottom, so the Ask Alfred launcher steps aside while it's in view.
   new IntersectionObserver(es => document.documentElement.classList.toggle('hub-in-view', es[0].isIntersecting)).observe(hub);
 
-  // At rest: one quiet blue pulse every 3.5 s, never during a command.
-  if (_pRM || !dot.animate) return;
-  const all = [...pulses.values()];
-  let visible = false, timer = 0, prev = -1;
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible && !timer) schedule(); }).observe(hub);
-  function schedule(){ timer = setTimeout(fire, 3500); }
-  function fire(){
-    timer = 0;
-    if (!visible || document.hidden || nyxPaused() || busy) { if (visible) schedule(); return; }
-    let i; do { i = Math.floor(Math.random() * all.length); } while (i === prev && all.length > 1);
-    prev = i;
-    const out = Math.random() < 0.5;
-    all[i].animate([{ strokeDashoffset: out ? 100 : 0, opacity: 0 }, { opacity: 1, offset: 0.15 }, { opacity: 1, offset: 0.85 }, { strokeDashoffset: out ? 0 : 100, opacity: 0 }],
-                   { duration: 1400, easing: 'linear' });
-    schedule();
-  }
+  // At rest the lines carry light continuously (CSS: .n-pulse), the system working on its own.
 })();
 
 /* ── LIGHT ON ENTRY ── key phrases (.lit) light up once as they scroll into view. */
