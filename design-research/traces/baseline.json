@@ -1,0 +1,51 @@
+{
+  "url": "https://nyxsystem.online/",
+  "at": "2026-11-03T21:23:25.954Z",
+  "cpu": "4x",
+  "runs": {
+    "390": {
+      "hero": {
+        "frames": 299,
+        "fps": 60,
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "long": 0
+      },
+      "agents": {
+        "frames": 247,
+        "fps": 60,
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "long": 0
+      },
+      "interactions": 3,
+      "inp_ms": 16,
+      "slow_events": 5,
+      "cls": 0.0003
+    },
+    "1440": {
+      "hero": {
+        "frames": 299,
+        "fps": 60,
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "long": 0
+      },
+      "agents": {
+        "frames": 377,
+        "fps": 60,
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "long": 0
+      },
+      "interactions": 6,
+      "inp_ms": 472,
+      "slow_events": 12,
+      "cls": 0.0001
+    }
+  }
+}
