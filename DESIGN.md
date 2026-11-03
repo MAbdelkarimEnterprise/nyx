@@ -288,3 +288,41 @@ Propagation (after the loop passes):
 - Options: the chosen tier gets a pink edge.
 - Access review: the answered part of the progress line is pink.
 - Hero: the cursor glow is pink only while moving over a link or button.
+
+---
+
+# Bold rebuild (2026-11-03)
+
+## 10. The original NYX landing page
+I found it in git history, checked out each version into a temp folder and screenshotted it. The screenshots are in `design-review/bold/original/`.
+- `7b191b2` is the initial upload.
+- `2285a80` adds the crest seal.
+- `9e5245a` is the Fraunces landing.
+- `f1e5d9e` is the blue version, the last one before the redesign passes. It's the one restored here.
+
+What made it strong:
+- **The wordmark as a monument.** NYX is centered, huge and widely tracked: the brand itself is the hero, with no product shot or illustration.
+- **The crest seal.** A rotating ring of ticks with a circular legend ("AUTONOMOUS · INTELLIGENCE · SYSTEM · NYX · MMXXVI · WHAT OPERATES IN THE DARK"). Inside it, an eight-point star, one point per agent, and pulse rings breathing outward. It reads as an emblem, not decoration.
+- **Atmosphere.** A deep blue nebula with a constellation network, so the page felt like night with something moving in it.
+- **Instrument chrome.** HUD corner brackets, an "Intelligence active" status light and an agent status readout. The system is visibly running.
+- **The statement.** The two-line serif "The operating system behind elite performance", with the accent phrase in a second voice.
+
+What changed in the restoration:
+- **Palette:** rebuilt in the three-color palette.
+- **Atmosphere:** the static nebula and particle canvas are replaced by the night-field shader, and the constellation lives in the crest's star.
+- **Typography:** sharpened to Fraunces. The wordmark gets a slow blue-to-pink light sweep and a cursor light.
+- **Copy:** stays from the later passes (Inquire / See the system). The agent readout is labelled "Sample".
+- **Dropped:** the fake coordinates and the "ACCESS.STATUS / CLOSED" readout, for honesty.
+- **Crest:** inline SVG so it paints with the first frame. Injected by JS, it became the LCP element at 3.6 s.
+
+## 11. The night field (shader)
+- **Setup:** a fixed full-screen quad with a three.js ShaderMaterial (`js/scenes.js`).
+- **Noise:** 2D simplex fbm with two levels of domain warp; 4 octaves on desktop, 3 octaves and one warp on small devices.
+- **Color:** mixed by noise value: black → deep blue → royal blue, with pink only at peaks above 0.86.
+- **Finish:** vignette and grain.
+- **Interaction:**
+  - the cursor bends the field (Gaussian pull, eased 4% per frame);
+  - a click sends a ripple with a pink leading edge and a blue wake (3 slots);
+  - scroll drifts the currents and shifts the blue toward violet.
+- **Brightness:** follows `data-field` on the section at mid-viewport. Hero 1, System 0.55, Agents 0.5, Options 0.5, Alfred 0.35, Access 0.25, everything else 0.
+- **Rendering:** stops when the target is 0, when the tab is hidden or when motion is paused. Internal resolution is 0.6× DPR on desktop and 0.5× on small devices. Reduced motion renders one still frame per section.
