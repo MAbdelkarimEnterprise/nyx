@@ -58,6 +58,15 @@ body{background:#000;color:#F0EDE8;font-family:'Inter',system-ui,-apple-system,s
   --t1:var(--text-1);--t2:var(--text-2);--t3:var(--text-3);
   --gold:var(--indigo);--gold-text:var(--text-2);--gold-d:var(--line-strong);
   --reflection:var(--text-3);
+  /* ── TYPE SCALE ─────────────────────────────────────────────────── */
+  --t-wordmark:clamp(88px,18vw,232px);
+  --t-statement:clamp(44px,6.4vw,96px);
+  --t-h2:clamp(34px,4.2vw,60px);
+  --t-h3:26px;
+  --t-lead:20px;
+  --t-body:16px;
+  --t-small:14px;
+  --t-caption:12px;
   /* ── TYPE SYSTEM ──────────────────────────────────────
      Fraunces        = display (high-contrast editorial roman — hero
                        monogram + all section headlines; Canela/Editorial
@@ -1632,6 +1641,28 @@ footer{padding-bottom:64px}
 .footer-copy a{color:var(--t1)}
 .footer-privacy{color:var(--t2);font-size:13px}
 .tier-tag{color:var(--text-1)!important}
+
+/* ══ DESIGN 2: TYPOGRAPHY ═══════════════════════════════════════════
+   Fraunces: wordmark + every section headline (optical size by step).
+   Inter: everything else, tabular figures for numbers.
+   Caps only for system readouts (boot, status bar, engine HUD, voice HUD). */
+body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:proportional-nums}
+.es-val,.intel-value,.outcome-metric-val,#tbar-time,#hero-session,.atm-val,.feed-event-time,.feed-footer-count,.mission-id,.tier-num,.assessment-progress-text{font-variant-numeric:tabular-nums}
+.loader-logo,.hero-title{font-family:var(--display);font-optical-sizing:none;font-variation-settings:'opsz' 144;font-weight:300}
+.hero-title{font-size:var(--t-wordmark)!important;letter-spacing:0.06em!important;line-height:0.9}
+.manifesto-headline{font-family:var(--display)!important;font-variation-settings:'opsz' 144!important;font-weight:300!important;font-size:var(--t-statement)!important;letter-spacing:-0.02em!important;line-height:1.02!important;text-transform:none!important}
+.engine-headline,.system-headline,.agents-headline,.alfred-demo-headline,.access-headline,.outcomes-headline,.missions-headline,.assessment-headline,.waitlist-headline{
+  font-family:var(--display)!important;font-variation-settings:'opsz' 96!important;font-weight:300!important;
+  font-size:var(--t-h2)!important;letter-spacing:-0.015em!important;line-height:1.06!important;text-transform:none!important;font-style:normal!important}
+.voice-headline,.pillar-title,.tier-name,.mission-title,.outcome-role,.ap-title{font-family:var(--display)!important;font-variation-settings:'opsz' 36!important;font-weight:400!important;font-size:var(--t-h3)!important;letter-spacing:0!important;text-transform:none!important}
+.hero-statement{font-family:var(--ui)!important;font-size:var(--t-lead)!important;font-weight:400!important;letter-spacing:0!important;color:var(--text-2)!important;max-width:none!important;line-height:1.5!important}
+.hero-statement em,h2 em,h3 em,.manifesto-headline em,.engine-headline em,.alfred-demo-headline em,.missions-headline em,.outcomes-headline em,.assessment-headline em,.architect-body em{font-style:normal!important;font-weight:inherit!important;font-variation-settings:inherit!important;color:inherit!important;-webkit-text-fill-color:currentColor!important}
+.alfred-hub-sub,.access-sub p,.manifesto-body p,.voice-body,.outcomes-sub,.missions-sub,.assessment-sub{font-size:var(--t-body)!important;line-height:1.7!important}
+/* Labels, buttons, chips and tabs: sentence case, modest tracking. */
+.nav-link,.nav-cta,.hero-btn,.tier-cta,.tier-tag,.tier-type,.hub-tab,.alfred-tab,.assessment-option,.assessment-back,.assessment-continue,.assessment-step-label,.waitlist-submit,.sample-tag,.hero-eyebrow,.sec-label,.es-label,.intel-label,.intel-unit,.outcome-class,.outcome-domain,.mission-status,.mb-key,.ap-row dt,.ap-edit,.motion-toggle,.ask-alfred,.alfred-term-enter,.atm-label,.atp-label,.alfred-term-title,.feed-footer-label,.feed-live-badge,.vf-label,.agent-role,.agent-new-badge,.architect-eyebrow,.waitlist-eyebrow,.assessment-eyebrow,.hub-panel-note,.footer-status-text,.af-close-btn,.af-send,.af-mic,.pillar-num,.assessment-progress-text,.waitlist-note{
+  text-transform:none!important;letter-spacing:0.02em!important}
+.nav-link,.nav-cta,.hero-btn,.tier-cta,.hub-tab,.alfred-tab,.assessment-option,.waitlist-submit,.ask-alfred,.alfred-term-enter,.motion-toggle{font-size:var(--t-small)!important;font-weight:500!important}
+.sample-tag,.tier-tag,.tier-type,.es-label,.intel-label,.outcome-class,.mission-status,.mb-key,.ap-row dt,.atm-label,.atp-label,.feed-footer-label,.vf-label,.agent-new-badge,.hero-eyebrow,.waitlist-eyebrow,.assessment-eyebrow,.architect-eyebrow,.sec-label,.assessment-step-label,.assessment-progress-text{font-size:var(--t-caption)!important;font-weight:500!important}
 /* ── PHASE 3: focus ─────────────────────────────────────────────────── */
 :focus-visible{outline:2px solid var(--gold-text)!important;outline-offset:3px}
 .assessment-field:focus-visible,.waitlist-input:focus-visible,.af-text-in:focus-visible{outline-offset:0}
@@ -1714,7 +1745,7 @@ footer{padding-bottom:64px}
     <p class="hero-eyebrow">Autonomous AI Operating System</p>
     <h1 class="hero-title" aria-label="NYX"><span class="hero-char" aria-hidden="true">N</span><span class="hero-char" aria-hidden="true">Y</span><span class="hero-char" aria-hidden="true">X</span></h1>
     <div class="hero-rule"></div>
-    <h2 class="hero-statement">The Operating System Behind <em>Elite Performance</em></h2>
+    <h2 class="hero-statement">The operating system behind elite performance.</h2>
     <div class="hero-cta">
       <a href="#waitlist" class="hero-btn primary" data-inquire="">Inquire</a>
       <a href="#about" class="hero-btn ghost">See the System</a>
@@ -1869,9 +1900,9 @@ footer{padding-bottom:64px}
       <h2 class="engine-headline">Precision<br><em>in motion.</em></h2>
       <p class="engine-body">NYX operates as a self-regulating system. Eight agents. Continuous rotation. No part stops so another can move — every layer runs simultaneously, without instruction.</p>
       <div class="engine-specs">
-        <div class="engine-spec"><span class="es-label">AGENTS</span><span class="es-val">08</span></div>
-        <div class="engine-spec"><span class="es-label">LAYERS</span><span class="es-val">04</span></div>
-        <div class="engine-spec"><span class="es-label">UPTIME TARGET</span><span class="es-val">99.97%</span></div>
+        <div class="engine-spec"><span class="es-label">Agents</span><span class="es-val">08</span></div>
+        <div class="engine-spec"><span class="es-label">Layers</span><span class="es-val">04</span></div>
+        <div class="engine-spec"><span class="es-label">Uptime target</span><span class="es-val">99.97%</span></div>
       </div>
     </div>
     <div class="engine-canvas-wrap">
@@ -1927,13 +1958,13 @@ footer{padding-bottom:64px}
         <div class="agent-id">CIPHER</div>
         <div class="agent-role">Security & Compliance</div>
         <div class="agent-desc">Threat surface monitoring, compliance tracking, access governance. Operates silently across every system layer — nothing leaves without clearance.</div>
-        <div class="agent-new-badge">NEW</div>
+        <div class="agent-new-badge">New</div>
       </div>
       <div class="agent-card agent-card--new" data-agent="meridian" data-role="Operations Intelligence" role="button" tabindex="0" aria-label="Open MERIDIAN agent">
         <div class="agent-id">MERIDIAN</div>
         <div class="agent-role">Operations Intelligence</div>
         <div class="agent-desc">Cross-functional process mapping, operational bottleneck detection, and resource allocation optimization. Keeps execution frictionless at every altitude.</div>
-        <div class="agent-new-badge">NEW</div>
+        <div class="agent-new-badge">New</div>
       </div>
     </div>
   </div>
@@ -1964,12 +1995,12 @@ footer{padding-bottom:64px}
       </div>
       <div class="alfred-terminal">
       <div class="alfred-term-header">
-        <span class="alfred-term-title" id="alfred-term-title">ALFRED — DAILY EXECUTIVE BRIEFING</span><span class="sample-tag">Sample</span>
+        <span class="alfred-term-title" id="alfred-term-title">Alfred — Daily executive briefing</span><span class="sample-tag">Sample</span>
         <span class="alfred-term-dot"></span>
       </div>
       <div class="alfred-term-body">
         <div class="alfred-term-prompt">
-          <span class="atp-label">YOU →</span>
+          <span class="atp-label">You →</span>
           <span class="atp-text" id="alfred-prompt-text">Alfred, give me my morning briefing.</span>
         </div>
         <div class="alfred-term-response" id="alfred-response-text"></div>
@@ -1978,7 +2009,7 @@ footer{padding-bottom:64px}
         </button>
         <div class="alfred-term-meta">
           <div class="atm-item"><div class="atm-label">Agent</div><div class="atm-val" id="alfred-meta-agent">ALFRED</div></div>
-          <div class="atm-item"><div class="atm-label">Mode</div><div class="atm-val" id="alfred-meta-mode">EXECUTIVE BRIEFING</div></div>
+          <div class="atm-item"><div class="atm-label">Mode</div><div class="atm-val" id="alfred-meta-mode">Executive briefing</div></div>
           <div class="atm-item"><div class="atm-label">Sources</div><div class="atm-val" id="alfred-meta-sources">8 agents</div></div>
           <div class="atm-item"><div class="atm-label">Generated</div><div class="atm-val" id="alfred-meta-time">06:00 UTC</div></div>
         </div>
@@ -1992,7 +2023,7 @@ footer{padding-bottom:64px}
       <!-- populated by JS -->
     </div>
     <div class="feed-footer-row">
-      <span class="feed-footer-label">SAMPLE ACTIVITY LOG</span>
+      <span class="feed-footer-label">Sample activity log</span>
       <span class="feed-footer-count" id="feed-count">0 events</span>
     </div>
     </div>
@@ -2003,10 +2034,10 @@ footer{padding-bottom:64px}
         <h3 class="voice-headline">Speak.<br>The system executes.</h3>
         <p class="voice-body">Alfred transforms NYX into a voice-native operating system. Full-screen HUD. Always listening. Your agents respond, act, and report in real time.</p>
         <ul class="voice-features">
-          <li><span class="vf-label">ALFRED HUD</span> Full-screen tactical interface with live agent status and waveform visualization</li>
-          <li><span class="vf-label">VOICE COMMANDS</span> Natural language triggers across all eight agents, logged and indexed</li>
-          <li><span class="vf-label">MEMORY CONTEXT</span> Every conversation stored, recalled, and linked to decisions</li>
-          <li><span class="vf-label">DEVICE AWARE</span> Optimized for desktop, mobile, and wearable input</li>
+          <li><span class="vf-label">Alfred HUD</span> Full-screen tactical interface with live agent status and waveform visualization</li>
+          <li><span class="vf-label">Voice commands</span> Natural language triggers across all eight agents, logged and indexed</li>
+          <li><span class="vf-label">Memory context</span> Every conversation stored, recalled, and linked to decisions</li>
+          <li><span class="vf-label">Device aware</span> Optimized for desktop, mobile, and wearable input</li>
         </ul>
       </div>
       <!-- Alfred preview — click anywhere to activate -->
@@ -2586,7 +2617,7 @@ footer{padding-bottom:64px}
       </div>
       <div class="agent-modal-status">
         <span class="agent-modal-dot"></span>
-        <span>ONLINE</span>
+        <span>Online</span>
       </div>
       <button id="agent-modal-close" class="agent-modal-close" aria-label="Close agent modal">
         <svg viewBox="0 0 14 14" fill="none"><line x1="2" y1="2" x2="12" y2="12" stroke="currentColor" stroke-width="0.8"/><line x1="12" y1="2" x2="2" y2="12" stroke="currentColor" stroke-width="0.8"/></svg>

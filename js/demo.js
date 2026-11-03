@@ -136,41 +136,41 @@
 (function(){
   const BRIEFS = {
     briefing: {
-      title: 'ALFRED — DAILY EXECUTIVE BRIEFING',
+      title: 'Alfred — Daily executive briefing',
       prompt: 'Alfred, give me my morning briefing.',
-      mode: 'EXECUTIVE BRIEFING',
+      mode: 'Executive briefing',
       sources: '8 agents',
       time: '06:00 UTC',
       text: `Good morning. It is Monday. You have three high-leverage actions today and two decisions that cannot wait.\n\nORACLE flagged a competitor funding round overnight — $22M Series B, direct positioning overlap in your primary segment. This accelerates your timeline by one quarter. I recommend reviewing your distribution strategy with APEX before noon.\n\nLEDGER confirms runway has extended to 18 months following last week's close. Cash efficiency ratio is up 14% month-over-month. You are ahead of plan.\n\nCONVERT reports three enterprise deals entered final stage. Combined value: $1.4M. Projected close probability is 78%. Your presence on the 11am call will increase that by an estimated 12 points.\n\nThe system is running. The rest is yours.`
     },
     opportunity: {
-      title: 'ALFRED — OPPORTUNITY ALERT',
+      title: 'Alfred — Opportunity alert',
       prompt: 'Alfred, what opportunities should I know about?',
-      mode: 'OPPORTUNITY DETECTION',
+      mode: 'Opportunity detection',
       sources: 'ORACLE + CONVERT',
       time: 'live',
       text: `Three opportunities require your attention. I have ranked them by expected return.\n\nFirst: A strategic partnership window with a tier-one distribution partner. ORACLE detected their outbound signals two days ago. The window is approximately 3 weeks before their Q4 roadmap locks. Expected revenue impact: $400K in year one.\n\nSecond: Your highest-intent inbound lead from last week has gone quiet. CONVERT analysis suggests they are evaluating a competitor. A direct founder-to-founder message in the next 48 hours has an 84% probability of re-engagement.\n\nThird: A speaking slot at a category-defining event opened. SIGNAL assessed audience alignment at 91%. Your competitors have not been invited. Confirmation deadline is Thursday.\n\nWhich do you want to action first?`
     },
     strategy: {
-      title: 'ALFRED — STRATEGIC INTELLIGENCE REPORT',
+      title: 'Alfred — Strategic intelligence report',
       prompt: 'Alfred, give me a strategic report.',
-      mode: 'STRATEGIC ANALYSIS',
+      mode: 'Strategic analysis',
       sources: 'APEX + ORACLE + LEDGER',
       time: 'weekly',
       text: `This is your weekly strategic summary. Three observations that will shape next quarter.\n\nThe market is consolidating faster than your model assumed. Two of the five independents in your segment have initiated acquisition conversations. Your positioning as the category premium creates protection, but only if you establish distribution before the consolidation window closes — approximately 6 months.\n\nYour unit economics are outperforming the cohort model by 19%. This is not noise. LEDGER traced it to a single product decision made in March. The implication: you have a repeatable advantage that competitors have not identified. Protect it. Do not publish it. Scale it.\n\nTeam velocity has increased 34% since the Q2 restructure. APEX models suggest one more targeted hire in the next 60 days would compound output disproportionately. The profile is specific: a senior operator with enterprise distribution experience.\n\nThe window to dominate this category is 18 months. The system agrees.`
     },
     market: {
-      title: 'ALFRED — MARKET INTELLIGENCE UPDATE',
+      title: 'Alfred — Market intelligence update',
       prompt: 'Alfred, what is happening in the market?',
-      mode: 'MARKET INTELLIGENCE',
+      mode: 'Market intelligence',
       sources: 'ORACLE + SIGNAL',
       time: 'real-time',
       text: `ORACLE processed 14 market signals in the last 24 hours. Here is what matters.\n\nMacro: risk capital is rotating back into B2B SaaS. Three major funds have revised their deployment timelines forward. If you are considering a raise, the next 90 days are more favorable than the following 9 months.\n\nCompetitive: your primary competitor shipped a feature that overlaps with your Q3 roadmap at 40%. It is underdeveloped — they moved fast and it shows. Your execution depth remains the differentiator. Do not rush to match; execute your original vision better.\n\nAudience: your target segment's search behavior shifted last week. Two new intent signals appeared that were not in your model. SIGNAL has already updated the distribution strategy. Content calendar adjusted.\n\nSentiment: three Tier-1 publications are running category coverage in the next 30 days. ORACLE has identified the reporters. I recommend a targeted briefing campaign this week.`
     },
     performance: {
-      title: 'ALFRED — PERFORMANCE REVIEW',
+      title: 'Alfred — Performance review',
       prompt: 'Alfred, how am I performing this quarter?',
-      mode: 'PERFORMANCE ANALYSIS',
+      mode: 'Performance analysis',
       sources: 'ALL AGENTS',
       time: 'Q3 2026',
       text: `Quarter three is tracking at 118% of plan across the metrics that matter.\n\nRevenue: $284K MRR, up 18% month-over-month. Pipeline coverage ratio is 3.2x, which means you have enough in funnel to close the quarter above target even with a 30% loss rate.\n\nOperations: MERIDIAN reports SLA compliance at 98.4%, up from 91% last quarter. The friction point in your fulfillment process was resolved. Overhead efficiency improved.\n\nTeam: APEX models output velocity at a 7-year high for a team of this size. Decision latency — the time between identifying a problem and acting on it — dropped by 40% since you began using the system daily.\n\nOne flag: you have delayed the enterprise pricing decision four times. LEDGER and CONVERT both indicate this is costing you approximately $60K per month in leave-on-the-table revenue. This is the decision you should make today.\n\nYou are performing. The system is performing. One call to action remains.`

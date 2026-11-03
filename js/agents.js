@@ -164,6 +164,6 @@
   ['agent-modal'].forEach(function(id){ var el=document.getElementById(id); if(el){ el.classList.remove('active'); el.setAttribute('aria-hidden','true'); }});
   // Relabel triggers
   document.querySelectorAll('.vhud-frame').forEach(function(el){ el.setAttribute('aria-label','Ask Alfred'); });
-  document.querySelectorAll('.vhud-status').forEach(function(el){ el.textContent = 'ASK ALFRED'; });
+  document.querySelectorAll('.vhud-status').forEach(function(el){ el.textContent = 'Ask Alfred'; });
   document.querySelectorAll('.agent-card[data-agent]').forEach(function(el){ el.setAttribute('aria-label', (el.dataset.agent||'Agent') + ' — request access'); });
 })();
