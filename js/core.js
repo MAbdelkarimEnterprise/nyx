@@ -150,25 +150,22 @@ function nyxLoop(el, step){
   fill();
 })();
 
-/* ── HERO MOONGLOW ── one soft light that follows a fine pointer, slowly. */
+/* ── HERO: WORDMARK LIGHT ── the cursor pulls a light across the NYX letters.
+   (The restored crest seal is static SVG in index.html, drawn in currentColor.) */
 (function(){
-  const hero = document.getElementById('hero');
-  if (!hero || _pRM || !matchMedia('(pointer:fine)').matches) return;
-  let tx = 50, ty = 42, x = 50, y = 42, raf = 0;
-  let off = 0;
-  hero.addEventListener('pointermove', e => {
-    // Pink means the visitor is about to act: only over a link or button, only while moving.
-    const on = !!e.target.closest('a,button');
-    hero.classList.toggle('glow-on', on);
-    clearTimeout(off); if (on) off = setTimeout(() => hero.classList.remove('glow-on'), 700);
-    const r = hero.getBoundingClientRect();
+  const title = document.querySelector('.n-hero .hero-title');
+  if (!title || _pRM || !matchMedia('(pointer:fine)').matches) return;
+  let tx = 50, ty = 50, x = 50, y = 50, raf = 0;
+  addEventListener('pointermove', e => {
+    const r = title.getBoundingClientRect();
+    if (r.bottom < 0) return;
     tx = (e.clientX - r.left) / r.width * 100; ty = (e.clientY - r.top) / r.height * 100;
     if (!raf) raf = requestAnimationFrame(step);
   }, { passive:true });
   function step(){
-    x += (tx - x) * 0.06; y += (ty - y) * 0.06;
-    hero.style.setProperty('--mx', x.toFixed(2) + '%'); hero.style.setProperty('--my', y.toFixed(2) + '%');
-    raf = (Math.abs(tx - x) + Math.abs(ty - y) > 0.1 && !nyxPaused()) ? requestAnimationFrame(step) : 0;
+    x += (tx - x) * 0.08; y += (ty - y) * 0.08;
+    title.style.setProperty('--lx', x.toFixed(1) + '%'); title.style.setProperty('--ly', y.toFixed(1) + '%');
+    raf = (Math.abs(tx - x) + Math.abs(ty - y) > 0.2 && !nyxPaused()) ? requestAnimationFrame(step) : 0;
   }
 })();
 

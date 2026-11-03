@@ -1,11 +1,11 @@
-// NYX three.js scenes (hero topology + engine). Loaded as a module, so it runs
+// NYX three.js scenes (night-field shader + engine). Loaded as a module, so it runs
 // after the classic scripts (core.js globals).
 // three.js is fetched only on capable devices, only when a scene nears the
 // viewport. Phones, ≤4-core devices and reduced motion get the static fallback.
 const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.186.1/+esm';
-const capable = !matchMedia('(prefers-reduced-motion: reduce)').matches
-  && !matchMedia('(max-width: 768px)').matches
-  && (navigator.hardwareConcurrency || 8) > 4;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const small = matchMedia('(max-width: 768px)').matches || (navigator.hardwareConcurrency || 8) <= 4;
+const capable = !reduced && !small;   // the engine instrument stays desktop-only
 
 let threeP;
 const loadThree = () => (threeP ||= import(THREE_URL));
@@ -17,64 +17,123 @@ function whenNear(el, fn){
   io.observe(el);
 }
 const afterLoad = (fn) => document.readyState === 'complete' ? fn() : addEventListener('load', fn, { once: true });
+const idle = (fn) => (window.requestIdleCallback || setTimeout)(fn, { timeout: 1500 });
 
-if (!capable) {
-  document.documentElement.classList.add('static-scenes');
-} else {
-  // Hero waits for page load so three.js never competes with first paint.
-  afterLoad(() => whenNear(document.getElementById('hero-canvas'), () => loadThree().then(heroScene)));
-  whenNear(document.getElementById('engine-canvas'), () => loadThree().then(engineScene));
-}
+// The night field runs everywhere (a lighter shader on small devices, one still frame under reduced motion).
+afterLoad(() => idle(() => loadThree().then(nightField)));
+if (!capable) document.documentElement.classList.add('static-scenes');
+else whenNear(document.getElementById('engine-canvas'), () => loadThree().then(engineScene));
 
-/* ── THREE.JS NEURAL TOPOLOGY ───────────────────────── */
-function heroScene(THREE){
-  // A quiet night field: faint points drifting almost imperceptibly. No lines, no pulses.
+/* ── NIGHT FIELD: the site's one environment ────────────
+   A fixed full-screen quad behind everything. Domain-warped fbm noise:
+   black → deep blue → royal blue, hot pink only at the brightest peaks and on
+   the leading edge of a click ripple. The cursor bends the field; scroll moves
+   its hue. Brightness follows the section in view ([data-field] on sections):
+   full behind the hero, a band behind Agents and Options, dark elsewhere (and
+   then it stops rendering). Internal resolution 0.5–0.6× DPR. */
+const FRAG = `
+precision highp float;
+uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse; uniform float uLevel; uniform float uScroll;
+uniform vec4 uRip[3];
+// 2D simplex noise (Ashima Arts, MIT)
+vec3 permute(vec3 x){return mod(((x*34.0)+1.0)*x,289.0);}
+float snoise(vec2 v){const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);
+vec2 i=floor(v+dot(v,C.yy));vec2 x0=v-i+dot(i,C.xx);vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+vec4 x12=x0.xyxy+C.xxzz;x12.xy-=i1;i=mod(i,289.0);
+vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));
+vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0);m=m*m;m=m*m;
+vec3 x=2.0*fract(p*C.www)-1.0;vec3 h=abs(x)-0.5;vec3 ox=floor(x+0.5);vec3 a0=x-ox;
+m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);
+vec3 g;g.x=a0.x*x0.x+h.x*x0.y;g.yz=a0.yz*x12.xz+h.yz*x12.yw;return 130.0*dot(m,g);}
+float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<OCT;i++){v+=a*snoise(p);p=p*2.03+vec2(1.7,9.2);a*=0.5;}return v;}
+void main(){
+  vec2 uv=gl_FragCoord.xy/uRes;
+  vec2 p=(gl_FragCoord.xy-0.5*uRes)/uRes.y;
+  vec2 m=(uMouse-0.5)*vec2(uRes.x/uRes.y,1.0);
+  vec2 d=m-p; p+=d*exp(-dot(d,d)*2.5)*0.16;                 // the field leans toward the cursor
+  float t=uTime*0.03;
+  vec2 q=vec2(fbm(p*0.7+vec2(0.0,t)),fbm(p*0.7+vec2(5.2,1.3)-t));
+#ifdef WARP2
+  vec2 r=vec2(fbm(p*0.9+1.5*q+vec2(1.7,9.2)+t*1.4),fbm(p*0.9+1.5*q+vec2(8.3,2.8)-t));
+#else
+  vec2 r=q;
+#endif
+  float n=fbm(p*0.6+1.7*r+vec2(0.0,uScroll*0.8))*0.5+0.5;  // scroll drifts the currents
+  float rip=0.0,edge=0.0;
+  for(int i=0;i<3;i++){ vec4 R=uRip[i]; if(R.w<0.5) continue;
+    float age=uTime-R.z; vec2 c=(R.xy-0.5)*vec2(uRes.x/uRes.y,1.0);
+    float dist=length(p-c), rad=age*0.28, fade=exp(-age*0.45);
+    edge+=exp(-pow((dist-rad)*22.0,2.0))*fade;                // leading edge: pink
+    rip+=exp(-pow((dist-rad+0.06)*9.0,2.0))*fade; }           // the wake: blue
+  vec3 black=vec3(0.008,0.027,0.039), deep=vec3(0.0,0.09,0.36), blue=vec3(0.063,0.345,1.0), pink=vec3(0.847,0.224,0.584);
+  blue=mix(blue,vec3(0.16,0.28,1.0),uScroll*0.6);            // hue moves toward violet as you go down
+  float body=smoothstep(0.32,0.7,n), band=smoothstep(0.56,0.9,n);
+  vec3 col=mix(black,deep,body);
+  col=mix(col,blue,band*band*0.9);
+  float vein=smoothstep(0.86,0.97,n+0.08*length(r));
+  col=mix(col,pink,vein*0.55);
+  col+=blue*rip*0.35+pink*edge*0.6;
+  float vig=smoothstep(1.15,0.2,length((uv-0.5)*vec2(1.25,1.0)));
+  col=mix(black,col,uLevel*mix(0.45,1.0,vig));
+  float g=fract(sin(dot(gl_FragCoord.xy+fract(uTime)*100.0,vec2(12.9898,78.233)))*43758.5453);
+  col+=(g-0.5)*0.03*uLevel;                                    // film grain
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+function nightField(THREE){
   try{
-    const canvas = document.getElementById('hero-canvas');
-    let W = canvas.offsetWidth, H = canvas.offsetHeight;
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:false });
-    renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    const canvas = document.getElementById('night-field');
+    if (!canvas) return;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:false, powerPreference:'low-power' });
+    const scale = small ? 0.5 : 0.6;
+    const size = () => { renderer.setPixelRatio(Math.min(devicePixelRatio, 2) * scale); renderer.setSize(innerWidth, innerHeight, false); u.uRes.value.set(canvas.width, canvas.height); };
+    const u = {
+      uRes:{ value:new THREE.Vector2() }, uTime:{ value:0 }, uMouse:{ value:new THREE.Vector2(0.5, 0.55) },
+      uLevel:{ value:0 }, uScroll:{ value:0 }, uRip:{ value:[0,1,2].map(() => new THREE.Vector4(0,0,0,0)) },
+    };
+    const mat = new THREE.ShaderMaterial({ uniforms:u, fragmentShader:FRAG,
+      vertexShader:'void main(){gl_Position=vec4(position.xy,0.0,1.0);}',
+      defines: small ? { OCT:3 } : { OCT:4, WARP2:1 }, depthTest:false, depthWrite:false });
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, W/H, 1, 4000);
-    camera.position.z = 900;
-    const field = new THREE.Group();
-    scene.add(field);
-    function layer(count, size, opacity, color){
-      const p = new Float32Array(count * 3);
-      for (let i = 0; i < count; i++) {
-        p[i*3] = (Math.random() - 0.5) * 2600;
-        p[i*3+1] = (Math.random() - 0.5) * 1600;
-        p[i*3+2] = (Math.random() - 0.5) * 1400;
-      }
-      const g = new THREE.BufferGeometry();
-      g.setAttribute('position', new THREE.BufferAttribute(p, 3));
-      field.add(new THREE.Points(g, new THREE.PointsMaterial({ color, size, transparent:true, opacity, sizeAttenuation:true, depthWrite:false })));
-    }
-    layer(260, 1.6, 0.35, nyxHex('--mist'));
-    layer(40, 2.6, 0.5, nyxHex('--moon'));
+    scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
+    const cam = new THREE.Camera();
+    size(); addEventListener('resize', size, { passive:true });
 
-    const target = { x:0, y:0 }, cur = { x:0, y:0 };
-    addEventListener('pointermove', e => { target.x = (e.clientX / innerWidth - 0.5); target.y = (e.clientY / innerHeight - 0.5); }, { passive:true });
-    addEventListener('resize', () => {
-      W = canvas.offsetWidth; H = canvas.offsetHeight;
-      camera.aspect = W/H; camera.updateProjectionMatrix(); renderer.setSize(W, H);
+    // Brightness follows the section at the viewport's middle.
+    const levelAt = () => { const el = document.elementFromPoint(innerWidth / 2, innerHeight / 2)?.closest('[data-field]'); return el ? +el.dataset.field : 0; };
+    let mouse = { x:0.5, y:0.55 }, rip = 0, raf = 0, last = 0;
+    u.uLevel.value = levelAt();
+    const kick = () => { if (!raf && !document.hidden && !reduced) raf = requestAnimationFrame(tick); };
+    addEventListener('pointermove', e => { mouse = { x:e.clientX / innerWidth, y:1 - e.clientY / innerHeight }; kick(); }, { passive:true });
+    addEventListener('pointerdown', e => {
+      if (reduced || u.uLevel.value < 0.2) return;
+      u.uRip.value[rip++ % 3].set(e.clientX / innerWidth, 1 - e.clientY / innerHeight, u.uTime.value, 1); kick();
     }, { passive:true });
+    // Reduced motion: still frames only, re-lit to match the section in view.
+    addEventListener('scroll', () => { if (reduced) { u.uLevel.value = levelAt(); renderer.render(scene, cam); } else kick(); }, { passive:true });
+    document.addEventListener('visibilitychange', kick);
+    document.getElementById('motion-toggle')?.addEventListener('click', kick);
 
-    let vis = true, raf = 0;
-    new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && !raf) tick(); }).observe(canvas);
-    document.addEventListener('visibilitychange', () => { if (vis && !raf) tick(); });
-    function tick(){
-      if (!vis || document.hidden || nyxPaused()) { raf = 0; renderer.render(scene, camera); return; }
-      raf = requestAnimationFrame(tick);
-      field.rotation.y += 0.00005;
-      cur.x += (target.x - cur.x) * 0.02; cur.y += (target.y - cur.y) * 0.02;
-      field.position.x = cur.x * -30; field.position.y = cur.y * 18;
-      renderer.render(scene, camera);
+    function tick(now){
+      raf = 0;
+      const dt = Math.min(64, now - (last || now)); last = now;
+      const paused = nyxPaused();
+      if (!paused) u.uTime.value += dt / 1000;
+      const target = levelAt();
+      u.uLevel.value += (target - u.uLevel.value) * 0.05;
+      const um = u.uMouse.value; um.x += (mouse.x - um.x) * 0.04; um.y += (mouse.y - um.y) * 0.04;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      u.uScroll.value += ((max > 0 ? scrollY / max : 0) - u.uScroll.value) * 0.05;
+      renderer.render(scene, cam);
+      const settled = Math.abs(target - u.uLevel.value) < 0.004;
+      // Keep running while the field is visible and moving; stop when dark, paused or hidden.
+      if (!document.hidden && !(paused && settled) && !(target === 0 && settled)) raf = requestAnimationFrame(tick);
+      else last = 0;
     }
-    tick();
-    document.getElementById('motion-toggle')?.addEventListener('click', () => { if (!raf) tick(); });
-  } catch(e){ console.warn('NYX 3D unavailable', e); }
+    renderer.render(scene, cam);           // one still frame: reduced motion stops here
+    canvas.classList.add('show');
+    kick();
+  } catch(e){ console.warn('NYX field unavailable', e); }
 }
 
 /* ── NYX ENGINE — 3D PRECISION INSTRUMENT ───────────── */
