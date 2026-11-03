@@ -1,16 +1,6 @@
 {
   "url": "http://127.0.0.1:8765/",
-  "at": "2026-11-03T23:11:51.031Z",
-  "checked": 375,
-  "fails": [
-    {
-      "screen": "#alfred-1440",
-      "t": "Next brief",
-      "cls": "alfred-enter-label",
-      "size": 12,
-      "ratio": 4.48,
-      "need": 4.5,
-      "pass": false
-    }
-  ]
+  "at": "2026-11-03T23:15:30.500Z",
+  "checked": 382,
+  "fails": []
 }
