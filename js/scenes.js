@@ -28,152 +28,53 @@ if (!capable) {
 
 /* ── THREE.JS NEURAL TOPOLOGY ───────────────────────── */
 function heroScene(THREE){
+  // A quiet night field: faint points drifting almost imperceptibly. No lines, no pulses.
   try{
     const canvas = document.getElementById('hero-canvas');
     let W = canvas.offsetWidth, H = canvas.offsetHeight;
-
     const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:false });
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(devicePixelRatio, _touch ? 1 : 1.5));
-
-    const scene  = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, W/H, 1, 3000);
-    camera.position.z = 620;
-
-    const group = new THREE.Group();
-    scene.add(group);
-
-    // ── Node positions: scattered volumetric ellipsoid ──
-    const N = _touch ? 44 : 88;
-    const npos = [];
-    const SX = _touch ? 280 : 360, SY = _touch ? 200 : 260, SZ = _touch ? 140 : 180;
-
-    for(let i = 0; i < N; i++){
-      const theta = Math.random() * Math.PI * 2;
-      const phi   = Math.acos(2 * Math.random() - 1);
-      const r     = 0.22 + 0.78 * Math.cbrt(Math.random());
-      npos.push([
-        SX * r * Math.sin(phi) * Math.cos(theta),
-        SY * r * Math.sin(phi) * Math.sin(theta),
-        SZ * r * Math.cos(phi)
-      ]);
-    }
-
-    // ── Small background nodes (white) ──
-    const smallArr = new Float32Array(N * 3);
-    npos.forEach((p,i) => { smallArr[i*3]=p[0]; smallArr[i*3+1]=p[1]; smallArr[i*3+2]=p[2]; });
-    const smallGeo = new THREE.BufferGeometry();
-    smallGeo.setAttribute('position', new THREE.BufferAttribute(smallArr, 3));
-    group.add(new THREE.Points(smallGeo,
-      new THREE.PointsMaterial({ color:0xffffff, size:1.9, transparent:true, opacity:0.3, sizeAttenuation:true })
-    ));
-
-    // ── Hub nodes (gold, larger) ──
-    const HUB_N = 14;
-    const hubArr = new Float32Array(HUB_N * 3);
-    for(let i = 0; i < HUB_N; i++){
-      const idx = Math.floor((i / HUB_N) * N);
-      hubArr[i*3]=npos[idx][0]; hubArr[i*3+1]=npos[idx][1]; hubArr[i*3+2]=npos[idx][2];
-    }
-    const hubGeo = new THREE.BufferGeometry();
-    hubGeo.setAttribute('position', new THREE.BufferAttribute(hubArr, 3));
-    group.add(new THREE.Points(hubGeo,
-      new THREE.PointsMaterial({ color:nyxHex('--indigo'), size:4.8, transparent:true, opacity:0.62, sizeAttenuation:true })
-    ));
-
-    // ── Edges ──
-    const MAX_D = 138;
-    const adj = Array.from({length:N}, () => []);
-    const edgeVerts = [];
-
-    for(let i = 0; i < N; i++){
-      let c = 0;
-      for(let j = i+1; j < N && c < 4; j++){
-        const dx=npos[i][0]-npos[j][0], dy=npos[i][1]-npos[j][1], dz=npos[i][2]-npos[j][2];
-        if(dx*dx+dy*dy+dz*dz < MAX_D*MAX_D){
-          edgeVerts.push(...npos[i], ...npos[j]);
-          adj[i].push(j); adj[j].push(i); c++;
-        }
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, W/H, 1, 4000);
+    camera.position.z = 900;
+    const field = new THREE.Group();
+    scene.add(field);
+    function layer(count, size, opacity, color){
+      const p = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        p[i*3] = (Math.random() - 0.5) * 2600;
+        p[i*3+1] = (Math.random() - 0.5) * 1600;
+        p[i*3+2] = (Math.random() - 0.5) * 1400;
       }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+      field.add(new THREE.Points(g, new THREE.PointsMaterial({ color, size, transparent:true, opacity, sizeAttenuation:true, depthWrite:false })));
     }
-    const edgeGeo = new THREE.BufferGeometry();
-    edgeGeo.setAttribute('position', new THREE.Float32BufferAttribute(edgeVerts, 3));
-    group.add(new THREE.LineSegments(edgeGeo,
-      new THREE.LineBasicMaterial({ color:0xffffff, transparent:true, opacity:0.052 })
-    ));
+    layer(260, 1.6, 0.35, nyxHex('--mist'));
+    layer(40, 2.6, 0.5, nyxHex('--moon'));
 
-    // ── Activation pulses traveling along edges ──
-    const PULSES = _touch ? 5 : 9;
-    const pulses = [];
+    const target = { x:0, y:0 }, cur = { x:0, y:0 };
+    addEventListener('pointermove', e => { target.x = (e.clientX / innerWidth - 0.5); target.y = (e.clientY / innerHeight - 0.5); }, { passive:true });
+    addEventListener('resize', () => {
+      W = canvas.offsetWidth; H = canvas.offsetHeight;
+      camera.aspect = W/H; camera.updateProjectionMatrix(); renderer.setSize(W, H);
+    }, { passive:true });
 
-    for(let p = 0; p < PULSES; p++){
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.Float32BufferAttribute([0,0,0], 3));
-      const mat = new THREE.PointsMaterial({ color:nyxHex('--indigo'), size:5.5, transparent:true, opacity:0, sizeAttenuation:true });
-      const mesh = new THREE.Points(geo, mat);
-      group.add(mesh);
-      const src = Math.floor(Math.random() * N);
-      const nbrs = adj[src];
-      const dst = nbrs.length > 0 ? nbrs[Math.floor(Math.random()*nbrs.length)] : (src+1)%N;
-      pulses.push({ mesh, src, dst, t: Math.random(), speed: 0.005+Math.random()*0.007 });
-    }
-
-    // ── Mouse + auto rotation ──
-    const mouse = {x:0, y:0};
-    let rotY = 0, mX = 0, mY = 0;
-
-    window.addEventListener('mousemove', e => {
-      mouse.x=(e.clientX/W-0.5)*2; mouse.y=(e.clientY/H-0.5)*2;
-    }, {passive:true});
-
-    let _rt;
-    window.addEventListener('resize', () => {
-      clearTimeout(_rt);
-      _rt = setTimeout(() => {
-        W=canvas.offsetWidth; H=canvas.offsetHeight;
-        camera.aspect=W/H; camera.updateProjectionMatrix();
-        renderer.setSize(W,H);
-      }, 100);
-    }, {passive:true});
-
-    let _vis = true, raf = 0;
-    new IntersectionObserver(es => { _vis = es[0].isIntersecting; if(_vis && !raf) tick(); }).observe(canvas);
-    document.addEventListener('visibilitychange', () => { if(_vis && !raf) tick(); });
-
+    let vis = true, raf = 0;
+    new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && !raf) tick(); }).observe(canvas);
+    document.addEventListener('visibilitychange', () => { if (vis && !raf) tick(); });
     function tick(){
-      if(!_vis || document.hidden){ raf = 0; return; }
+      if (!vis || document.hidden || nyxPaused()) { raf = 0; renderer.render(scene, camera); return; }
       raf = requestAnimationFrame(tick);
-      rotY += 0.00014;
-      mX += (mouse.y*0.11 - mX)*0.024;
-      mY += (mouse.x*0.11 - mY)*0.024;
-      group.rotation.x = mX;
-      group.rotation.y = rotY + mY;
-
-      pulses.forEach(pulse => {
-        pulse.t += pulse.speed;
-        if(pulse.t >= 1){
-          pulse.src = pulse.dst;
-          const nbrs = adj[pulse.src];
-          pulse.dst = nbrs.length > 0 ? nbrs[Math.floor(Math.random()*nbrs.length)] : (pulse.src+1)%N;
-          pulse.t = 0;
-          pulse.speed = 0.005 + Math.random()*0.007;
-        }
-        const a = npos[pulse.src], b = npos[pulse.dst];
-        const pa = pulse.mesh.geometry.attributes.position;
-        pa.setXYZ(0,
-          a[0]+(b[0]-a[0])*pulse.t,
-          a[1]+(b[1]-a[1])*pulse.t,
-          a[2]+(b[2]-a[2])*pulse.t
-        );
-        pa.needsUpdate = true;
-        pulse.mesh.material.opacity = Math.sin(pulse.t * Math.PI) * 0.88;
-      });
-
+      field.rotation.y += 0.00005;
+      cur.x += (target.x - cur.x) * 0.02; cur.y += (target.y - cur.y) * 0.02;
+      field.position.x = cur.x * -30; field.position.y = cur.y * 18;
       renderer.render(scene, camera);
     }
     tick();
-
-  } catch(e){ console.warn('NYX 3D unavailable',e); }
+    document.getElementById('motion-toggle')?.addEventListener('click', () => { if (!raf) tick(); });
+  } catch(e){ console.warn('NYX 3D unavailable', e); }
 }
 
 /* ── NYX ENGINE — 3D PRECISION INSTRUMENT ───────────── */

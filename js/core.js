@@ -497,3 +497,56 @@ function startScanLine(){
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(fill); } }, { passive: true });
   fill();
 })();
+
+/* ── HERO MOONGLOW ── one soft light that follows a fine pointer, slowly. */
+(function(){
+  const hero = document.getElementById('hero');
+  if (!hero || _pRM || !matchMedia('(pointer:fine)').matches) return;
+  let tx = 50, ty = 42, x = 50, y = 42, raf = 0;
+  hero.addEventListener('pointermove', e => {
+    const r = hero.getBoundingClientRect();
+    tx = (e.clientX - r.left) / r.width * 100; ty = (e.clientY - r.top) / r.height * 100;
+    if (!raf) raf = requestAnimationFrame(step);
+  }, { passive:true });
+  function step(){
+    x += (tx - x) * 0.06; y += (ty - y) * 0.06;
+    hero.style.setProperty('--mx', x.toFixed(2) + '%'); hero.style.setProperty('--my', y.toFixed(2) + '%');
+    raf = (Math.abs(tx - x) + Math.abs(ty - y) > 0.1 && !nyxPaused()) ? requestAnimationFrame(step) : 0;
+  }
+})();
+
+/* ── AGENT HUB ── focus/hover shows an agent's link to APEX and its detail;
+   one pulse travels one line every few seconds, never two at once. */
+(function(){
+  const hub = document.getElementById('hub');
+  if (!hub) return;
+  const nameEl = hub.querySelector('.n-hub-detail-name');
+  const descEl = hub.querySelector('.n-hub-detail-desc');
+  const btns = [...hub.querySelectorAll('.n-node-btn')];
+  function show(btn){
+    const k = btn.dataset.agent;
+    hub.dataset.active = k;
+    hub.querySelectorAll('.n-link').forEach(l => l.classList.toggle('is-on', k === 'apex' || l.dataset.agent === k));
+    btns.forEach(b => b.classList.toggle('is-on', b === btn));
+    nameEl.textContent = btn.querySelector('.n-node-name').textContent + ' · ' + btn.querySelector('.n-node-role').textContent;
+    descEl.textContent = document.getElementById('desc-' + k).textContent;
+  }
+  btns.forEach(b => { b.addEventListener('mouseenter', () => show(b)); b.addEventListener('focus', () => show(b)); b.addEventListener('click', () => show(b)); });
+  show(btns[0]);
+
+  const pulses = [...hub.querySelectorAll('.n-pulse')];
+  if (_pRM || !pulses.length || !pulses[0].animate) return;
+  let visible = false, timer = 0, last = -1;
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible && !timer) schedule(); }).observe(hub);
+  function schedule(){ timer = setTimeout(fire, 3500); }
+  function fire(){
+    timer = 0;
+    if (!visible || document.hidden || nyxPaused()) { if (visible) schedule(); return; }
+    let i; do { i = Math.floor(Math.random() * pulses.length); } while (i === last && pulses.length > 1);
+    last = i;
+    const p = pulses[i], out = Math.random() < 0.5;
+    p.animate([{ strokeDashoffset: out ? 100 : 0, opacity: 0 }, { opacity: 1, offset: 0.15 }, { opacity: 1, offset: 0.85 }, { strokeDashoffset: out ? 0 : 100, opacity: 0 }],
+              { duration: 1400, easing: 'linear' });
+    schedule();
+  }
+})();
