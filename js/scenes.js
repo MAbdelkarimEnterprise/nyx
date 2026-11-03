@@ -1,5 +1,5 @@
 // NYX three.js scenes (hero topology + engine). Loaded as a module, so it runs
-// after the deferred classic scripts (gsap, ScrollTrigger, core.js globals).
+// after the classic scripts (core.js globals).
 // three.js is fetched only on capable devices, only when a scene nears the
 // viewport. Phones, ≤4-core devices and reduced motion get the static fallback.
 const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.186.1/+esm';
@@ -238,55 +238,44 @@ function engineScene(THREE){
   // ── SCROLL REACTIVITY ─────────────────────────────────
   let scrollSpeed = 0;
   let baseRotY = 0, baseRotX = 0;
-  ScrollTrigger.create({
-    trigger: '#engine',
-    start: 'top bottom',
-    end: 'bottom top',
-    onUpdate: (self) => { scrollSpeed = self.getVelocity() * 0.00002; }
-  });
-
-  // Entrance animation
-  engine.scale.set(0, 0, 0);
-  ScrollTrigger.create({
-    trigger: '#engine',
-    start: 'top 75%',
-    once: true,
-    onEnter: () => {
-      gsap.to(engine.scale, { x: 1, y: 1, z: 1, duration: 1.8, ease: 'power3.out' });
-    }
-  });
+  let lastY = scrollY;
+  addEventListener('scroll', () => {
+    const dy = scrollY - lastY; lastY = scrollY;
+    if (!visible || nyxPaused()) return;
+    scrollSpeed = Math.max(-0.02, Math.min(0.02, dy * 0.0004));
+    if (!rafId) tick();
+  }, { passive: true });
 
   // ── RENDER LOOP ───────────────────────────────────────
   let rafId;
   let visible = false;
   const obs = new IntersectionObserver(entries => {
     visible = entries[0].isIntersecting;
-    if (visible && !rafId) tick();
+    if (visible) renderer.render(scene, camera);   // still frame
   }, { threshold: 0.01 });
   obs.observe(canvas);
 
   let t = 0;
   function tick() {
+    // Moves only in response to scrolling; settles to a still frame.
+    if (!visible || Math.abs(scrollSpeed) < 0.0004) { rafId = null; renderer.render(scene, camera); return; }
     rafId = requestAnimationFrame(tick);
-    if (!visible) { rafId = null; return; }
     t += 0.008;
 
     // Independent ring rotations
-    ring1.rotation.y += 0.004 + scrollSpeed;
-    ring2.rotation.x += 0.006 + scrollSpeed * 0.8;
-    ring3.rotation.z += 0.009 + scrollSpeed * 1.2;
-    core.rotation.y  -= 0.003;
-    core.rotation.x  += 0.002;
-    coreRing.rotation.z += 0.005;
-    ghost.rotation.y -= 0.001;
-    ghost.rotation.x += 0.0015;
-    scaleRing.rotation.z -= 0.0012;
-    cage.rotation.y += 0.0010;
-    cage.rotation.x += 0.0006;
+    ring1.rotation.y += scrollSpeed;
+    ring2.rotation.x += scrollSpeed * 0.8;
+    ring3.rotation.z += scrollSpeed * 1.2;
+    core.rotation.y  -= scrollSpeed * 0.6;
+    core.rotation.x  += scrollSpeed * 0.4;
+    coreRing.rotation.z += scrollSpeed;
+    ghost.rotation.y -= scrollSpeed * 0.2;
+    ghost.rotation.x += scrollSpeed * 0.3;
+    scaleRing.rotation.z -= scrollSpeed * 0.25;
+    cage.rotation.y += scrollSpeed * 0.2;
+    cage.rotation.x += scrollSpeed * 0.12;
 
     // Gentle overall drift
-    engine.rotation.y = Math.sin(t * 0.3) * 0.18;
-    engine.rotation.x = Math.sin(t * 0.2) * 0.1;
 
     scrollSpeed *= 0.92; // dampen
     renderer.render(scene, camera);

@@ -26,7 +26,6 @@
 <script>try{var k='nyx_seen',n=Date.now(),t=+localStorage.getItem(k)||0;if(n-t<6048e5||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('no-boot');localStorage.setItem(k,n)}catch(e){}</script>
 <link rel="canonical" href="https://nyxsystem.online/">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces.woff2" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <style>
 /* ── FONTS (self-hosted, variable, latin) ──────────────── */
 @font-face{font-family:'Fraunces';font-style:normal;font-weight:300 600;font-display:swap;src:url(/fonts/fraunces.woff2) format('woff2')}
@@ -1871,6 +1870,54 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
 .assessment-progress-text{margin-bottom:var(--s1)!important}
 .assessment-step-label{margin-bottom:var(--s3)!important;color:var(--text-3)!important}
 @media(max-width:900px){.n-hub-map{aspect-ratio:auto}}
+
+/* ══ DESIGN 5: CHROME AND MOTION ═════════════════════════════════════
+   Two persistent layers: the top nav (hides on scroll down) and the Ask
+   Alfred launcher. The rail is the desktop index. Three signature moments:
+   boot → hero, Agent Network pulses, Alfred reveal. Everything else is still. */
+/* Content that used to wait for scroll animations is simply there. */
+.manifesto-headline,.agents-headline,.alfred-demo-headline,.access-headline,.system-headline,.voice-headline,.feed-headline,
+.assessment-headline,.assessment-sub,.assessment-eyebrow,.assessment-progress,.assessment-steps,.waitlist-headline,.waitlist-sub,
+.waitlist-eyebrow,.waitlist-form,.alfred-term-enter,.hero-eyebrow,.hero-statement,.hero-cta,.hero-char,.tier-tag{
+  opacity:1!important;clip-path:none!important;transform:none!important}
+#assessment-steps{visibility:visible!important}
+#nav{transition:transform var(--d-step) var(--ease-ui),background var(--d-step) var(--ease-ui),border-color var(--d-step) var(--ease-ui)!important}
+#nav.is-hidden{transform:translateY(-100%)}
+#nav.scrolled{background:var(--night)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-bottom:1px solid var(--line)!important}
+.ask-alfred{bottom:calc(var(--s3) + env(safe-area-inset-bottom))!important;border-radius:var(--r2);background:var(--dusk)!important;color:var(--text-1)!important;border:1px solid var(--line-strong)!important;box-shadow:0 12px 40px -12px var(--night)!important;transition:border-color var(--d-ui) var(--ease-ui)}
+.ask-alfred:hover{border-color:var(--moon)!important;background:var(--dusk)!important}
+footer{padding-bottom:var(--s6)!important}
+/* Rail foot: readout and pause. */
+.rail-foot{display:none}
+@media(min-width:1100px){
+  .rail{flex-wrap:wrap}
+  .rail-foot{display:block;flex-basis:100%;margin-top:var(--s4);padding-left:var(--s2)}
+  .rail-status{margin:0 0 var(--s1);font:500 var(--t-caption)/1.6 var(--ui);letter-spacing:0.12em;color:var(--text-3);font-variant-numeric:tabular-nums}
+  .rail .motion-toggle{margin:0;min-height:36px;padding:0;border:0;background:none;color:var(--text-2);font:500 var(--t-caption)/1 var(--ui)!important;letter-spacing:0.02em;cursor:pointer}
+  .rail .motion-toggle:hover{color:var(--text-1)}
+}
+/* Boot → hero: CSS only. */
+.loader-logo{animation:nBootLogo .5s var(--ease-sig) both}
+.loader-bar-fill{transform-origin:left;animation:nBootBar .55s var(--ease-ui) both}
+@keyframes nBootLogo{from{transform:scale(.94)}to{transform:none}}
+@keyframes nBootBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.boot-skipped .loader,.booted .loader{display:none!important}
+html:not(.no-boot) .n-hero .hero-char{animation:nHeroIn var(--d-sig) var(--ease-sig) both;animation-delay:calc(.95s + var(--i,0) * 70ms)}
+html:not(.no-boot) .n-hero .hero-eyebrow,html:not(.no-boot) .n-hero .hero-statement,html:not(.no-boot) .n-hero .hero-cta{animation:nFade 600ms var(--ease-sig) both;animation-delay:1.25s}
+.boot-skipped .n-hero .hero-char,.boot-skipped .n-hero .hero-eyebrow,.boot-skipped .n-hero .hero-statement,.boot-skipped .n-hero .hero-cta{animation-delay:0s!important}
+.hero-char:nth-child(2){--i:1}.hero-char:nth-child(3){--i:2}
+@keyframes nHeroIn{from{transform:translateY(32%)}to{transform:none}}
+@keyframes nFade{from{opacity:0}to{opacity:1}}
+/* Alfred reveal: feed lines arrive once when the tab opens. */
+#feed-terminal.is-revealed .feed-event{animation:nFade 240ms var(--ease-ui) both}
+#feed-terminal.is-revealed .feed-event:nth-child(n+2){animation-delay:60ms}
+#feed-terminal.is-revealed .feed-event:nth-child(n+3){animation-delay:120ms}
+#feed-terminal.is-revealed .feed-event:nth-child(n+4){animation-delay:180ms}
+#feed-terminal.is-revealed .feed-event:nth-child(n+5){animation-delay:240ms}
+/* Still: no blinking dots, breathing glows or decorative loops. */
+.hero-status-dot,.footer-dot,.alfred-term-dot,.feed-live-dot,.alfred-blink-cursor,.agent-modal-dot{animation:none!important}
+.alfred-blink-cursor{opacity:.6}
+@media(prefers-reduced-motion:reduce){.n-hero .hero-char,.n-hero .hero-eyebrow,.n-hero .hero-statement,.n-hero .hero-cta,.loader-logo,.loader-bar-fill{animation:none!important}}
 /* ── PHASE 3: focus ─────────────────────────────────────────────────── */
 :focus-visible{outline:2px solid var(--gold-text)!important;outline-offset:3px}
 .assessment-field:focus-visible,.waitlist-input:focus-visible,.af-text-in:focus-visible{outline-offset:0}
@@ -1879,8 +1926,6 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
 <body>
 <a href="#about" class="skip-link">Skip to content</a>
 
-<!-- GRAIN -->
-<div id="grain" aria-hidden="true"></div>
 
 <!-- LOADER -->
 <div class="loader" id="loader">
@@ -1895,25 +1940,7 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
     <div class="loader-bar-track">
       <div class="loader-bar-fill" id="loader-bar"></div>
     </div>
-    <div class="loader-pct" id="loader-pct">0%</div>
-  </div>
-</div>
-
-<!-- TELEMETRY BAR (fixed bottom) -->
-<div class="tbar" id="tbar">
-  <div class="tbar-left" aria-hidden="true">
-    <span class="tbar-dot"></span>
-    <span class="tbar-sys">NYX.SYS&nbsp;/&nbsp;ACTIVE</span>
-    <span class="tbar-sep">|</span>
-    <span class="tbar-agents">08 AGENTS · SAMPLE</span>
-  </div>
-  <div class="tbar-ticker-wrap" aria-hidden="true">
-    <div class="tbar-ticker" id="tbar-ticker"></div>
-  </div>
-  <div class="tbar-right">
-    <span class="tbar-label" aria-hidden="true">UTC</span>
-    <span id="tbar-time" aria-hidden="true">--:--:--</span>
-    <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">Pause</button>
+    
   </div>
 </div>
 
@@ -1930,6 +1957,10 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
     <li><a href="#mission-logs">Missions</a></li>
     <li><a href="#waitlist">Access</a></li>
   </ol>
+  <div class="rail-foot">
+    <p class="rail-status" aria-hidden="true">08 AGENTS · SAMPLE<br><span id="rail-time">--:--:--</span> UTC</p>
+    <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">Pause motion</button>
+  </div>
 </nav>
 
 <!-- NAV -->
@@ -2132,16 +2163,12 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
               <circle cx="150" cy="150" r="138" stroke="currentColor" stroke-width="0.3" opacity="0.10"/>
               <!-- slow rotating dashed -->
               <circle cx="150" cy="150" r="118" stroke="currentColor" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 14">
-                <animateTransform attributeName="transform" type="rotate" from="0 150 150" to="360 150 150" dur="38s" repeatCount="indefinite"/>
               </circle>
               <!-- medium counter-rotating dashed -->
               <circle cx="150" cy="150" r="94" stroke="currentColor" stroke-width="0.8" opacity="0.28" stroke-dasharray="3 9">
-                <animateTransform attributeName="transform" type="rotate" from="360 150 150" to="0 150 150" dur="22s" repeatCount="indefinite"/>
               </circle>
               <!-- main breathing ring -->
               <circle cx="150" cy="150" r="66" stroke="currentColor" stroke-width="1.4" opacity="0.60">
-                <animate attributeName="r" values="66;72;66" dur="3.2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.60;0.85;0.60" dur="3.2s" repeatCount="indefinite"/>
               </circle>
               <!-- inner ring -->
               <circle cx="150" cy="150" r="42" stroke="currentColor" stroke-width="0.9" opacity="0.38"/>
@@ -2152,8 +2179,6 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
               <line x1="268" y1="150" x2="288" y2="150" stroke="currentColor" stroke-width="0.7" opacity="0.3"/>
               <!-- core dot -->
               <circle cx="150" cy="150" r="12" fill="currentColor" opacity="0.95">
-                <animate attributeName="opacity" values="0.95;1;0.95" dur="1.6s" repeatCount="indefinite"/>
-                <animate attributeName="r" values="12;14;12" dur="1.6s" repeatCount="indefinite"/>
               </circle>
             </svg>
           </div>
@@ -2493,9 +2518,7 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
      Vercel Web Analytics: once enabled in the Vercel dashboard, add "/_vercel/insights/script.js" to the list. -->
 <script>
 (function(){
-  var list = ['https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
-              'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js',
-              '/js/core.js', '/js/demo.js', '/js/access.js', '/js/agents.js'];
+  var list = ['/js/core.js', '/js/demo.js', '/js/access.js'];
   function load(){
     list.forEach(function(src){ var e = document.createElement('script'); e.src = src; e.async = false; document.body.appendChild(e); });
     var m = document.createElement('script'); m.type = 'module'; m.src = '/js/scenes.js'; document.body.appendChild(m);
@@ -2503,40 +2526,6 @@ html:not(.static-scenes) .n-hero #hero-canvas.show ~ .n-moonglow{opacity:1}
   requestAnimationFrame(function(){ setTimeout(load, 0); });
 })();
 </script>
-
-<!-- ═══════════════════════════════════════════════════════
-     PHASE 2 — AGENT MODAL
-     ═══════════════════════════════════════════════════════ -->
-<div id="agent-modal" role="dialog" aria-modal="true" aria-label="Agent interface">
-  <div class="agent-modal-backdrop" id="agent-modal-backdrop"></div>
-  <div class="agent-modal-panel">
-    <div class="agent-modal-header">
-      <div>
-        <div class="agent-modal-id" id="modal-agent-id">APEX</div>
-        <div class="agent-modal-role" id="modal-agent-role">Chief Executive Officer</div>
-      </div>
-      <div class="agent-modal-status">
-        <span class="agent-modal-dot"></span>
-        <span>Online</span>
-      </div>
-      <button id="agent-modal-close" class="agent-modal-close" aria-label="Close agent modal">
-        <svg viewBox="0 0 14 14" fill="none"><line x1="2" y1="2" x2="12" y2="12" stroke="currentColor" stroke-width="0.8"/><line x1="12" y1="2" x2="2" y2="12" stroke="currentColor" stroke-width="0.8"/></svg>
-      </button>
-    </div>
-    <div class="agent-modal-last-action">
-      <span class="agent-modal-la-label">Context</span>
-      <span id="modal-la-text">Send a command to activate this agent.</span>
-    </div>
-    <div id="modal-response" class="agent-modal-response" aria-live="polite"></div>
-    <div class="agent-modal-input-row">
-      <input id="modal-command-input" class="agent-modal-input" type="text" placeholder="Send a command..." autocomplete="off" spellcheck="false" aria-label="Command input"/>
-      <button id="modal-send-btn" class="agent-modal-send">Execute</button>
-    </div>
-  </div>
-</div>
-
-
-
 
 </body>
 </html>

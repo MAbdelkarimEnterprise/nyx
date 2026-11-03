@@ -57,80 +57,7 @@
   const shuffled = [...pool].sort(() => Math.random()-0.5).slice(0, 12);
   shuffled.forEach((item, i) => addEvent(item, times[i + 4] || '12+ hr ago', false));
 
-  // drip new events live
-  function dripEvent() {
-    const item = pool[Math.floor(Math.random() * pool.length)];
-    if (nyxPaused()) { setTimeout(dripEvent, 4000); return; }
-    addEvent(item, 'just now', true);
-    // update the previous "just now" to "2 min ago"
-    const rows = terminal.querySelectorAll('.feed-event-time');
-    if (rows[1]) rows[1].textContent = '1 min ago';
-    if (rows[2]) rows[2].textContent = '3 min ago';
-    const delay = 8000 + Math.random() * 14000;
-    setTimeout(dripEvent, delay);
-  }
-  setTimeout(dripEvent, 6000);
-
-  // scroll reveal
-  ScrollTrigger.create({
-    trigger: '#alfred',
-    start: 'top 78%',
-    once: true,
-    onEnter: () => {
-      gsap.to('.feed-headline', { clipPath:'inset(0 0 0% 0)', duration:1.1, ease:'power4.out' });
-      gsap.fromTo('.feed-caption', { opacity:0, y:16 }, { opacity:1, y:0, duration:0.8, ease:'power3.out', delay:0.2 });
-      gsap.fromTo('.feed-terminal', { opacity:0, y:24 }, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.35 });
-    }
-  });
-})();
-/* ── AGENT ACTIVITY PULSE BARS ──────────────────────── */
-(function(){
-  document.querySelectorAll('.agent-card').forEach(card => {
-    // inject pulse bar
-    const bar = document.createElement('div');
-    bar.className = 'agent-pulse-bar';
-    const cvs = document.createElement('canvas');
-    cvs.className = 'agent-pulse-canvas';
-    bar.appendChild(cvs);
-    card.appendChild(bar);
-
-    const ctx = cvs.getContext('2d');
-    let W = 0, H = 0;
-    const data = Array.from({length:60}, () => 0.1 + Math.random()*0.5);
-    let frame = 0;
-
-    function resize(){
-      W = cvs.width  = cvs.offsetWidth;
-      H = cvs.height = cvs.offsetHeight;
-    }
-    const ro = new ResizeObserver(resize);
-    ro.observe(cvs);
-    resize();
-
-    function draw(){
-      if (!W || !H) return;
-      frame++;
-      if (frame % 6 === 0) {
-        data.shift();
-        data.push(0.05 + Math.random()*0.7 + Math.sin(frame*0.04)*0.2);
-      }
-      ctx.clearRect(0,0,W,H);
-      ctx.beginPath();
-      data.forEach((v,i) => {
-        const x = (i / (data.length-1)) * W;
-        const y = H - v * H;
-        i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
-      });
-      ctx.strokeStyle = nyxColor('--indigo', 0.35);
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      // fill area
-      ctx.lineTo(W,H); ctx.lineTo(0,H); ctx.closePath();
-      ctx.fillStyle = nyxColor('--indigo', 0.04);
-      ctx.fill();
-    }
-    nyxLoop(card, draw);
-  });
+  terminal.dataset.ready = '1';
 })();
 /* ── ALFRED DEMO ────────────────────────────────────── */
 (function(){
@@ -208,7 +135,7 @@
     document.getElementById('alfred-meta-mode').textContent = b.mode;
     document.getElementById('alfred-meta-sources').textContent = b.sources;
     document.getElementById('alfred-meta-time').textContent = b.time;
-    typewrite(document.getElementById('alfred-response-text'), b.text, 18, onDone);
+    typewrite(document.getElementById('alfred-response-text'), b.text, _pRM ? 0 : 18, onDone);
   }
 
   // Tabs
@@ -223,21 +150,13 @@
     });
   });
 
-  // ScrollTrigger reveal + auto-start
-  ScrollTrigger.create({
-    trigger: '#alfred-demo',
-    start: 'top 70%',
-    once: true,
-    onEnter: () => {
-      if(!initiated){
-        initiated = true;
-        gsap.to('.alfred-demo-headline', {
-          clipPath:'inset(0 0 0% 0)', duration:1, ease:'power3.out'
-        });
-        setTimeout(() => showBrief('briefing', () => showEnterPrompt()), 600);
-      }
-    }
-  });
+  // Signature moment 3: the briefing types itself once, when it comes into view.
+  const demoEl = document.getElementById('alfred-demo');
+  if (demoEl) new IntersectionObserver((es, io) => {
+    if (!es[0].isIntersecting || initiated) return;
+    initiated = true; io.disconnect();
+    showBrief('briefing', () => showEnterPrompt());
+  }, { rootMargin: '0px 0px -30% 0px' }).observe(demoEl);
 
   // Enter key / click advances to next brief
   const briefKeys = Object.keys(BRIEFS);
@@ -319,7 +238,7 @@
       ctx.fillStyle=nyxColor('--indigo', p.a); ctx.fill();
     }
   }
-  nyxLoop(canvas, draw);
+  requestAnimationFrame(draw);   // a still frame; the voice HUD only moves when Alfred is open
 })();
 /* ── ALFRED MODE ──────────────────────────────────── */
 (function(){
@@ -1065,7 +984,8 @@
       if (panel) panel.hidden = !on;
     });
     if (focus) tab.focus();
-    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    const term = document.getElementById('feed-terminal');
+    if (tab.id === 'hub-tab-feed' && term && !term.classList.contains('is-revealed')) term.classList.add('is-revealed');
   }
   tabs.forEach((t, i) => {
     t.addEventListener('click', () => select(t));

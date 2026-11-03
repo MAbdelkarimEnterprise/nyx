@@ -101,24 +101,6 @@
     el.querySelectorAll('.ap-edit').forEach(b => b.addEventListener('click', () => setStep(+b.dataset.goto)));
   }
 
-  // Show progress dots and steps when scrolled to
-  ScrollTrigger.create({
-    trigger: '#waitlist',
-    start: 'top 70%',
-    once: true,
-    onEnter: () => {
-      gsap.to('.assessment-rule', { opacity:1, duration:.8 });
-      gsap.to('.assessment-eyebrow', { opacity:1, duration:.6, delay:.2 });
-      gsap.to('.assessment-headline', { opacity:1, duration:.8, delay:.3 });
-      gsap.to('.assessment-sub', { opacity:1, duration:.6, delay:.5 });
-      gsap.to('#assessment-progress', { opacity:1, duration:.5, delay:.7, onComplete: () => {
-        document.getElementById('assessment-progress').classList.add('visible');
-      }});
-      gsap.to('#assessment-steps', { opacity:1, duration:.6, delay:.9, onComplete: () => {
-        document.getElementById('assessment-steps').classList.add('visible');
-      }});
-    }
-  });
 })();
 /* ── INQUIRE → ACCESS REVIEW ─────────────────────────── */
 document.addEventListener('click', e => {
@@ -166,12 +148,9 @@ document.addEventListener('click', e => {
       if(res.ok){
         ['nyx_challenge','nyx_outcome'].forEach(k => { try{ localStorage.removeItem(k); }catch(_){} });
         if(window.nyxTrack) window.nyxTrack('access_submit', { tier: payload.tier });
-        gsap.to(wrap, { opacity:0, y:-16, duration:0.4, onComplete: () => {
-          wrap.style.display = 'none';
-          succ.style.display = 'block';
-          gsap.from(succ, { opacity:0, y:16, duration:0.6, ease:'power3.out' });
-          succ.setAttribute('tabindex', '-1'); succ.focus();
-        }});
+        wrap.style.display = 'none';
+        succ.style.display = 'block';
+        succ.setAttribute('tabindex', '-1'); succ.focus();
         return;
       }
       const stepFor = { role:0, goal:1, challenge:2, outcome:3 };
