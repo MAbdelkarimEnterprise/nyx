@@ -1569,6 +1569,15 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   .alfred-demo-headline,.founder-os-headline,.waitlist-headline,.assessment-headline,.outcomes-headline,
   .missions-headline,.es-val,.os-metric-val{animation:none !important}
 }
+
+/* ── PHASE 1: honesty tags, tiers, access review ───────────────────── */
+.sample-tag{display:inline-block;vertical-align:middle;margin-left:10px;padding:2px 7px;border:1px solid rgba(255,255,255,0.22);font-family:var(--ui);font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.62);line-height:1.4;white-space:nowrap}
+.tier-type{display:block;margin-bottom:8px;font-family:var(--ui);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold)}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.assessment-err{min-height:1.4em;margin-top:10px;font-family:var(--ui);font-size:13px;color:#ff8a8a}
+.assessment-tiers{margin-bottom:28px}
+.af-mic{font-family:var(--ui);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.7);padding:0 14px;min-height:44px;cursor:pointer}
+.af-mic[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
 </style>
 </head>
 <body>
@@ -1600,7 +1609,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     <span class="tbar-dot"></span>
     <span class="tbar-sys">NYX.SYS&nbsp;/&nbsp;ACTIVE</span>
     <span class="tbar-sep">|</span>
-    <span class="tbar-agents">08 AGENTS RUNNING</span>
+    <span class="tbar-agents">08 AGENTS · SAMPLE</span>
   </div>
   <div class="tbar-ticker-wrap">
     <div class="tbar-ticker" id="tbar-ticker"></div>
@@ -1658,11 +1667,11 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     </div>
   </div>
   <div class="hero-coords">
-    <p>40.7128° N / 74.0060° W</p>
+    <p>SESSION <span id="hero-session">00:00:00</span></p>
     <p id="hero-date">—</p>
   </div>
   <div class="hero-intel-panel" aria-hidden="true" id="hero-intel-panel">
-    <div class="hip-row hip-header">AGENT STATUS</div>
+    <div class="hip-row hip-header">AGENT STATUS · SAMPLE</div>
     <div class="hip-row"><span class="hip-id">APEX</span><span class="hip-bar"><span class="hip-bar-fill" style="width:94%"></span></span><span class="hip-val">ROUTING</span></div>
     <div class="hip-row"><span class="hip-id">ORACLE</span><span class="hip-bar"><span class="hip-bar-fill" style="width:87%"></span></span><span class="hip-val">SCANNING</span></div>
     <div class="hip-row"><span class="hip-id">SIGNAL</span><span class="hip-bar"><span class="hip-bar-fill" style="width:72%"></span></span><span class="hip-val">ACTIVE</span></div>
@@ -1694,7 +1703,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       <div class="manifesto-body">
         <p>NYX is an eight-agent autonomous operating system. APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN — each a specialist, each always running. They coordinate, delegate, and execute across every domain of your operation.</p>
         <p>A persistent memory layer knows your goals, your decisions, your history. Alfred — a voice-native executive intelligence layer — lets you command the system in plain language. An autonomous workflow engine acts without instruction when you authorize it to.</p>
-        <p>Access is not purchased. It is earned through the willingness to operate at a different level entirely.</p>
+        <p>Access is by inquiry. Every operation is reviewed before it begins.</p>
       </div>
       <div class="orrery-wrap">
         <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%" aria-hidden="true">
@@ -1808,7 +1817,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       <div class="engine-specs">
         <div class="engine-spec"><span class="es-label">AGENTS</span><span class="es-val">08</span></div>
         <div class="engine-spec"><span class="es-label">LAYERS</span><span class="es-val">04</span></div>
-        <div class="engine-spec"><span class="es-label">UPTIME</span><span class="es-val">99.97%</span></div>
+        <div class="engine-spec"><span class="es-label">UPTIME TARGET</span><span class="es-val">99.97%</span></div>
       </div>
     </div>
     <div class="engine-canvas-wrap">
@@ -2000,7 +2009,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     </div>
     <div class="alfred-terminal">
       <div class="alfred-term-header">
-        <span class="alfred-term-title" id="alfred-term-title">ALFRED — DAILY EXECUTIVE BRIEFING</span>
+        <span class="alfred-term-title" id="alfred-term-title">ALFRED — DAILY EXECUTIVE BRIEFING</span><span class="sample-tag">Sample</span>
         <span class="alfred-term-dot"></span>
       </div>
       <div class="alfred-term-body">
@@ -2029,7 +2038,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   <div class="founder-os-inner">
     <div class="founder-os-header">
       <div>
-        <div class="sec-label" style="margin-bottom:16px"><span class="sec-label-line"></span>004.7 — Founder OS</div>
+        <div class="sec-label" style="margin-bottom:16px"><span class="sec-label-line"></span>004.7 — Founder OS <span class="sample-tag">Sample</span></div>
         <h2 class="founder-os-headline">The operating system<br><em>for your day.</em></h2>
       </div>
       <p class="founder-os-sub">Every morning NYX assembles your world. Pipeline. Priorities. Agent reports. Opportunities. Delivered before you open your eyes.</p>
@@ -2075,7 +2084,7 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
       </div>
       <!-- Metrics -->
       <div class="os-card">
-        <div class="os-card-label">Live Metrics · Ledger Report</div>
+        <div class="os-card-label">Metrics · Ledger Report</div>
         <div class="os-metrics-grid">
           <div class="os-metric">
             <div class="os-metric-val" id="os-mrr">$284K</div>
@@ -2123,17 +2132,17 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   <div class="feed-inner">
     <div class="feed-header">
       <div class="sec-label" style="margin-bottom:0"><span class="sec-label-line"></span>004.5 — Live Intelligence</div>
-      <div class="feed-live-badge"><span class="feed-live-dot"></span>LIVE FEED</div>
+      <div class="feed-live-badge"><span class="feed-live-dot"></span>SAMPLE FEED</div>
     </div>
     <div class="feed-subhead">
       <h2 class="feed-headline">The system never sleeps.</h2>
-      <p class="feed-caption">Every line below is the system executing in real time. No human initiated any of this.</p>
+      <p class="feed-caption">A simulated view of the system at work.</p>
     </div>
     <div class="feed-terminal" id="feed-terminal" aria-live="polite" aria-label="Agent activity feed">
       <!-- populated by JS -->
     </div>
     <div class="feed-footer-row">
-      <span class="feed-footer-label">AGENT ACTIVITY LOG — LAST 24H</span>
+      <span class="feed-footer-label">SAMPLE ACTIVITY LOG</span>
       <span class="feed-footer-count" id="feed-count">0 events</span>
     </div>
   </div>
@@ -2213,17 +2222,17 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
         <div class="tier-header">
           <span class="tier-num">01</span>
           <span class="tier-name">Design</span>
-          <span class="tier-tag">Entry Level · One-Time Build</span>
+          <span class="tier-tag">Entry Point</span>
           <div class="tier-chevron"></div>
         </div>
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">The entry point. UI design only — your website, landing page, or app interface, built once. Add monthly maintenance to keep it sharp: updates, fixes, hosting, and monitoring.</p>
+            <p class="tier-desc"><span class="tier-type">One-time build</span>UI design only. A website, landing page or app interface built to the NYX standard.</p>
             <ul class="tier-features">
-              <li>Website, landing page, or app interface</li><li>One-time build</li><li>Optional monthly maintenance</li><li>Updates, fixes, hosting &amp; monitoring</li>
+              <li>Website or landing page</li><li>App interface design</li><li>Responsive build</li><li>Optional monthly maintenance</li>
             </ul>
-            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
+            <button class="tier-cta" type="button" data-magnetic data-inquire="Design">Inquire</button>
           </div>
         </div>
       </div>
@@ -2231,17 +2240,17 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
         <div class="tier-header">
           <span class="tier-num">02</span>
           <span class="tier-name">Agents</span>
-          <span class="tier-tag">Monthly Subscription</span>
+          <span class="tier-tag">Monthly</span>
           <div class="tier-chevron"></div>
         </div>
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">The NYX agent network, connected to your tools. Automated workflows run in the background. Alfred delivers your briefings and takes your commands. Monthly maintenance included.</p>
+            <p class="tier-desc"><span class="tier-type">Monthly subscription</span>The NYX agent network connected to your tools. Automated workflows, Alfred briefings and commands.</p>
             <ul class="tier-features">
-              <li>Agent network connected to your tools</li><li>Automated workflows</li><li>Alfred briefings &amp; commands</li><li>Monthly maintenance included</li>
+              <li>8-agent network</li><li>Alfred briefings &amp; commands</li><li>Automated workflows</li><li>Persistent memory</li><li>Maintenance included</li>
             </ul>
-            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
+            <button class="tier-cta" type="button" data-magnetic data-inquire="Agents">Inquire</button>
           </div>
         </div>
       </div>
@@ -2249,17 +2258,17 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
         <div class="tier-header">
           <span class="tier-num">03</span>
           <span class="tier-name">Full System</span>
-          <span class="tier-tag">Most Complete · Monthly</span>
+          <span class="tier-tag">Most Complete</span>
           <div class="tier-chevron"></div>
         </div>
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">Design and Agents together. The full 8-agent network — APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN — with Voice OS, persistent memory, and a full brand and interface built around it. Monthly subscription, maintenance included.</p>
+            <p class="tier-desc"><span class="tier-type">Monthly subscription</span>Design and Agents together. The full system around your operation.</p>
             <ul class="tier-features">
-              <li>Full agent network (8 agents)</li><li>Voice OS &amp; Alfred Mode</li><li>Persistent memory system</li><li>Full brand &amp; interface</li><li>Monthly maintenance included</li>
+              <li>Everything in Design + Agents</li><li>Voice OS &amp; Alfred Mode</li><li>Full brand and interface</li><li>Control Center &amp; autonomy modes</li><li>Maintenance included</li>
             </ul>
-            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
+            <button class="tier-cta" type="button" data-magnetic data-inquire="Full System">Inquire</button>
           </div>
         </div>
       </div>
@@ -2273,11 +2282,11 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
         <div class="tier-body">
           <div class="tier-body-inner">
             <div></div>
-            <p class="tier-desc">By invitation only. A custom deployment on private infrastructure, with a dedicated channel and capabilities that stay undisclosed. Maintenance handled by a dedicated team.</p>
+            <p class="tier-desc"><span class="tier-type">Custom</span>A system built around you. For organizations off-the-shelf can't serve.</p>
             <ul class="tier-features">
               <li>Custom deployment</li><li>Private infrastructure</li><li>Dedicated channel</li><li>Undisclosed capabilities</li><li>Dedicated maintenance team</li>
             </ul>
-            <button class="tier-cta" data-magnetic onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Inquire</button>
+            <button class="tier-cta" type="button" data-magnetic data-inquire="Private Access">Inquire</button>
           </div>
         </div>
       </div>
@@ -2300,7 +2309,6 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     <div class="intel-stat">
       <div class="intel-label">System Uptime · Projected</div>
       <div class="intel-value">99.97%</div>
-      <div class="intel-unit">all time</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
         <polyline points="0,40 10,38 20,40 30,37 40,39 50,36 60,38 70,36 80,37 90,35 100,36" stroke="#1E5BFF" stroke-width="1.2" fill="none"/>
       </svg>
@@ -2308,7 +2316,6 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     <div class="intel-stat">
       <div class="intel-label">Signals Processed · Projected</div>
       <div class="intel-value" id="stat-signals">14.2M</div>
-      <div class="intel-unit">this month</div>
       <svg class="intel-sparkline" viewBox="0 0 100 44" preserveAspectRatio="none">
         <polyline points="0,42 8,38 16,34 28,30 36,26 46,20 58,16 68,12 80,8 90,6 100,4" stroke="#1E5BFF" stroke-width="1.2" fill="none"/>
       </svg>
@@ -2531,7 +2538,8 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     <div class="assessment-step" id="as-step-3">
       <div class="assessment-step-label">Step 03 / 05 — Current Challenge</div>
       <div class="assessment-step-q">What is the constraint?</div>
-      <textarea id="as-challenge" class="assessment-field" rows="4" placeholder="The bottleneck, the decision load, or the system failing you. Be specific."></textarea>
+      <textarea id="as-challenge" class="assessment-field" rows="4" maxlength="2000" aria-describedby="as-err-3" placeholder="The bottleneck, the decision load, or the system failing you. Be specific."></textarea>
+      <p class="assessment-err" id="as-err-3" role="alert"></p>
       <div class="assessment-nav">
         <button type="button" class="assessment-back" data-back>Back</button>
         <button type="button" class="assessment-continue" data-next>Continue</button>
@@ -2541,7 +2549,8 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     <div class="assessment-step" id="as-step-4">
       <div class="assessment-step-label">Step 04 / 05 — Desired Outcome</div>
       <div class="assessment-step-q">What does resolved look like?</div>
-      <textarea id="as-outcome" class="assessment-field" rows="4" placeholder="The operating state you want NYX to hold you in."></textarea>
+      <textarea id="as-outcome" class="assessment-field" rows="4" maxlength="2000" aria-describedby="as-err-4" placeholder="The operating state you want NYX to hold you in."></textarea>
+      <p class="assessment-err" id="as-err-4" role="alert"></p>
       <div class="assessment-nav">
         <button type="button" class="assessment-back" data-back>Back</button>
         <button type="button" class="assessment-continue" data-next>Continue</button>
@@ -2550,12 +2559,21 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
     <!-- Step 5: Apply -->
     <div class="assessment-step" id="as-step-5">
       <div class="assessment-step-label">Step 05 / 05 — Apply</div>
+      <div class="assessment-step-q">Which option fits?</div>
+      <div class="assessment-options assessment-tiers" id="as-tier" role="radiogroup" aria-label="Option">
+        <button type="button" class="assessment-option" role="radio" aria-checked="false" data-val="Design">Design</button>
+        <button type="button" class="assessment-option" role="radio" aria-checked="false" data-val="Agents">Agents</button>
+        <button type="button" class="assessment-option" role="radio" aria-checked="false" data-val="Full System">Full System</button>
+        <button type="button" class="assessment-option" role="radio" aria-checked="false" data-val="Private Access">Private Access</button>
+        <button type="button" class="assessment-option" role="radio" aria-checked="false" data-val="Not sure yet">Not sure yet</button>
+      </div>
       <div class="assessment-profile" id="as-profile">
         <!-- generated by JS -->
       </div>
       <div id="form-wrap">
         <div class="assessment-email-form waitlist-form">
           <label for="email-input" class="sr-only">Email address</label>
+          <input type="text" name="company" id="hp-company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
           <input type="email" id="email-input" class="waitlist-input" placeholder="your@email.com" autocomplete="email" inputmode="email"/>
           <button id="submit-btn" class="waitlist-submit" data-magnetic>Request Access</button>
         </div>
@@ -2566,8 +2584,8 @@ body{background:radial-gradient(125% 95% at 50% -8%, #0B1740 0%, #070B1C 44%, #0
   </div>
 
   <div class="waitlist-success" id="success-wrap" role="status" aria-live="polite">
-    <p class="waitlist-success-title">Profile received.</p>
-    <p class="waitlist-success-note">Alfred is reviewing your intake. You will hear from the system.</p>
+    <p class="waitlist-success-title">Received.</p>
+    <p class="waitlist-success-note">Your operation is under review. Expect a response within 48 hours.</p>
   </div>
 </section>
 
@@ -2625,6 +2643,7 @@ const _pRM   = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 /* ── LIVE CLOCK ─────────────────────────────────────── */
 (function(){
+  const T0 = Date.now();
   function pad(n){ return String(n).padStart(2,'0'); }
   function tick(){
     const d = new Date();
@@ -2638,6 +2657,8 @@ const _pRM   = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     if(ht) ht.textContent = utc + ' UTC';
     if(st) st.textContent = utc;
     if(hd) hd.textContent = date;
+    const hs = document.getElementById('hero-session');
+    if(hs){ const t = Math.floor((Date.now() - T0)/1000); hs.textContent = `${pad(Math.floor(t/3600))}:${pad(Math.floor(t/60)%60)}:${pad(t%60)}`; }
   }
   tick(); setInterval(tick, 1000);
 })();
@@ -3502,8 +3523,38 @@ function startScanLine(){
   const challengeEl = document.getElementById('as-challenge');
   const outcomeEl   = document.getElementById('as-outcome');
   function saveField(k, el){ if(el){ try{ localStorage.setItem(k, el.value.trim()); }catch(e){} } }
-  document.querySelectorAll('#as-step-3 [data-next]').forEach(b => b.addEventListener('click', () => { saveField('nyx_challenge', challengeEl); setStep(3); }));
-  document.querySelectorAll('#as-step-4 [data-next]').forEach(b => b.addEventListener('click', () => { saveField('nyx_outcome', outcomeEl); buildProfile(); setStep(4); }));
+  function requireText(el, errId){
+    const err = document.getElementById(errId);
+    const ok = !!(el && el.value.trim());
+    if(err) err.textContent = ok ? '' : 'Add a sentence or two before continuing.';
+    if(!ok && el) el.focus();
+    return ok;
+  }
+  document.querySelectorAll('#as-step-3 [data-next]').forEach(b => b.addEventListener('click', () => { if(!requireText(challengeEl, 'as-err-3')) return; saveField('nyx_challenge', challengeEl); setStep(3); }));
+  document.querySelectorAll('#as-step-4 [data-next]').forEach(b => b.addEventListener('click', () => { if(!requireText(outcomeEl, 'as-err-4')) return; saveField('nyx_outcome', outcomeEl); buildProfile(); setStep(4); }));
+
+  // Option choice (step 5). INQUIRE buttons elsewhere pre-select it.
+  function selectTier(val){
+    document.querySelectorAll('#as-tier .assessment-option').forEach(b => {
+      const on = b.dataset.val === val;
+      b.classList.toggle('selected', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    try{ localStorage.setItem('nyx_tier', val); }catch(e){}
+  }
+  document.querySelectorAll('#as-tier .assessment-option').forEach(b => b.addEventListener('click', () => selectTier(b.dataset.val)));
+  window.__nyxAssessment = { setStep, selectTier, get role(){ return role; }, get goal(){ return goal; } };
+
+  // Restore answers from an earlier visit or a failed submit, so nothing is lost.
+  (function restore(){
+    const ls = k => { try { return localStorage.getItem(k) || ''; } catch(_) { return ''; } };
+    role = ls('nyx_role'); goal = ls('nyx_goal');
+    if(role) document.querySelectorAll('#as-opts-1 .assessment-option').forEach(b => b.classList.toggle('selected', b.dataset.val === role));
+    if(goal) document.querySelectorAll('#as-opts-2 .assessment-option').forEach(b => b.classList.toggle('selected', b.dataset.val === goal));
+    if(challengeEl && ls('nyx_challenge')) challengeEl.value = ls('nyx_challenge');
+    if(outcomeEl && ls('nyx_outcome')) outcomeEl.value = ls('nyx_outcome');
+    if(ls('nyx_tier')) selectTier(ls('nyx_tier'));
+  })();
   document.querySelectorAll('.assessment-back').forEach(b => b.addEventListener('click', () => setStep(Math.max(0, currentStep - 1))));
 
   function buildProfile(){
@@ -3635,297 +3686,20 @@ function startScanLine(){
 (function(){
   if (document.getElementById('alfred-overlay')) return;
 
-  // ═══════════════════════════════════════════════════════
-  //  RESPONSES & KNOWLEDGE BASE
-  // ═══════════════════════════════════════════════════════
-  const R = {
-    greet: [
-      'Good to hear your voice. How may I be of service?',
-      'Alfred here. What do you need?',
-      'I was wondering when you\'d call. What can I do for you?',
-      'At your disposal. Speak freely.',
-      'The network is ready. What shall we work on?',
-    ],
-    status: [
-      'All eight agents are operational. The system is running precisely as intended — quietly, and without incident.',
-      'APEX is routing. ORACLE is scanning. SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN are each at their stations. Nothing requires your immediate attention.',
-      'Everything is in order. The system has been working while you were away. As it always does.',
-    ],
-    identity: [
-      'Alfred — that\'s me. The intelligence layer beneath the intelligence layer. I manage what you shouldn\'t have to think about. What can I do for you?',
-      'Alfred Pennyworth, at your service. I keep the agents in line, the noise out, and the lights on. You needed something?',
-      'Think of me as the operating mind of NYX. Eight agents run the work. I run the agents. Now — what are you working on?',
-      'Yes — Alfred. Always here. What do you need from me today?',
-    ],
-    called: [
-      'Yes? I\'m here. What do you need?',
-      'Alfred, present. Go ahead.',
-      'You called — I\'m listening. What is it?',
-      'Right here. What can I do for you?',
-    ],
-    apex:    [
-      'APEX is the strategic core — every decision, every priority, every routing call flows through him first.',
-      'APEX is online. Strategic oversight engaged. He\'s already routing priorities across the network.',
-    ],
-    oracle:  [
-      'ORACLE runs continuous market intelligence. Competitive signals, industry shifts, emerging patterns — processed without you asking.',
-      'ORACLE is online. Intelligence gathering is underway. The market doesn\'t rest, and neither does ORACLE.',
-    ],
-    signal:  [
-      'SIGNAL manages audience intelligence and content strategy. It knows when to speak, what to say, and who needs to hear it.',
-      'SIGNAL is online. Marketing operations calibrated. Your message reaches the right people at the right moment.',
-    ],
-    convert: [
-      'CONVERT is pure revenue focus. Pipeline analysis, conversion rates, leverage points — it finds where money is being left on the table.',
-      'CONVERT is online. The revenue engine is turning. Every friction point in your funnel is being identified.',
-    ],
-    forge:   [
-      'FORGE handles technical architecture and system health. Infrastructure decisions, build execution, automated monitoring — all handled.',
-      'FORGE is online. The stack is stable. Any architectural debt is being logged and queued.',
-    ],
-    ledger:  [
-      'LEDGER watches the numbers. Cash flow, burn rate, projections — financial clarity without the spreadsheet work.',
-      'LEDGER is online. Financial modeling active. You\'ll know before a problem becomes a problem.',
-    ],
-    cipher: [
-      'CIPHER operates at the security and compliance layer. Threat surface monitoring, access governance, anomaly detection — all running silently. Nothing enters or exits the system without clearance.',
-      'CIPHER is online. All access logs nominal. Compliance posture is clean. If there is ever a reason to worry, I will tell you before you notice.',
-    ],
-    meridian: [
-      'MERIDIAN handles operations intelligence — process mapping, bottleneck detection, resource allocation. It keeps the machine running without you having to look under the hood.',
-      'MERIDIAN is online. Operational efficiency metrics are trending positively. The last optimization cycle compounded at 14% throughput improvement.',
-    ],
-    agents: [
-      'Eight agents form the network — APEX leads strategy, ORACLE runs intelligence, SIGNAL handles marketing, CONVERT drives revenue, FORGE manages engineering, LEDGER tracks finance, CIPHER guards security, MERIDIAN runs operations. Each a specialist. All coordinating without instruction.',
-      'The full network is operational. APEX leads, the others execute. You needn\'t manage any of it.',
-    ],
-    pricing: [
-      'Pricing is private and shared after inquiry. Design is a one-time build. Agents and the Full System are monthly subscriptions with maintenance included.',
-      'The Full System is the complete stack — all eight agents, Voice OS, persistent memory, and a full brand and interface. Pricing is shared after inquiry.',
-    ],
-    waitlist: [
-      'The waitlist is open at nyxsystem.online. Scroll to Access and enter your email. Early access is reviewed individually.',
-      'You can request access directly on the site. The team reviews applications to ensure the right fit — NYX is built for serious operators.',
-    ],
-    help: [
-      'You can ask me about the time, date, NYX and its agents, pricing, productivity, focus, leadership, business strategy, AI, or anything on your mind. I have a point of view on most things.',
-    ],
-    shutdown: [
-      'Understood. I\'ll stand by. The system, however, never truly stops.',
-      'Going quiet. Though I should mention — NYX continues operating whether you\'re watching or not.',
-    ],
-    thanks: [
-      'Of course. That\'s rather the point.',
-      'Think nothing of it.',
-      'Always.',
-      'Pleased to be useful.',
-    ],
-    unknown: [
-      'I\'m not certain I caught that. Could you rephrase — or ask me about NYX, the agents, pricing, or anything on your mind?',
-      'Forgive me — that didn\'t register clearly. Say it again and I\'ll get it.',
-      'The network heard something, but I need more to work with. Try again — I\'m listening.',
-      'I didn\'t quite catch that. You can ask me about strategy, the system, productivity, or just say my name and we\'ll go from there.',
-    ],
-  };
+  const GREETING = "I'm Alfred. Tell me what you run, and I'll tell you which part of NYX fits.";
+  const history = [];
 
-  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-  // ── KNOWLEDGE BASE ────────────────────────────────────────
-  const KB = {
-    time() {
-      const n = new Date();
-      const t = n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
-      const d = n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-      return [`It is currently ${t} on ${d}.`, `The time is ${t}. ${d}, for the record.`];
-    },
-    date() {
-      const d = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-      return [`Today is ${d}.`, `${d}. Time is the only non-renewable resource.`];
-    },
-    weather: [
-      "I don't have a live weather feed, I'm afraid. Weather.com or a glance out the window will serve you better than I can here.",
-      "Weather data isn't something I pull in real time. Though I'd recommend dressing for performance regardless of conditions.",
-    ],
-    // ── NYX CORE KNOWLEDGE (from brand docs) ─────────────
-    nyx: [
-      "NYX Systems is the silent operating layer for high-performing businesses. It deploys a coordinated multi-agent backend that runs workflows end-to-end — lead handling, onboarding, retention, upsell timing, and operator support. Not a toolset. A system.",
-      "NYX is not a product. It is access, identity, and continuous optimization. Users don't buy NYX — they subscribe to it. The value isn't a tool you purchase; it's an environment you enter. Ownership is static. Subscription is compounding intelligence.",
-      "NYX is inspired by Nyx, the primordial goddess of the night. Night means control, silence, precision. Operations happen where others aren't looking. The brand principle is simple: intelligence felt before it's understood. Power that doesn't announce itself.",
-      "NYX replaces agencies — it doesn't compete with them. It installs as a backend layer that orchestrates specialized agents around your KPIs. The system is measurable, auditable, and intentionally scarce. Silent infrastructure. Elite outcomes.",
-      "NYX runs four core system layers: the Control Layer handles approvals and governance without slowing execution. The Inference Layer provides reasoning with guardrails and confidence gating. The Memory Layer handles knowledge retrieval with audited context. And the Operator Portal keeps humans in charge while automation handles the execution.",
-    ],
-    tiers: [
-      "NYX has four access tiers. Tier One is Design — a one-time UI build for your website, landing page, or app interface, with optional monthly maintenance. Tier Two is Agents — a monthly subscription to the NYX agent network, connected to your tools, with automated workflows and Alfred briefings. Tier Three is the Full System — design and agents together: all eight agents, Voice OS, persistent memory, and a full brand and interface. The fourth is Private Access, by invitation only, with private infrastructure and undisclosed capabilities. Pricing is private and shared after inquiry.",
-      "Start with design, subscribe to the agents, or take the full system. Design is a one-time build. Agents and the Full System are monthly subscriptions with maintenance included. Private Access is by invitation.",
-      "The Full System is the most complete tier — design and agents together, all eight agents, Voice OS, and persistent memory. Every tier starts with an inquiry. Pricing is shared after that.",
-    ],
-    pricing: [
-      "Pricing at NYX is private and shared after inquiry. Design is a one-time build. Agents and the Full System are monthly subscriptions. Describe what you need in the Access Review and the team will follow up.",
-      "NYX doesn't publish pricing. Start with Design, subscribe to Agents, or take the Full System. Private Access is by invitation. If you're asking about price, the right move is to request access at nyxsystem.online.",
-      "Every tier starts with an inquiry, and pricing is shared after it. Monthly maintenance keeps everything sharp after launch — updates, fixes, hosting, and agent tuning. Visit nyxsystem.online to request access.",
-    ],
-    waitlist: [
-      "You can request access at nyxsystem.online. Scroll down to the Access section and submit your email. Applications are reviewed individually — NYX is selective about who it onboards. Access is scarce by design.",
-      "The waitlist is open at nyxsystem.online. Scroll to the Access Tiers section and submit your email. The team reviews each application personally. This is not a mass-market signup.",
-      "To get in, visit nyxsystem.online and apply in the Access section. You describe your workflow, and the team returns a plan within 48 hours. Then NYX proves it fast — limited scope, hard results.",
-    ],
-    subscribe_why: [
-      "You subscribe to NYX because you're done operating manually at scale. NYX deploys a coordinated multi-agent backend that runs your workflows end-to-end — lead handling, onboarding, retention, and upsell — without you having to manage any of it. You get outcomes, not tools. The question isn't whether to subscribe. It's whether you're ready to operate at that level.",
-      "The reason to subscribe is simple: most high performers are still doing high-volume work by hand. NYX replaces that. Eight specialized agents run in the background, around your KPIs, without instruction or babysitting. You keep control. NYX does the grind. Subscribe at nyxsystem.online.",
-      "NYX is built for one type of person — someone who refuses to operate at average. If that's you, subscribing gives you a system that works 24/7 without you having to think about it. Sales, onboarding, retention, upsell — all handled. The subscription is not a cost. It's infrastructure.",
-    ],
-    architecture: [
-      "NYX is built on four layers. The Control Layer manages approvals and governance without creating drag. The Inference Layer applies reasoning discipline with confidence gating. The Memory Layer handles knowledge retrieval tied to context and auditability. And the Operator Portal ensures humans stay in decision-making control while the system handles execution.",
-      "NYX installs on top of your existing stack, then orchestrates agents around your core KPIs. The execution approach is three steps: map the workflow and approval points, connect data sources and communication channels with minimal disruption, then coordinate agents through an automation network you never have to babysit.",
-    ],
-    agents_detail: [
-      "The NYX agent network covers five delivery functions. The Sales agent handles lead follow-up, qualification, and appointment setting. The Onboarding agent manages goal capture, profile building, and program assignment. The Retention agent runs churn detection, re-engagement, and save offers. The Upsell agent delivers right-time recommendations based on behavior signals. All coordinated without instruction.",
-    ],
-    marketing: [
-      "NYX's marketing philosophy is controlled visibility. Minimal public-facing content, high-end dark aesthetic, strategic placement via select creators, founders, and operators. The product is seen, not explained. Growth is driven by scarcity, curiosity, and status signaling. If you know, you know.",
-      "NYX is built to be discovered, not advertised. No mass-market noise. No commodity pricing narratives. No oversaturation. The brand operates on the same principle as the system — unseen influence, visible outcomes.",
-    ],
-    // ── BRIEFINGS & EXECUTIVE INTELLIGENCE ───────────────
-    briefing() {
-      const d = new Date();
-      const hr = d.getUTCHours();
-      const period = hr < 12 ? 'morning' : hr < 17 ? 'afternoon' : 'evening';
-      const day = d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-      const briefs = [
-        `Good ${period}. Here is your intelligence summary for ${day}. ORACLE flagged 2 competitor moves overnight — one pricing adjustment, one product announcement. CONVERT identified a high-value lead segment worth your attention. SIGNAL's reach metrics are up 18% week-over-week. LEDGER reports Q2 burn is on track. No escalations from CIPHER or FORGE. The system has been working. You simply need to decide.`,
-        `Good ${period}. Three items for your attention today. First: CONVERT has surfaced a pattern — your highest-converting prospects share a specific operational profile. APEX recommends a targeted outreach sequence. Second: ORACLE detected a shift in competitive positioning from your closest rival — the brief is ready for review. Third: FORGE identified a latency issue in your workflow stack — already resolved. System is stable. What would you like to prioritize?`,
-        `Good ${period}. Your executive briefing for ${day}. The network has been operating autonomously since your last session. MERIDIAN logged a 14% throughput improvement across onboarding workflows. SIGNAL completed audience segmentation — three high-value cohorts identified for activation. LEDGER has a note on a receivables timing issue — minor, but worth 10 minutes of your attention. Everything else is nominal. Where would you like to start?`,
-      ];
-      return briefs[Math.floor(Math.random()*briefs.length)];
-    },
-    report() {
-      return [
-        "Strategic report as of this moment. Revenue signals: positive trend, 12% above last month's pace. Growth signal: organic inbound up significantly — ORACLE attributes this to category awareness expansion. Risk signal: one dependency in your supply chain showing latency. CIPHER flagged an unusual access pattern — contained and resolved. Recommendation: focus this week on conversion — the pipeline is warm and the timing is right. Do you want me to expand on any of these?",
-        "Your strategic summary. Four vectors in play right now. One: Market positioning — you have a window. Competitive noise is high, but differentiation is clearer than ever. ORACLE recommends capitalizing in the next 30 days. Two: Pipeline — CONVERT has 3 high-probability opportunities ready for activation. Three: Operations — MERIDIAN's last optimization cycle is compounding. Four: Finance — LEDGER shows margin improving. The system is aligned. Shall I prepare an action plan?",
-      ];
-    },
-    opportunity() {
-      return [
-        "CONVERT just surfaced something worth your attention. There is a cluster of founders in your target cohort who have recently crossed the threshold where NYX becomes immediately applicable to their scale. They are active, they are looking, and they match your highest-retention profile. APEX recommends activating a precision outreach sequence in the next 48 hours. Want me to detail the parameters?",
-        "ORACLE has flagged a market opportunity. A well-funded competitor in your space just reduced headcount — their client base is now underserved. This is a 90-day acquisition window. SIGNAL has already modeled a positioning play that could capture 15-20% of the churn. The brief is ready. Do you want the full analysis?",
-        "MERIDIAN identified an operational leverage point. Your current onboarding sequence has a 23% drop-off at step 4. A single structural change — which FORGE can implement in 48 hours — would recover the majority of that loss. This is a compounding gain. Every month you wait, the cost increases. Shall I queue the implementation?",
-      ];
-    },
-    // ── PERFORMANCE & GENERAL KNOWLEDGE ──────────────────
-    productivity: [
-      "The highest performers don't manage more — they eliminate what shouldn't be managed at all. That's the principle NYX is built on.",
-      "Clarity and constraint are the engines of performance. Less decided in the moment means more executed with precision.",
-      "Energy is finite. Systems are not. Build the system, then let it work. That's the entire philosophy.",
-      "The best system is one you don't have to think about. It runs in the background and surfaces what matters when it matters.",
-    ],
-    focus: [
-      "Distraction is a design problem, not a willpower problem. The solution is architecture, not discipline.",
-      "Single-threaded focus beats multitasking every time. The research is settled. The application, less so.",
-      "Deep work is the scarcest resource in a distracted economy. Whoever protects it longest compounds the fastest.",
-    ],
-    leadership: [
-      "The best leaders create systems that make their absence invisible. The organization runs — and improves — without them in the room.",
-      "Leadership at the highest level is about making decisions that make future decisions unnecessary.",
-      "Clarity is the highest form of respect you can give a team. Ambiguity isn't thoughtful — it's expensive.",
-    ],
-    success: [
-      "Success at the highest level is rarely dramatic. It's the compounding of thousands of unremarkable decisions, made correctly.",
-      "The gap between good and elite isn't talent. It's the quality of the system running underneath.",
-      "Elite performance isn't about effort — it's about removing everything that makes effort necessary.",
-    ],
-    motivation: [
-      "Motivation follows action, not the other way around. Move first. The feeling arrives later.",
-      "You don't need to feel ready. You need to be structured well enough that readiness is irrelevant.",
-      "The system is the motivation. When your environment demands excellence, excellence becomes the default.",
-    ],
-    ai: [
-      "Artificial intelligence is infrastructure now — like electricity in 1920. The question isn't whether to use it. It's whether you're using it better than everyone else.",
-      "Most people treat AI as a search engine with manners. The real advantage is deploying it as an autonomous execution layer — which is exactly what NYX does.",
-      "The AI adoption curve is steep. The operators at the top aren't using it for email drafts. They're using it to replace entire operational layers.",
-    ],
-    business: [
-      "The highest-leverage business decision is always the one that makes future decisions unnecessary.",
-      "Operators who scale do one thing differently — they build systems that produce results in their absence.",
-      "Revenue is validation. Systems are the mechanism. The founder who understands both runs a different kind of company.",
-      "Clients don't need apps — they need outcomes. NYX installs on top of your existing stack and orchestrates toward your KPIs.",
-    ],
-    sleep: [
-      "Sleep is the most underrated performance variable. Every cognitive output degrades at a measurable rate below eight hours. The data is unambiguous.",
-      "The ROI on a full night of sleep exceeds almost any other performance investment you can make. Founders who ignore this are operating at a structural disadvantage.",
-    ],
-    health: [
-      "Physical capacity sets the ceiling for cognitive capacity. The body and mind aren't separate systems — they run on the same fuel.",
-      "High performance is a physical discipline before it's a mental one. The operators who compound longest treat their health like infrastructure.",
-    ],
-    money: [
-      "Wealth is not income — it's the gap between what flows in and what is deployed wisely. Most high earners confuse the two.",
-      "The most dangerous financial position isn't losing money. It's not knowing exactly where it's going.",
-    ],
-    reading: [
-      "A book is forty years of someone's expertise compressed into eight hours of your time. The ROI is extraordinary if you choose well.",
-      "Reading widely is the most asymmetric knowledge investment available. The cost is low. The compounding is indefinite.",
-    ],
-    hiring: [
-      "Hire for the ceiling, not the floor. The question isn't whether someone can do the job today — it's whether they'll outgrow it in eighteen months.",
-      "Culture is determined by the worst behavior you tolerate, not the best behavior you promote. Hiring slowly and firing deliberately isn't harsh — it's respectful.",
-    ],
-    decision: [
-      "Most decisions aren't irreversible — they're just slow to correct. Move fast on reversible ones, slow on structural ones.",
-      "The quality of your decisions is largely a function of the quality of the information you're operating on. Bad data produces bad decisions. Simple arithmetic.",
-    ],
-  };
-
-  function getReply(query) {
-    let t = query.trim().toLowerCase();
-
-    // Executive intelligence commands — highest priority
-    if (/briefing|morning brief|daily brief|what.*happening|catch me up|update me|summary|what.*today/.test(t)) return KB.briefing();
-    if (/strategic report|report|intelligence report|full report|status report/.test(t)) return pick(KB.report());
-    if (/opportunity|opportunities|what.*opportunity|any.*leads|what should.*focus|recommend|next move/.test(t)) return pick(KB.opportunity());
-
-    if (/what.*(time|clock)|current time|time is it|\btime\b/.test(t)) return pick(KB.time());
-    if (/what.*(date|day)|today|day is it/.test(t)) return pick(KB.date());
-    if (/weather|temperature|forecast|rain|sunny|cold|hot outside/.test(t)) return pick(KB.weather);
-    // contextual "this" questions — user is on the NYX site, "this" always means NYX
-    if (/what is this|what.*this.*do|what.*this.*work|how does this work|explain this|tell me (about |more )?this|what('s| is) (going on|this about)|this.*company|this.*platform|this.*system|this.*product/.test(t)) return pick(KB.nyx);
-    if (/why.*subscribe|why.*join|why.*use this|should i (subscribe|join|sign up)|worth it|is this (worth|good|legit|real)|what.*get.*subscribing|benefit.*this|what.*get out of this/.test(t)) return pick(KB.subscribe_why);
-    if (/how.*work|how.*use this|how.*start|get started|how.*access|what.*do.*here/.test(t)) return pick(KB.nyx);
-    if (/what is nyx|what.*nyx do|nyx.*work|tell.*nyx|explain nyx|about nyx|\bnyx\b/.test(t)) return pick(KB.nyx);
-    if (/layer|architecture|control layer|inference|memory layer|operator portal|how.*built|system.*built/.test(t)) return pick(KB.architecture);
-    if (/marketing|brand|how.*grow|demand|scarcity|visibility|audience/.test(t)) return pick(KB.marketing);
-    if (/\bapex\b/.test(t)) return pick(R.apex);
-    if (/\boracle\b/.test(t)) return pick(R.oracle);
-    if (/\bsignal\b/.test(t)) return pick(R.signal);
-    if (/\bconvert\b/.test(t)) return pick(R.convert);
-    if (/\bforge\b/.test(t)) return pick(R.forge);
-    if (/\bledger\b/.test(t)) return pick(R.ledger);
-    if (/\bcipher\b|security|compliance|threat|access govern/.test(t)) return pick(R.cipher);
-    if (/\bmeridian\b|operations|bottleneck|throughput|process/.test(t)) return pick(R.meridian);
-    if (/agent|network|all.*agent|eight.*agent|list.*agent|what.*agent/.test(t)) return pick(R.agents) + ' Eight agents: APEX, ORACLE, SIGNAL, CONVERT, FORGE, LEDGER, CIPHER, and MERIDIAN. Each a specialist. All coordinating without instruction.';
-    if (/tier|subscription.*tier|tier.*one|tier.*two|tier.*three|design tier|agents tier|full system|enterprise|private access/.test(t)) return pick(KB.tiers);
-    if (/price|pricing|cost|how much|what.*cost|subscription.*cost/.test(t)) return pick(KB.pricing);
-    if (/waitlist|join|sign up|access|register|early|nyxsystem|how.*get in|apply/.test(t)) return pick(KB.waitlist);
-    if (/status|how.*system|everything.*ok|all.*good|report/.test(t)) return pick(R.status);
-    if (/^(hey\s+)?alfred\.?$|^alfred[,!]?\s*(are you there|you there|hello|hi)?$/.test(t)) return pick(R.called);
-    if (/who are you|what are you|your name|introduce|alfred/.test(t)) return pick(R.identity);
-    if (/productiv|efficien|workflow|manage time|time management|output/.test(t)) return pick(KB.productivity);
-    if (/focus|distract|concentrat|attention|deep work/.test(t)) return pick(KB.focus);
-    if (/lead|leadership|team|manage people|culture|org/.test(t)) return pick(KB.leadership);
-    if (/success|achieve|perform|elite|high.perform|win/.test(t)) return pick(KB.success);
-    if (/motivat|inspired|driven|push|discipline|mindset/.test(t)) return pick(KB.motivation);
-    if (/artificial intelligence|\bai\b|machine learning|automation|gpt|llm/.test(t)) return pick(KB.ai);
-    if (/business|company|startup|scale|grow|revenue|sales|founder/.test(t)) return pick(KB.business);
-    if (/sleep|rest|recover|insomnia/.test(t)) return pick(KB.sleep);
-    if (/health|fitness|exercise|workout|physical/.test(t)) return pick(KB.health);
-    if (/money|wealth|invest|finance|cash|profit|spend/.test(t)) return pick(KB.money);
-    if (/read|book|learn|knowledge|study/.test(t)) return pick(KB.reading);
-    if (/hire|hiring|recruit|talent|fire|team building/.test(t)) return pick(KB.hiring);
-    if (/decid|decision|choice|choose|risk/.test(t)) return pick(KB.decision);
-    if (/hello|hi\b|hey\b|good (morning|evening|afternoon)|wake/.test(t)) return pick(R.greet);
-    if (/thank|thanks|appreciate|well done|good job/.test(t)) return pick(R.thanks);
-    if (/shutdown|stop|exit|bye|goodbye|close/.test(t)) return pick(R.shutdown);
-    if (/help|what can|commands|options|what do you know|capabilities/.test(t)) return pick(R.help);
-    return pick(R.unknown);
+  async function getReply(query){
+    try{
+      const res = await fetch('/api/agent', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ agent:'alfred', command: query.slice(0, 500), history: history.slice(-6) }),
+      });
+      const data = await res.json().catch(() => ({}));
+      const reply = data.response || 'The line is quiet. Try again in a moment.';
+      if(res.ok){ history.push({ role:'user', content: query.slice(0, 500) }, { role:'assistant', content: reply }); }
+      return reply;
+    } catch { return 'The line is quiet. Try again in a moment.'; }
   }
 
   // ── STYLES ────────────────────────────────────────────────
@@ -4147,7 +3921,7 @@ function startScanLine(){
 
     <!-- RIGHT PANEL: Live Intelligence -->
     <div class="af-panel right" id="af-panel-right">
-      <div class="af-panel-title">Live Intelligence</div>
+      <div class="af-panel-title">Sample Intelligence</div>
       <div id="af-intel-rows"></div>
       <div style="margin-top:auto;padding-top:12px;border-top:1px solid rgba(30,91,255,0.08)">
         <div class="af-panel-label" style="margin-bottom:6px">Session Clock</div>
@@ -4165,11 +3939,12 @@ function startScanLine(){
     <div class="af-bottom">
       <div class="af-status" id="af-status">INITIALISING</div>
       <div class="af-input-row">
-        <input id="af-text-in" class="af-text-in" type="text" placeholder="Ask Alfred anything..." autocomplete="off" spellcheck="false"/>
+        <input id="af-text-in" class="af-text-in" type="text" maxlength="500" placeholder="Ask Alfred anything..." aria-label="Ask Alfred" autocomplete="off" spellcheck="false"/>
+        <button class="af-mic" id="af-mic" type="button" aria-pressed="false" aria-label="Microphone">Mic</button>
         <button class="af-send" id="af-send">SEND</button>
       </div>
     </div>
-    <div class="af-hint">SPEAK OR TYPE — ALFRED IS LISTENING</div>
+    <div class="af-hint">TYPE, OR TAP MIC TO SPEAK</div>
   `;
   document.body.appendChild(overlay);
 
@@ -4482,14 +4257,20 @@ function startScanLine(){
     setTimeout(() => { responseEl.textContent = text; responseEl.classList.add('show'); }, 100);
   }
 
-  function processQuery(query) {
-    transcriptEl.textContent = query.toUpperCase();
+  let busyQuery = false;
+  async function processQuery(query) {
+    if (busyQuery) return;
+    busyQuery = true;
+    transcriptEl.textContent = query;
     setStatus('PROCESSING', '');
-    const reply = getReply(query);
+    if (window.nyxTrack) window.nyxTrack('alfred_message');
+    const reply = await getReply(query);
+    busyQuery = false;
+    if (!alfredOpen) return;
     showResponse(reply);
     setStatus('SPEAKING', '');
     speak(reply, () => {
-      if (alfredOpen) setStatus('LISTENING', 'on');
+      if (alfredOpen && micOn) setStatus('LISTENING', 'on');
       else setStatus('STANDBY', '');
     });
   }
@@ -4543,7 +4324,7 @@ function startScanLine(){
     recognition.onend = () => {
       listening = false;
       recognition = null;
-      if (alfredOpen) setTimeout(startListening, 80);
+      if (alfredOpen && micOn) setTimeout(startListening, 80);
     };
 
     recognition.onerror = (e) => {
@@ -4551,11 +4332,21 @@ function startScanLine(){
       if (e.error === 'no-speech') return; // continuous mode — just keep going
       // any other error: restart
       recognition = null;
-      if (alfredOpen) setTimeout(startListening, 200);
+      if (alfredOpen && micOn) setTimeout(startListening, 200);
     };
 
     try { recognition.start(); } catch(err) {}
   }
+
+  // ── MIC (opt-in) ──────────────────────────────────────────
+  let micOn = false;
+  const micBtn = document.getElementById('af-mic');
+  function setMic(on){
+    micOn = on;
+    if (micBtn) micBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (on) startListening(); else { stopAllRecognition(); setStatus('STANDBY', ''); }
+  }
+  if (micBtn) micBtn.addEventListener('click', () => setMic(!micOn));
 
   // ── TEXT INPUT ─────────────────────────────────────────────
   document.getElementById('af-send').addEventListener('click', () => {
@@ -4584,20 +4375,19 @@ function startScanLine(){
     transcriptEl.textContent = '';
     responseEl.textContent = ''; responseEl.classList.remove('show');
     setStatus('INITIALISING', '');
-    const greeting = pick(R.greet);
     setTimeout(() => {
-      showResponse(greeting);
-      setStatus('SPEAKING', '');
-      speak(greeting, () => { if (alfredOpen) setStatus('LISTENING', 'on'); });
-      startListening(); // mic on immediately — duplex
+      showResponse(GREETING);
+      setStatus('STANDBY', '');
+      textIn.focus();
     }, 400);
+    if (window.nyxTrack) window.nyxTrack('alfred_open');
   }
 
   function closeAlfred() {
     alfredOpen = false;
     overlay.classList.remove('active');
     document.body.style.overflow = '';
-    stopAllRecognition();
+    setMic(false);
     window.speechSynthesis && window.speechSynthesis.cancel();
     listening = false; speaking = false;
     netState = 'standby';
@@ -4671,6 +4461,18 @@ function startScanLine(){
   });
 })();
 
+/* ── INQUIRE → ACCESS REVIEW ─────────────────────────── */
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('[data-inquire]');
+  if(!b) return;
+  e.preventDefault();
+  const a = window.__nyxAssessment;
+  if(a && b.dataset.inquire) a.selectTier(b.dataset.inquire);
+  const t = document.getElementById('waitlist');
+  if(t) t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  if(window.nyxTrack) window.nyxTrack('inquire_click', { tier: b.dataset.inquire || 'none' });
+});
+
 /* ── WAITLIST FORM ──────────────────────────────────── */
 (function(){
   const btn  = document.getElementById('submit-btn');
@@ -4686,33 +4488,38 @@ function startScanLine(){
       err.textContent = 'Please enter a valid email address.';
       err.style.display = 'block'; return;
     }
-    btn.disabled = true; btn.textContent = 'Submitting...';
+    btn.disabled = true; btn.textContent = 'Submitting…';
     err.style.display = 'none';
-    // Save email to memory
+    const ls = k => { try { return localStorage.getItem(k) || ''; } catch(_) { return ''; } };
     try{ localStorage.setItem('nyx_email', email); }catch(e){}
+    const payload = {
+      email, role: ls('nyx_role'), goal: ls('nyx_goal'), challenge: ls('nyx_challenge'),
+      outcome: ls('nyx_outcome'), tier: ls('nyx_tier') || 'Not sure yet',
+      company: (document.getElementById('hp-company') || {}).value || '',
+    };
+    const fail = (msg) => {
+      err.textContent = msg; err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Try again';
+    };
     try{
-      const ls = k => { try { return localStorage.getItem(k) || ''; } catch(_) { return ''; } };
-      const res = await fetch('/api/waitlist', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ email, role: ls('nyx_role'), goal: ls('nyx_goal'), challenge: ls('nyx_challenge'), outcome: ls('nyx_outcome') })
-      });
+      const res = await fetch('/api/waitlist', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      let data = {}; try { data = await res.json(); } catch(_) {}
       if(res.ok){
+        ['nyx_challenge','nyx_outcome'].forEach(k => { try{ localStorage.removeItem(k); }catch(_){} });
+        if(window.nyxTrack) window.nyxTrack('access_submit', { tier: payload.tier });
         gsap.to(wrap, { opacity:0, y:-16, duration:0.4, onComplete: () => {
           wrap.style.display = 'none';
           succ.style.display = 'block';
           gsap.from(succ, { opacity:0, y:16, duration:0.6, ease:'power3.out' });
+          succ.setAttribute('tabindex', '-1'); succ.focus();
         }});
-      } else {
-        let msg = 'Something went wrong. Please try again.';
-        try{ const data = await res.json(); if(data && data.error) msg = data.error; }catch(e){}
-        err.textContent = msg;
-        err.style.display = 'block';
-        btn.disabled = false; btn.textContent = 'Request Access';
+        return;
       }
-    } catch{
-      err.textContent = 'Network error. Please check your connection and try again.';
-      err.style.display = 'block';
-      btn.disabled = false; btn.textContent = 'Request Access';
+      const stepFor = { role:0, goal:1, challenge:2, outcome:3 };
+      if(data.field in stepFor && window.__nyxAssessment){ window.__nyxAssessment.setStep(stepFor[data.field]); }
+      fail(data.error || 'Something went wrong. Your answers are saved. Try again.');
+    } catch {
+      fail('Network error. Your answers are saved. Try again.');
     }
   }
 
@@ -5092,8 +4899,8 @@ function startScanLine(){
 
       thinking.remove();
 
-      if(!res.ok) throw new Error('Agent returned ' + res.status);
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
+      if(!res.ok) throw new Error(data.response || 'The line is quiet. Try again in a moment.');
       const text = data.response || 'No response.';
 
       history.push({ role: 'assistant', content: text });
@@ -5115,7 +4922,7 @@ function startScanLine(){
 
     } catch(err) {
       thinking.remove();
-      logLine('Agent unreachable. Ensure the Netlify function is deployed and ANTHROPIC_API_KEY is set.', 'system');
+      logLine(err.message || 'The line is quiet. Try again in a moment.', 'system');
       busy = false;
       sendBtn && (sendBtn.disabled = false);
     }
@@ -5241,11 +5048,12 @@ function startScanLine(){
   const equator = edges(new THREE.TorusGeometry(0.72, 0.005, 4, 80), goldDim);
   engine.add(equator);
 
-  // Node spheres at ring intersections (6 agents)
+  // Node spheres at ring intersections (8 agents)
   const nodePositions = [
     [2.8, 0, 0], [-2.8, 0, 0],
     [0, 2.1, 0], [0, -2.1, 0],
     [0, 0, 1.4], [0, 0, -1.4],
+    [1.98, 1.48, 0], [-1.98, -1.48, 0],
   ];
   nodePositions.forEach(([x,y,z]) => {
     const node = edges(new THREE.SphereGeometry(0.1, 10, 8), gold);
@@ -5490,7 +5298,7 @@ function startScanLine(){
 <!-- INQUIRY LOCK: all interactive AI surfaces (Alfred, Voice HUD, agent consoles, Command Center) route to the inquiry form -->
 <script>
 (function(){
-  var SEL = '#jarvis-activate-hud, #jarvis-activate-main, .vhud-frame, .agent-card[data-agent], a[href*="command"]';
+  var SEL = '.agent-card[data-agent], a[href*="command"]';
   function toInquiry(){
     var t = document.getElementById('waitlist');
     if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
@@ -5504,13 +5312,11 @@ function startScanLine(){
   }
   document.addEventListener('click', intercept, true);
   document.addEventListener('keydown', intercept, true);
-  // Hard-disable programmatic openers
-  window._openAlfred = function(){ toInquiry(); };
   // Close anything that somehow opened
-  ['jarvis-overlay','agent-modal'].forEach(function(id){ var el=document.getElementById(id); if(el){ el.classList.remove('active'); el.setAttribute('aria-hidden','true'); }});
+  ['agent-modal'].forEach(function(id){ var el=document.getElementById(id); if(el){ el.classList.remove('active'); el.setAttribute('aria-hidden','true'); }});
   // Relabel triggers
-  document.querySelectorAll('.vhud-frame').forEach(function(el){ el.setAttribute('aria-label','Request access to Alfred'); });
-  document.querySelectorAll('.vhud-status').forEach(function(el){ el.textContent = 'ACCESS BY INQUIRY'; });
+  document.querySelectorAll('.vhud-frame').forEach(function(el){ el.setAttribute('aria-label','Ask Alfred'); });
+  document.querySelectorAll('.vhud-status').forEach(function(el){ el.textContent = 'ASK ALFRED'; });
   document.querySelectorAll('.agent-card[data-agent]').forEach(function(el){ el.setAttribute('aria-label', (el.dataset.agent||'Agent') + ' — request access'); });
 })();
 </script>

@@ -2,27 +2,6 @@
   "cleanUrls": true,
   "headers": [
     {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "https://www.nyxsystem.online"
-        },
-        {
-          "key": "Vary",
-          "value": "Origin"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "POST, OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type"
-        }
-      ]
-    },
-    {
       "source": "/(.*)",
       "headers": [
         {
