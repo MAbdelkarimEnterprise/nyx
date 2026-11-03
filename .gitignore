@@ -9,3 +9,4 @@ build/
 .vercel
 .env*
 .lh/
+__pycache__/
