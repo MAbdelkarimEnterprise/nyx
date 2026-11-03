@@ -399,9 +399,11 @@ function startScanLine(){
 
   const reveal = gsap.timeline({ paused:true })
     .fromTo('.hero-eyebrow', { opacity:0, y:14 }, { opacity:1, y:0, duration:0.6, ease:'power3.out' }, 0)
-    .fromTo('.hero-char', { y:'110%', opacity:0 }, { y:'0%', opacity:1, stagger:{ amount:0.24 }, duration:1.1, ease:'expo.out' }, 0.08)
+    // Title and statement move but never fade: hidden text would hold back LCP.
+    .fromTo('.hero-char', { y:'40%' }, { y:'0%', stagger:{ amount:0.24 }, duration:1.1, ease:'expo.out' }, 0.08)
     .fromTo('.hero-rule', { scaleX:0 }, { scaleX:1, duration:0.6, ease:'power3.out' }, 0.5)
-    .fromTo(['.hero-statement','.hero-cta'], { opacity:0, y:16 }, { opacity:1, y:0, stagger:0.1, duration:0.7, ease:'power3.out' }, 0.55)
+    .fromTo('.hero-statement', { y:16 }, { y:0, duration:0.7, ease:'power3.out' }, 0.55)
+    .fromTo('.hero-cta', { opacity:0, y:16 }, { opacity:1, y:0, duration:0.7, ease:'power3.out' }, 0.65)
     .fromTo(['.hero-status','.hero-access','.hero-coords','.hero-scroll','#hero-intel-panel'], { opacity:0 }, { opacity:1, stagger:0.06, duration:0.5 }, 0.7);
 
   const bar = document.getElementById('loader-bar');
