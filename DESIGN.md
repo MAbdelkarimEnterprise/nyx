@@ -1,0 +1,173 @@
+# NYX — design plan
+
+Design-only pass. Copy, labels (Projected/Sample), options, links, forms, API wiring, analytics events and accessibility fixes stay as they are.
+Screenshots: `design-review/before/` and `design-review/after/` (`<section>-<width>[-slice].jpg`, 360/390/768/1440), made with `node design-review/shoot.mjs <url> <dir>`.
+
+## 1. What it looks like now (from `design-review/before/`)
+
+| Section | 1440 | 390 |
+|---|---|---|
+| Hero | Centered silver NYX over a busy HUD: rotating crest with ring text, network lines, grid, status readouts in all four corners, an 8-row "agent status" panel, scroll cue. No single focus. | Same, cropped; readouts hidden; wordmark + statement + two buttons hold up. |
+| System | "001 — THE SYSTEM" eyebrow; four-line serif headline with "Not a service." in bright blue italic; body left; orrery almost invisible bottom right. | Single column; orrery below. |
+| Engine | Blue wireframe gyroscope with HUD brackets, "Precision in motion." with blue italic accent, three spec numbers. | Stacked; static fallback glow. |
+| Agent Network | "002 —" eyebrow; headline in light **sans** (breaks the serif rule); 3×3 grid of identical bordered cards with sparkline canvases; APEX looks like the rest. | One long column of identical cards. |
+| Alfred | Eyebrow; headline with blue italic accent; underline tabs; then a second row of five boxed sub-tabs; black terminal panel; SAMPLE chip in the panel header. | Tabs + sub-tab scroller; panel full width. |
+| How It Works | Eyebrow; four pillar columns with blue line icons. | Stacked pillars. |
+| Options | Eyebrow; serif headline; four accordion rows; "MOST COMPLETE" as a filled bright-blue block. | Rows with tags under names. |
+| Outcomes + stats | Stats strip with sparklines; three report cards with big numbers. | Two-up stats, stacked cards. |
+| Missions | Accordion "Mission 00X" bars with a dot status. | Same. |
+| Architect | Centered note, blue italic accents. | Same. |
+| Access review | Centered; dot progress; options as outlined boxes. | Same. |
+| Chrome | Top nav + bottom telemetry bar (status, ticker, UTC, PAUSE) + ASK ALFRED button: four permanent layers. | Nav + bar + launcher. |
+
+## 2. Tokens
+
+### Color (one file: the `:root` block in `index.html`; nothing hard-coded elsewhere)
+| Token | Hex | Use |
+|---|---|---|
+| `--night` | `#070A12` | Base. Deep night with a cool cast, not flat black. |
+| `--dusk` | `#0D1220` | Raised surfaces: panels, cards, nav when shown. |
+| `--slate` | `#161D2D` | Overlay: emphasized card (Full System), overlay panels, inputs. |
+| `--indigo` | `#3C4A86` | Structure only: hairlines, rails, network lines, progress track. Never text. |
+| `--moon` | `#EEE8DC` | The rare signal: active tab, live pulse, selected option, Full System border + label, focus ring. One per screen. |
+| `--mist` | `#D5D9E3` | Primary text. |
+
+Text steps (all AA on every surface): `--text-1: #D5D9E3` (14.0:1 on night, 11.9:1 on slate), `--text-2: #A5ACBC` (8.7 / 7.4), `--text-3: #8189A0` (5.7 / 4.8). Moon is 16.2:1. Indigo is 2.4:1, so it never carries text or marks a control boundary; control borders use `--text-3` (≥3:1).
+Lines: `--line: rgba(60,74,134,0.35)`, `--line-strong: rgba(60,74,134,0.7)`.
+
+### Type
+- **Display — Fraunces** (variable, `opsz` + `wght`): wordmark and every section headline. Large sizes use `opsz 144`, tight tracking; small headings `opsz 36`, normal tracking.
+- **UI and body — Inter**: everything else. `font-variant-numeric: tabular-nums` on clocks, metrics, stats, IDs.
+- **Mono** (system `ui-monospace`, no download): reference IDs in outcome and mission reports only.
+- Italic Fraunces appears only in the Architect note.
+
+| Step | Size | Family / settings | Use |
+|---|---|---|---|
+| `--t-wordmark` | clamp(88px, 18vw, 232px) | Fraunces 300, opsz 144, tracking 0.06em | NYX |
+| `--t-statement` | clamp(44px, 6.4vw, 96px) | Fraunces 300, opsz 144, −0.02em | System statement |
+| `--t-h2` | clamp(34px, 4.2vw, 60px) | Fraunces 300, opsz 96, −0.015em | Section headlines |
+| `--t-h3` | 26px | Fraunces 400, opsz 36 | Card / panel titles |
+| `--t-lead` | 20px | Inter 400, 1.55 | Subheads, positioning line |
+| `--t-body` | 16px | Inter 400, 1.7 | Body |
+| `--t-small` | 14px | Inter 400, 1.6 | Readable secondary text |
+| `--t-caption` | 12px | Inter 500, 0.04em | Captions, chips, readouts |
+
+Caps only for system readouts (boot, rail status, telemetry). Labels, buttons and chips are sentence case.
+
+### Spacing (8 px base)
+`--s1 8 · --s2 16 · --s3 24 · --s4 32 · --s5 48 · --s6 64 · --s7 96 · --s8 128 · --s9 192`
+Sections: transitional `--s7`/`--s8` vertical; signature (Agents, Alfred, Options) `--s9` on desktop. Mobile: `--s6` / `--s7`.
+
+### Radius
+`--r0: 0` structure (sections, rows, hairline groups) · `--r1: 2px` controls (buttons, chips, inputs, choices) · `--r2: 14px` raised panels (Alfred panel, option cards, overlay, launcher).
+
+### Motion
+Durations: `--d-ui 160ms` (hover, focus, select) · `--d-step 200ms` (tabs, review steps) · `--d-sig 1200ms` (signature moments).
+Easing: `--ease-ui cubic-bezier(.2,0,0,1)` · `--ease-sig cubic-bezier(.16,1,.3,1)` (no overshoot) · `linear` (pulse travel only).
+Signature moments, and only these: boot → hero, Agent Network pulses, Alfred reveal. No scroll-entrance animations anywhere.
+
+## 3. Sections
+
+**Persistent chrome** — two layers: top nav (hides on scroll down, returns on scroll up) and the Ask Alfred launcher. Desktop adds a left progress rail (it replaces the bottom bar and section eyebrows; it is the page's single readout). Bottom bar removed on all sizes.
+
+```
+DESKTOP RAIL (fixed, left, ≥1100px)
+│ ● System          ← filled up to current section
+│ ○ Agents
+│ ○ Alfred
+│ ○ How it works
+│ ○ Options
+│ ○ Outcomes
+│ ○ Missions
+│ ○ Access
+│
+│ 08 AGENTS · SAMPLE
+│ 17:42:09 UTC
+│ [Pause]            ← only while motion is playing
+```
+
+**Hero** — the one centered, bold moment. Night field (quiet three.js stars on capable desktops, static SVG star field elsewhere), one moonlight glow that follows the cursor on desktop. Wordmark, positioning line, then the two buttons. Corner readouts, crest, grid and the agent-status panel are removed.
+```
+┌──────────────────────────────────────────────────────────────┐
+│ NYX                                   System Agents … [Access]│  ← nav (auto-hides)
+│                 ·        .     ·                  .            │
+│        ·                (moonlight glow)       ·               │
+│                     N   Y   X                                  │  ← Fraunces opsz 144
+│          Autonomous AI operating system                        │  ← caption
+│     The operating system behind elite performance.             │  ← lead, one line
+│            [ Inquire ]   See the system →                      │
+│      .              ·                 .           ·            │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**System** — editorial: the three-line statement at near-hero size spanning columns 1–8; body in a narrow column (cols 9–12, <70ch). No color accent; emphasis by line breaks. Orrery removed (it was invisible and decorative).
+
+**Engine** — kept as a quiet supporting visual: left-aligned copy, gyroscope right, rendered static (moves only with scroll on capable desktops). No HUD brackets.
+
+**Agent Network (signature)** — hub diagram. APEX center (larger, moon ring), seven agents on a circle, fine indigo lines to APEX. Hover/focus an agent: its line brightens to moon, a detail card shows role + one line. A pulse travels one line every ~3.5 s, never two at once. Each agent is a focusable button with an accessible name. Mobile: vertical list, APEX first and larger.
+```
+                ORACLE           SIGNAL
+                    ╲          ╱
+        FORGE ───────  ◎ APEX  ─────── CONVERT
+                    ╱    │     ╲
+              CIPHER     │      LEDGER
+                      MERIDIAN
+   ┌─────────────────────────────────────────┐
+   │ CONVERT · Revenue intelligence           │  ← detail card (focus/hover)
+   │ Pipeline analysis and conversion …       │
+   └─────────────────────────────────────────┘
+```
+
+**Alfred** — one raised panel (`--dusk`, inner hairline, soft shadow, `--r2`). Tabs inside the panel header, one quiet "Sample" tag in the panel's top-right corner. Brief sub-tabs become a compact segmented row inside the briefing tab. Lines reveal once when a tab opens; the feed no longer drips. Tabular numbers.
+```
+┌─────────────────────────────────────────────────── Sample ┐
+│ Morning briefing   Live feed   Voice                       │
+│ ───────────────                                            │
+│ Briefing · Opportunity · Strategy · Market · Performance   │
+│                                                            │
+│ You → Alfred, give me my morning briefing.                 │
+│ Good morning. Three things matter today …                  │
+│                                                            │
+│ Agent Alfred   Mode Executive briefing   Generated 06:00   │
+└────────────────────────────────────────────────────────────┘
+```
+
+**How it works** — four principles as a quiet numbered list on the grid; icons dropped.
+
+**Options** — comparison of four cards. Full System raised (`--slate`), moon hairline border, "Most complete" in moon text. Private Access darker than the page, details folded behind "Details on invitation". Maintenance as a footnote row.
+```
+┌──────────┐┌──────────┐┌═══════════┐┌──────────┐
+│ Design   ││ Agents   ││ Full      ││ Private  │
+│ One-time ││ Monthly  ││ System    ││ access   │
+│          ││          ││ Most      ││ By       │
+│ • …      ││ • …      ││ complete  ││ invitation│
+│ • …      ││ • …      ││ • …       ││          │
+│ Inquire  ││ Inquire  ││ [Inquire] ││ Details ▸│
+└──────────┘└──────────┘└═══════════┘└──────────┘
+  Monthly maintenance keeps everything sharp after launch: …
+```
+
+**Outcomes + stats** — classified field reports: mono reference ID, document hairlines, redaction bars where detail is withheld; "Projected" stays visible. Stats become a plain tabular row (sparklines removed).
+
+**Missions** — same document style; "Sample mission" visible; reference IDs in mono.
+
+**Architect** — narrow column, 20 px body, signature in Fraunces italic (the only italic body copy).
+
+**Access review** — private room: no glow, thin progress line, one question per screen, large choices (56 px), 200 ms step transitions.
+
+**Footer** — one quiet row on `--night`.
+
+## 4. Check against the brief — revisions
+
+| First idea | Why it read as generic dark-AI | Revision |
+|---|---|---|
+| Keep the electric blue as accent, add a purple glow | Blue/purple glow is the default AI palette | Indigo is structure only; the accent is a warm moon silver used once per screen |
+| Hero: keep the network lines, slow them down | Node-and-line "neural net" backgrounds are the most common AI hero | Stars only, no lines; the network idea belongs to the Agent section, where it means something |
+| Agent hub with all lines pulsing | Constant glowing data flow = "AI dashboard" cliché | One pulse at a time, every few seconds; still otherwise |
+| Section reveal on scroll (fade-up) | Every template does it | Removed entirely; content is simply there |
+| Gradient-text wordmark | Metallic gradient text reads as stock luxury | Solid mist, weight and optical size do the work |
+| Glass cards with blur | Glassmorphism is a generated-UI tell and costs paint | Solid surfaces at three depths with one hairline |
+| "Most complete" as a pill | Pricing-table SaaS pattern | Text label in moon, emphasis via surface and border |
+
+## 5. Lighthouse per phase
+(recorded as phases land — local numbers on a compressed static server, production at the end)
