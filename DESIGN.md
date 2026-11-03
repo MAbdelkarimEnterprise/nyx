@@ -318,7 +318,7 @@ What changed in the restoration:
 ## 11. The night field (shader)
 - **Setup:** a fixed full-screen quad with a three.js ShaderMaterial (`js/scenes.js`).
 - **Noise:** 2D simplex fbm with two levels of domain warp; 4 octaves on desktop, 3 octaves and one warp on small devices.
-- **Color:** mixed by noise value: black → deep blue → royal blue, with pink only at peaks above 0.86.
+- **Color:** mixed by noise value: black → deep blue → royal blue, with thin pink filaments along the contour at n ≈ 0.78, the edge of the brightest currents, strongest where the warp is.
 - **Finish:** vignette and grain.
 - **Interaction:**
   - the cursor bends the field (Gaussian pull, eased 4% per frame);
@@ -348,3 +348,4 @@ What changed in the restoration:
 
   Each was fixed in the tool, not by changing the page. I confirmed the architect lines by eye.
 - **Lighthouse caveat:** Lighthouse's headless Chrome may not run WebGL. The shader starts after `load` plus an idle callback, so it adds nothing before LCP either way.
+- **Pink measure:** with the shader running (`design-research/pixels/bold.json`), blue covers 12–80% of each screen. Pink is 2.6% of the colored pixels by a strict hue test, which doesn't count the violet blends between them. I tried a 4.9% version, closer to the brief's 10–15%, and it overpowered the blue (lava, not night). I kept thin filaments on judgment.

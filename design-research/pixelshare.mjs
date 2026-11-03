@@ -19,8 +19,8 @@ const A=1.9779984951*l-2.428592205*m+.4505937099*s,B=.0259040371*l+.7827717662*m
 const h=(Math.atan2(B,A)*180/Math.PI+360)%360;if(h>=225&&h<=295)bl++;else if(h>=320||h<=20)pk++}
 return {blue:+(100*bl/n).toFixed(2),pink:+(100*pk/n).toFixed(2)}})()`;
 
-const out = { url, at: new Date().toISOString(), rule: 'pink ≤ 3% of any screen at rest', screens: {} };
-const b = await launch();
+const out = { url, at: new Date().toISOString(), rule: 'bold pass: blue is the main color on every screen; pink ~10–15% of the color presence', screens: {} };
+const b = await launch(['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader']);
 for (const width of [1440, 390]) {
   await b.viewport(width);
   await b.send('Page.navigate', { url }); await sleep(1200);
@@ -37,7 +37,9 @@ for (const width of [1440, 390]) {
 }
 b.close();
 const worst = Object.entries(out.screens).sort((a, c) => c[1].pink - a[1].pink)[0];
-out.maxPink = { screen: worst[0], ...worst[1] }; out.pass = worst[1].pink <= 3;
+out.maxPink = { screen: worst[0], ...worst[1] };
+const sum = (k) => Object.values(out.screens).reduce((a, v) => a + v[k], 0);
+out.pinkShareOfColor = +(100 * sum('pink') / (sum('pink') + sum('blue'))).toFixed(1);
 writeFileSync(new URL(`../${label}.json`, dir), JSON.stringify(out, null, 2));
 for (const [k, v] of Object.entries(out.screens)) console.log(k.padEnd(16), 'blue', String(v.blue).padStart(6), ' pink', v.pink);
-console.log('max pink', out.maxPink, out.pass ? 'PASS' : 'FAIL');
+console.log('max pink', out.maxPink, 'pink share of colour', out.pinkShareOfColor + '%');

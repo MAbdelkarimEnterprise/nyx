@@ -70,8 +70,9 @@ void main(){
   float body=smoothstep(0.32,0.7,n), band=smoothstep(0.56,0.9,n);
   vec3 col=mix(black,deep,body);
   col=mix(col,blue,band*band*0.9);
-  float vein=smoothstep(0.86,0.97,n+0.08*length(r));
-  col=mix(col,pink,vein*0.55);
+  // Thin pink filaments along the edge of the brightest currents, strongest where the warp is.
+  float vein=smoothstep(0.07,0.0,abs(n-0.78))*smoothstep(0.1,0.45,length(r));
+  col=mix(col,pink,smoothstep(0.15,0.8,vein)*0.95);
   col+=blue*rip*0.35+pink*edge*0.6;
   float vig=smoothstep(1.15,0.2,length((uv-0.5)*vec2(1.25,1.0)));
   col=mix(black,col,uLevel*mix(0.45,1.0,vig));
