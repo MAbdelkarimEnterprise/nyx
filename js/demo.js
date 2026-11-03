@@ -247,6 +247,7 @@
   const GREETING = "I'm Alfred. Tell me what you run, and I'll tell you which part of NYX fits.";
   const history = [];
 
+  let lastFailed = false;
   async function getReply(query){
     try{
       const res = await fetch('/api/agent', {
@@ -256,8 +257,9 @@
       const data = await res.json().catch(() => ({}));
       const reply = data.response || 'The line is quiet. Try again in a moment.';
       if(res.ok){ history.push({ role:'user', content: query.slice(0, 500) }, { role:'assistant', content: reply }); }
+      lastFailed = !res.ok;
       return reply;
-    } catch { return 'The line is quiet. Try again in a moment.'; }
+    } catch { lastFailed = true; return 'The line is quiet. Try again in a moment.'; }
   }
 
   // ── STYLES ────────────────────────────────────────────────
@@ -826,6 +828,7 @@
     const reply = await getReply(query);
     busyQuery = false;
     if (!alfredOpen) return;
+    responseEl.dataset.state = lastFailed ? 'error' : '';
     showResponse(reply);
     setStatus('SPEAKING', '');
     speak(reply, () => {

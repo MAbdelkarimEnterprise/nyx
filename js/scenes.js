@@ -92,7 +92,7 @@ function engineScene(THREE){
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.setSize(W, H);
-  renderer.setClearColor(0x000000, 0);
+  renderer.setClearColor(nyxHex('--night'), 0);   // transparent; color irrelevant
 
   // ── MATERIALS ─────────────────────────────────────────
   const gold     = new THREE.LineBasicMaterial({ color: nyxHex('--indigo'), transparent: true, opacity: 0.75 });
@@ -233,6 +233,7 @@ function engineScene(THREE){
   });
   engine.add(edges(new THREE.TorusGeometry(0.16, 0.004, 4, 48), steel));
 
+  engine.scale.setScalar(0.8);   // fits the frame; the old scale-in tween no longer runs
   scene.add(engine);
 
   // ── SCROLL REACTIVITY ─────────────────────────────────

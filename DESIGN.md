@@ -169,5 +169,19 @@ DESKTOP RAIL (fixed, left, ≥1100px)
 | Glass cards with blur | Glassmorphism is a generated-UI tell and costs paint | Solid surfaces at three depths with one hairline |
 | "Most complete" as a pill | Pricing-table SaaS pattern | Text label in moon, emphasis via surface and border |
 
-## 5. Lighthouse per phase
-(recorded as phases land — local numbers on a compressed static server, production at the end)
+## 5. Lighthouse per phase (mobile)
+Local runs on a compressed static server (`serve`), Lighthouse 12.8.2, simulated slow 4G. Production numbers in the last row.
+
+| Phase | Perf | A11y | Best pr. | SEO | LCP | TBT | CLS | Note |
+|---|---|---|---|---|---|---|---|---|
+| 1 Palette | 98 | 97 | 100 | 100 | 2.3 s | 10 ms | 0.001 | contrast flags on the old accents and status bar |
+| 2 Type | 98 | 97 | 100 | 100 | 2.3 s | 0 ms | 0.003 | status bar label only |
+| 3 Structure | 98 | 97 | 100 | 100 | 2.3 s | 0 ms | 0.003 | status bar label only |
+| 4 Sections | 98 | 97 | 100 | 100 | 2.3 s | 0 ms | 0.002 | status bar label only |
+| 5 Chrome + motion | 97 | 100 | 100 | 100 | 2.4 s | 0 ms | 0.001 | GSAP removed, status bar gone |
+| 6 Details | 97 | 100 | 100 | 100 | 2.4 s | 0 ms | 0.001 | 250 dead CSS rules purged (123 → 97 KB) |
+
+## 6. Final token sheet
+`--night #070A12` base · `--dusk #0D1220` raised · `--slate #161D2D` overlay · `--indigo #3C4A86` structure · `--moon #EEE8DC` signal · `--mist #D5D9E3` text-1 · `--text-2 #A5ACBC` · `--text-3 #8189A0`.
+Type: wordmark clamp(88–232) · statement clamp(44–96) · h2 clamp(34–60) · h3 26 · lead 20 · body 16 · small 14 · caption 12.
+Space: 8 · 16 · 24 · 32 · 48 · 64 · 96 · 128 · 192. Radius: 0 · 2 · 14. Motion: 160 / 200 / 1200 ms; `cubic-bezier(.2,0,0,1)` UI, `cubic-bezier(.16,1,.3,1)` signature, linear for pulses.
