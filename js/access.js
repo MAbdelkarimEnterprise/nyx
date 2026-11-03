@@ -21,7 +21,7 @@
     const pt = document.getElementById('as-progress');
     if(pt) pt.textContent = `Step ${idx + 1} of 5`;
     const pb = document.getElementById('n-progress-bar');
-    if(pb) pb.style.transform = `scaleX(${(idx + 1) / 5})`;
+    if(pb) pb.style.transform = `scaleX(${idx / 5})`;   // answered steps only: pink follows the visitor
     if(window.nyxTrack) window.nyxTrack('access_step_' + (idx + 1));
   }
 

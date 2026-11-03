@@ -211,7 +211,7 @@ Components reference roles only. Ramps are OKLCH with even L steps; the three gi
 | system-active | blue-4 | #568CFE | active node ring, selected tab, lit link |
 | system-text / focus | blue-5 | #92B7FF | blue text, focus ring |
 | system-text-hi | blue-6 | #CEDFFE | active agent name |
-| text-primary / -secondary / -tertiary | ink-1/2/3 | #EBF5FA / #BCC6CA / #B3BCC0 | text (black's hue, low chroma) |
+| text-primary / -secondary / -tertiary | ink-1/2/3 | #EBF5FA / #BCC6CA / #AEB8BC | text (black's hue, low chroma) |
 | command | pink-rest (anchor) | #D83995 | the visitor's intent: traveling pulse, chosen command edge, chosen option edge, answered progress |
 | command-hover / command-glow | pink-hover / pink-glow | #F152AB / #FA7CBD | hover on a command control; hero cursor glow |
 | error | ink-1 + structure-strong edge | | errors are the system's, so they're never pink; the message carries the meaning |
