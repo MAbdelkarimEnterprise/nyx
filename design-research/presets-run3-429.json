@@ -1,0 +1,222 @@
+{
+  "at": "2026-11-03T22:10:52.897Z",
+  "rule": "first sentence must not decline",
+  "results": [
+    {
+      "agent": "apex",
+      "command": "How do you decide which agent handles a request?",
+      "status": 429,
+      "ms": 169,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "apex",
+      "command": "What stays with me, and what do you run?",
+      "status": 429,
+      "ms": 71,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "apex",
+      "command": "What does a founder usually hand off first?",
+      "status": 429,
+      "ms": 75,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "oracle",
+      "command": "How would you watch my market without being asked?",
+      "status": 429,
+      "ms": 153,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "oracle",
+      "command": "What would you flag first for a new brand?",
+      "status": 429,
+      "ms": 129,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "oracle",
+      "command": "How would you tell noise from a real shift?",
+      "status": 429,
+      "ms": 80,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "signal",
+      "command": "How would you plan a week of content?",
+      "status": 429,
+      "ms": 80,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "signal",
+      "command": "How would you keep an audience from drifting?",
+      "status": 429,
+      "ms": 145,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "signal",
+      "command": "How would you keep an athlete's voice intact?",
+      "status": 429,
+      "ms": 68,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "convert",
+      "command": "My deals leak between demo and close. What would you do?",
+      "status": 429,
+      "ms": 140,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "convert",
+      "command": "What would you watch in my pipeline every morning?",
+      "status": 429,
+      "ms": 83,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "convert",
+      "command": "How would you decide which lead comes first?",
+      "status": 429,
+      "ms": 83,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "ledger",
+      "command": "How would you forecast cash once you're connected?",
+      "status": 429,
+      "ms": 75,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "ledger",
+      "command": "What would you flag before it becomes a cash problem?",
+      "status": 429,
+      "ms": 76,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "ledger",
+      "command": "How would you track burn across two businesses?",
+      "status": 429,
+      "ms": 70,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "meridian",
+      "command": "How do you find a bottleneck?",
+      "status": 429,
+      "ms": 68,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "meridian",
+      "command": "How would you map a process end to end?",
+      "status": 429,
+      "ms": 66,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "meridian",
+      "command": "How would you run three locations as one?",
+      "status": 429,
+      "ms": 74,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "cipher",
+      "command": "What do you watch while the rest of the system works?",
+      "status": 429,
+      "ms": 142,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "cipher",
+      "command": "What happens when someone leaves the team?",
+      "status": 429,
+      "ms": 74,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "cipher",
+      "command": "What would compliance tracking look like for me?",
+      "status": 429,
+      "ms": 88,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "forge",
+      "command": "How would you know something broke before I do?",
+      "status": 429,
+      "ms": 83,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "forge",
+      "command": "How would you keep the system healthy overnight?",
+      "status": 429,
+      "ms": 74,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    },
+    {
+      "agent": "forge",
+      "command": "What does a healthy system look like to you?",
+      "status": 429,
+      "ms": 207,
+      "chars": 61,
+      "declines": false,
+      "response": "That is enough for today. The access review is the next step."
+    }
+  ]
+}

@@ -196,16 +196,17 @@ function nyxLoop(el, step){
   const role = b => b.querySelector('.n-node-role').textContent;
   const btnOf = k => btns.find(b => b.dataset.agent === k);
 
-  // Questions each agent answers well (asking them to *do* the work gets a polite refusal; see design-research).
+  // Questions each agent answers well. Asking an agent to *do* the work, or for general facts, gets a polite
+  // refusal; asking how it would act does not (design-research/presets-*.json, live-tested).
   const PRESETS = {
-    apex: ['How do you decide which agent handles a request?', 'What stays with me, and what do you run?', 'What does a week with NYX look like?'],
-    oracle: ['How do you watch a market without being asked?', 'What would you flag first for a new brand?', 'How do you tell noise from a real shift?'],
-    signal: ['How would you plan a week of content?', 'Where does content usually lose its audience?', "How do you keep an athlete's voice intact?"],
-    convert: ['Where do deals usually leak between demo and close?', 'What would you watch in my pipeline every morning?', 'How do you decide which lead comes first?'],
-    ledger: ["How do you forecast cash once you're connected?", 'What would you flag before it becomes a cash problem?', 'How do you track burn across two businesses?'],
-    meridian: ['Where do bottlenecks usually hide?', 'How do you map a process end to end?', 'How would you run three locations as one?'],
-    cipher: ['How do you decide who gets access to what?', 'What happens when someone leaves the team?', 'What does compliance tracking look like day to day?'],
-    forge: ['How do you connect to the tools I already use?', 'How do you keep the system healthy overnight?', 'What happens when a tool we rely on goes down?'],
+    apex: ['How do you decide which agent handles a request?', 'What stays with me, and what do you run?', 'What does a founder usually hand off first?'],
+    oracle: ['How would you watch my market without being asked?', 'What would you flag first for a new brand?', 'How would you tell noise from a real shift?'],
+    signal: ['How would you plan a week of content?', 'How would you keep an audience from drifting?', "How would you keep an athlete's voice intact?"],
+    convert: ['My deals leak between demo and close. What would you do?', 'What would you watch in my pipeline every morning?', 'How would you decide which lead comes first?'],
+    ledger: ["How would you forecast cash once you're connected?", 'What would you flag before it becomes a cash problem?', 'How would you track burn across two businesses?'],
+    meridian: ['How do you find a bottleneck?', 'How would you map a process end to end?', 'How would you run three locations as one?'],
+    cipher: ['What do you watch while the rest of the system works?', 'What happens when someone leaves the team?', 'What would compliance tracking look like for me?'],
+    forge: ['How would you know something broke before I do?', 'How would you keep the system healthy overnight?', 'What does a healthy system look like to you?'],
   };
 
   let selected = 'apex', busy = false, last = null;

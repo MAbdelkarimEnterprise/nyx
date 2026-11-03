@@ -1,0 +1,153 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "live": true,
+  "at": "2026-11-03T22:00:42.613Z",
+  "checks": {
+    "390": {
+      "width": 390,
+      "rm": false,
+      "routingState": "routing",
+      "final": "done",
+      "replyMs": 2524,
+      "replyChars": 522,
+      "replyFits": false,
+      "inquireVisible": true,
+      "kbArrow": "oracle",
+      "kbSelected": "oracle",
+      "kbEscFocus": "oracle",
+      "kbEscReset": "apex",
+      "live": [
+        "CONVERT, Revenue Intelligence. Three commands below, or type your own.",
+        "Sent to APEX.",
+        "APEX routed this to CONVERT.",
+        "CONVERT: Deal leakage between demo and close is a general sales question, and I can't give you a reliable breakdown from NYX's own data, since I don't have client results to draw on. What I can say is that NYX's CONVERT agent is built to track pipeline and conversion, so it watches for where prospects stall after a demo and forecasts close likelihood from that. To see how it would apply to your pipeline, the next step is the access review at the bottom of nyxsystem.online, which the team uses to return a plan within 48 hours.",
+        "ORACLE, Research Intelligence. Three commands below, or type your own.",
+        "APEX, Chief Executive Officer. Three commands below, or type your own."
+      ],
+      "cls": 0,
+      "inpMax": 24,
+      "pinkAtRestBeforeAction": "see pixelshare"
+    },
+    "1440": {
+      "width": 1440,
+      "rm": false,
+      "routingState": "routing",
+      "final": "done",
+      "replyMs": 4220,
+      "replyChars": 717,
+      "replyFits": false,
+      "inquireVisible": true,
+      "kbArrow": "oracle",
+      "kbSelected": "oracle",
+      "kbEscFocus": "oracle",
+      "kbEscReset": "apex",
+      "live": [
+        "CONVERT, Revenue Intelligence. Three commands below, or type your own.",
+        "Sent to APEX.",
+        "APEX routed this to CONVERT.",
+        "CONVERT: Deal leakage between demo and close is a common pattern across sales operations, but the specific drop-off points for a given pipeline depend on data that only shows up once a system is connected and running. I don't have benchmark figures or client results to share here, and I won't guess at percentages. In general, the places to inspect are the gap between demo and proposal, the time a deal sits with no next step, and the handoff from first call to decision-maker. NYX's revenue agent, CONVERT, tracks pipeline movement and conversion so these stages can be measured rather than assumed. For a view of where your own deals are leaking, the access review at the bottom of nyxsystem.online is the right next step.",
+        "ORACLE, Research Intelligence. Three commands below, or type your own.",
+        "APEX, Chief Executive Officer. Three commands below, or type your own."
+      ],
+      "cls": 0,
+      "inpMax": 32,
+      "pinkAtRestBeforeAction": "see pixelshare"
+    },
+    "1440-rm": {
+      "width": 1440,
+      "rm": true,
+      "routingState": "routing",
+      "final": "done",
+      "replyMs": 1646,
+      "replyChars": 626,
+      "replyFits": false,
+      "inquireVisible": true,
+      "kbArrow": "oracle",
+      "kbSelected": "oracle",
+      "kbEscFocus": "oracle",
+      "kbEscReset": "apex",
+      "live": [
+        "CONVERT, Revenue Intelligence. Three commands below, or type your own.",
+        "Sent to APEX.",
+        "APEX routed this to CONVERT.",
+        "CONVERT: Deal leakage between demo and close is a common problem across sales, but I can't speak to general patterns from my knowledge base, and I won't present benchmarks as fact. What I can say is how NYX approaches it: CONVERT tracks pipeline movement and conversion so stalls between demo and close are visible rather than discovered late, and LEDGER and APEX feed forecasting and decision routing from the same data. For how this would apply to your operation specifically, the access review at the bottom of nyxsystem.online covers it in five short steps, and the team returns a plan within 48 hours. That is the right next step.",
+        "ORACLE, Research Intelligence. Three commands below, or type your own.",
+        "APEX, Chief Executive Officer. Three commands below, or type your own."
+      ],
+      "cls": 0,
+      "inpMax": 32,
+      "pinkAtRestBeforeAction": "see pixelshare"
+    },
+    "390-rm": {
+      "width": 390,
+      "rm": true,
+      "routingState": "routing",
+      "final": "done",
+      "replyMs": 1564,
+      "replyChars": 500,
+      "replyFits": false,
+      "inquireVisible": true,
+      "kbArrow": "oracle",
+      "kbSelected": "oracle",
+      "kbEscFocus": "oracle",
+      "kbEscReset": "apex",
+      "live": [
+        "CONVERT, Revenue Intelligence. Three commands below, or type your own.",
+        "Sent to APEX.",
+        "APEX routed this to CONVERT.",
+        "CONVERT: Deal leakage between demo and close is a general sales question, and the answer depends on the specific pipeline, so I won't speculate about typical patterns across the market. Within NYX, CONVERT tracks pipeline stages and conversion so that stalls and drop-offs are visible rather than guessed at. If you're looking at how that would work for your own revenue process, the access review at the bottom of nyxsystem.online is the right place to start, and the team will return a plan within 48 hours.",
+        "ORACLE, Research Intelligence. Three commands below, or type your own.",
+        "APEX, Chief Executive Officer. Three commands below, or type your own."
+      ],
+      "cls": 0,
+      "inpMax": 136,
+      "pinkAtRestBeforeAction": "see pixelshare"
+    }
+  },
+  "liveCalls": [
+    {
+      "width": 1440,
+      "rm": false,
+      "status": 200,
+      "ms": 3093,
+      "request": {
+        "agent": "convert",
+        "command": "Where do deals usually leak between demo and close?"
+      },
+      "response": "Deal leakage between demo and close is a common pattern across sales operations, but the specific drop-off points for a given pipeline depend on data that only shows up once a system is connected and running. I don't have benchmark figures or client results to share here, and I won't guess at percentages. In general, the places to inspect are the gap between demo and proposal, the time a deal sits with no next step, and the handoff from first call to decision-maker. NYX's revenue agent, CONVERT, tracks pipeline movement and conversion so these stages can be measured rather than assumed. For a view of where your own deals are leaking, the access review at the bottom of nyxsystem.online is the right next step."
+    },
+    {
+      "width": 390,
+      "rm": false,
+      "status": 200,
+      "ms": 1436,
+      "request": {
+        "agent": "convert",
+        "command": "Where do deals usually leak between demo and close?"
+      },
+      "response": "Deal leakage between demo and close is a general sales question, and I can't give you a reliable breakdown from NYX's own data, since I don't have client results to draw on. What I can say is that NYX's CONVERT agent is built to track pipeline and conversion, so it watches for where prospects stall after a demo and forecasts close likelihood from that. To see how it would apply to your pipeline, the next step is the access review at the bottom of nyxsystem.online, which the team uses to return a plan within 48 hours."
+    },
+    {
+      "width": 1440,
+      "rm": true,
+      "status": 200,
+      "ms": 1485,
+      "request": {
+        "agent": "convert",
+        "command": "Where do deals usually leak between demo and close?"
+      },
+      "response": "Deal leakage between demo and close is a common problem across sales, but I can't speak to general patterns from my knowledge base, and I won't present benchmarks as fact. What I can say is how NYX approaches it: CONVERT tracks pipeline movement and conversion so stalls between demo and close are visible rather than discovered late, and LEDGER and APEX feed forecasting and decision routing from the same data. For how this would apply to your operation specifically, the access review at the bottom of nyxsystem.online covers it in five short steps, and the team returns a plan within 48 hours. That is the right next step."
+    },
+    {
+      "width": 390,
+      "rm": true,
+      "status": 200,
+      "ms": 1338,
+      "request": {
+        "agent": "convert",
+        "command": "Where do deals usually leak between demo and close?"
+      },
+      "response": "Deal leakage between demo and close is a general sales question, and the answer depends on the specific pipeline, so I won't speculate about typical patterns across the market. Within NYX, CONVERT tracks pipeline stages and conversion so that stalls and drop-offs are visible rather than guessed at. If you're looking at how that would work for your own revenue process, the access review at the bottom of nyxsystem.online is the right place to start, and the team will return a plan within 48 hours."
+    }
+  ]
+}

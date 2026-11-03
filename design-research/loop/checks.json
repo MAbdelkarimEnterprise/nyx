@@ -1,14 +1,14 @@
 {
   "url": "http://127.0.0.1:8765/",
   "live": false,
-  "at": "2026-11-03T21:52:25.880Z",
+  "at": "2026-11-03T22:13:40.851Z",
   "checks": {
     "390": {
       "width": 390,
       "rm": false,
       "routingState": "routing",
       "final": "done",
-      "replyMs": 2560,
+      "replyMs": 2551,
       "replyChars": 525,
       "replyFits": false,
       "inquireVisible": true,
@@ -35,7 +35,7 @@
         "APEX, Chief Executive Officer. Three commands below, or type your own."
       ],
       "cls": 0,
-      "inpMax": 24,
+      "inpMax": 32,
       "pinkAtRestBeforeAction": "see pixelshare"
     },
     "1440": {
@@ -43,7 +43,7 @@
       "rm": false,
       "routingState": "routing",
       "final": "done",
-      "replyMs": 2543,
+      "replyMs": 2562,
       "replyChars": 525,
       "replyFits": true,
       "inquireVisible": true,
@@ -78,7 +78,7 @@
       "rm": true,
       "routingState": "routing",
       "final": "done",
-      "replyMs": 1656,
+      "replyMs": 1667,
       "replyChars": 525,
       "replyFits": true,
       "inquireVisible": true,
@@ -105,7 +105,7 @@
         "APEX, Chief Executive Officer. Three commands below, or type your own."
       ],
       "cls": 0,
-      "inpMax": 72,
+      "inpMax": 56,
       "pinkAtRestBeforeAction": "see pixelshare"
     },
     "390-rm": {
@@ -113,7 +113,7 @@
       "rm": true,
       "routingState": "routing",
       "final": "done",
-      "replyMs": 1660,
+      "replyMs": 1655,
       "replyChars": 525,
       "replyFits": false,
       "inquireVisible": true,
@@ -143,5 +143,6 @@
       "inpMax": 128,
       "pinkAtRestBeforeAction": "see pixelshare"
     }
-  }
+  },
+  "liveCalls": []
 }

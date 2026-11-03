@@ -1623,7 +1623,8 @@ footer *{letter-spacing:0.01em!important;text-transform:none!important}
 .n-cmd-you{margin:0 0 var(--s2);padding-left:var(--s2);border-left:2px solid var(--command);font:400 var(--t-small)/1.5 var(--ui);color:var(--text-primary)}
 .n-cmd-status{display:flex;align-items:center;gap:var(--s1);margin:0 0 var(--s1);font:500 var(--t-caption)/1.4 var(--ui);letter-spacing:0.04em;color:var(--system-text)}
 .n-cmd-text{margin:0;font:400 15px/1.65 var(--ui);color:var(--text-primary);white-space:pre-line}
-.n-cmd-after{display:none;gap:var(--s3);margin-top:var(--s2)}
+.n-cmd-after{display:none;gap:var(--s3);margin-top:var(--s2);position:sticky;bottom:0;background:var(--raised);box-shadow:0 -12px 12px -4px var(--raised)}
+@media(max-width:900px){.n-cmd-after{padding-bottom:var(--s2);background:var(--overlay);box-shadow:0 -12px 12px -4px var(--overlay)}}
 .n-cmd-inquire,.n-cmd-retry{display:inline-flex;align-items:center;min-height:44px;padding:0;background:none;border:0;color:var(--system-text);font:500 var(--t-small)/1 var(--ui);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
 .n-cmd-close{display:none}
 .n-cmd-dot{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:var(--command);box-shadow:0 0 14px 3px color-mix(in srgb,var(--command-glow) 55%,transparent);opacity:0;pointer-events:none;z-index:6}
@@ -1644,7 +1645,7 @@ footer *{letter-spacing:0.01em!important;text-transform:none!important}
   .n-cmd-presets{flex-direction:row;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * var(--gutter)) var(--s1);padding:0 var(--gutter);scroll-padding:0 var(--gutter);scroll-snap-type:x mandatory}
   .n-cmd-presets::-webkit-scrollbar{display:none}
   .n-cmd-preset{flex:0 0 auto;width:76vw;min-height:0;padding:8px 14px;line-height:1.35;overflow:hidden;scroll-snap-align:start}
-  .n-cmd-reply{position:absolute;left:0;right:0;bottom:100%;height:auto;height:45vh;padding:var(--s2) var(--gutter) var(--s3);border-left:0;border-top:1px solid var(--structure);background:var(--overlay)}
+  .n-cmd-reply{position:absolute;left:0;right:0;bottom:100%;height:auto;height:45vh;padding:var(--s2) var(--gutter) 0;border-left:0;border-top:1px solid var(--structure);background:var(--overlay)}
   .n-cmd[data-state="rest"] .n-cmd-reply,.n-cmd-desc{display:none}
   .n-cmd-close{display:block;position:sticky;top:0;float:right;min-width:44px;min-height:44px;margin:-8px -12px 0 0;background:none;border:0;color:var(--text-secondary);font:300 24px/1 var(--ui);cursor:pointer}
   .hub-in-view .ask-alfred{visibility:hidden}

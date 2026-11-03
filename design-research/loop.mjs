@@ -20,7 +20,7 @@ const OBS = `(()=>{window.__cls=0;new PerformanceObserver(l=>l.getEntries().forE
 window.__inp=[];new PerformanceObserver(l=>l.getEntries().forEach(e=>e.interactionId&&__inp.push(e.duration))).observe({type:'event',durationThreshold:16});
 window.__live=[];new MutationObserver(()=>{const t=document.getElementById('n-cmd-live').textContent;t&&__live.push(t)}).observe(document.getElementById('n-cmd-live'),{childList:true,characterData:true,subtree:true});return 1})()`;
 
-const checks = {};
+const checks = {}, liveCalls = [];
 async function run(width, { rm = false } = {}) {
   const b = await launch();
   await b.viewport(width);
@@ -29,6 +29,17 @@ async function run(width, { rm = false } = {}) {
   await b.evalJs("localStorage.setItem('nyx_seen', Date.now()); true");
   await b.send('Page.navigate', { url }); await sleep(2500);
   const tag = `${width}${rm ? '-rm' : ''}`;
+  if (LIVE) {
+    // Real replies: the page's /api/agent call is forwarded to the production API (same code as this branch).
+    await b.send('Fetch.enable', { patterns: [{ urlPattern: '*/api/agent*' }] });
+    b.on('Fetch.requestPaused', async (e) => {
+      const t0 = Date.now();
+      const r = await fetch('https://nyxsystem.online/api/agent', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://nyxsystem.online' }, body: e.request.postData });
+      const body = await r.text();
+      liveCalls.push({ width, rm, status: r.status, ms: Date.now() - t0, request: JSON.parse(e.request.postData), response: JSON.parse(body).response });
+      await b.send('Fetch.fulfillRequest', { requestId: e.requestId, responseCode: r.status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body: Buffer.from(body).toString('base64') });
+    });
+  }
   let frames = [], rec = false;
   const shot = async (name) => writeFileSync(`${out}/${tag}-${name}.png`, Buffer.from((await b.send('Page.captureScreenshot', { format: 'png' })).result.data, 'base64'));
   const recorder = async () => { while (rec) { const d = (await b.send('Page.captureScreenshot', { format: 'jpeg', quality: 70 })).result.data; frames.push({ t: Date.now(), d }); await sleep(60); } };
@@ -92,4 +103,4 @@ async function run(width, { rm = false } = {}) {
   checks[tag] = r; console.log(tag, JSON.stringify(r));
 }
 await run(1440); await run(390); await run(1440, { rm: true }); await run(390, { rm: true });
-writeFileSync(`${out}/checks.json`, JSON.stringify({ url, live: LIVE, at: new Date().toISOString(), checks }, null, 2));
+writeFileSync(`${out}/checks.json`, JSON.stringify({ url, live: LIVE, at: new Date().toISOString(), checks, liveCalls }, null, 2));
