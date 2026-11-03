@@ -41,10 +41,39 @@ Source brief: `NYX_Site_Upgrade_Prompt.md` (audit of nyxsystem.online). Deploys:
 |---|---|---|---|---|---|---|---|
 | Before — mobile | 34 | 96 | 93 | 100 | 6.8 s | 1,490 ms | 0.011 |
 | Before — desktop | 86 | 96 | 96 | 100 | 1.2 s | 180 ms | 0.001 |
-| After — mobile | | | | | | | |
-| After — desktop | | | | | | | |
+| After — mobile | 90 | 97 | 100 | 100 | 2.9 s | 0 ms | 0.001 |
+| After — desktop | 100 | 100 | 100 | 100 | 0.4 s | 70 ms | 0.003 |
 
-Measured with Lighthouse 12.8.2, headless Chrome, against https://nyxsystem.online on 2026-11-03.
+Measured with Lighthouse 12.8.2, headless Chrome (simulated slow 4G for mobile), against https://nyxsystem.online on 2026-11-03. Mobile Performance varied 90–93 across four runs. Mobile FCP went 5.3 s → 1.8 s.
 
 ## Definition of done — evidence
-(filled in as each phase lands)
+
+| Item | Status | Evidence |
+|---|---|---|
+| No "VERIFIED", unlabeled real-looking numbers, or "six" | Done | Stats, outcomes, missions, briefing, feed, telemetry all labeled Projected/Sample; `grep -i six` clean except README's dashboard architecture line (6 agents in `dashboard/lib/claude.ts` is factual) |
+| Four options; every INQUIRE pre-selects and reaches the form | Done | Browser test: INQUIRE → option selected in step 5, sent as `tier`, shown in owner email subject |
+| `/api/agent` hardened, grounded, `alfred` works, prompts pass | Done | `tests/agent.test.mjs` (7 tests); live: foreign origin 403, 501 chars 413; `node tests/run-agent-prompts.mjs` 8/8 on production, answers read by hand |
+| `/api/waitlist` persists, notifies with tier, validates, auto-reply | **Code done; storage not live** | `tests/waitlist.test.mjs` (5 tests); live validation + honeypot checked. Production has no Supabase env vars, so today submissions are only emailed. See "Needs the owner" |
+| Mobile hero < 1.5 s; Perf ≥ 85, A11y ≥ 95, SEO ≥ 95 | Scores met; hero time partly | 90 / 97 / 100. Real-device first paint is ~0.3 s locally; Lighthouse's simulated slow 4G reports FCP 1.8 s, LCP 2.9 s (target 2.5 s) |
+| No text < 12 px; AA contrast; taps ≥ 44 px | Done | Browser scan: 0 visible text nodes < 12 px, 0 tap targets < 44 px at 360/375/390/430/768/1440; Lighthouse contrast passes |
+| Sequential sections; Alfred merged; nav | Done | Labels 001–009; Alfred/Founder OS/Live Feed/Voice → one tabbed section; nav System · Agents · Alfred · Options · Access |
+| Reduced motion stops canvas, ticker, GSAP | Done | `_pRM` → GSAP timeScale 100, no parallax, scenes not loaded, 2D loops draw one frame, ticker/clocks/feed stop, CSS animations off |
+| Keyboard: focus, overlay trap + Esc, review operable | Done | Browser test: focus trapped in Alfred, Esc closes and returns focus; ARIA tabs with arrows; arrows/Enter through the review |
+| JSON-LD, OG image, sitemap, robots, favicons | Done | All 200 on production; og.png 1200×630 (was 404) |
+| Tested at 360/375/390/430/768/1440 | Done | Width harness (iframes) scan + screenshots reviewed at 390 |
+| Committed per phase, pushed, live | Done | fdc1104, c8b6b52, 5b5055c, 2cc83bf, a0ca62f + perf follow-ups; checked live |
+
+## Needs the owner (could not be done from code)
+1. **Store access reviews.** Set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in Vercel (production) and run `dashboard/supabase/migrations/007_access_review.sql`. Until then every inquiry is emailed to labs@nyxsystem.online but not stored.
+2. **Durable rate limits.** Set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. Without them the limiter is per server instance.
+3. **Email delivery.** Confirm the nyxsystem.online domain is verified in Resend; I did not send a real test email.
+4. **Analytics.** Enable Web Analytics on the Vercel project, then add `/_vercel/insights/script.js` to the script list in `index.html` (one line, marked there). Events are already wired.
+5. **Search Console.** Verify the domain and submit `sitemap.xml`.
+6. **Teal recolor.** An uncommitted recolor found in the working tree is in `git stash` ("teal recolor …"). It will conflict with this work if popped as-is.
+
+## Decisions the brief did not cover (continued)
+- Founder OS dashboard was cut in the merge; its content duplicated the briefing and feed.
+- "Structured access. Earned depth." became "Four options. One system." to fit the inquiry model.
+- Mission headline "Field record. Redacted by design." became "Sample missions. How a deployment runs." (the old line implied real redacted cases).
+- Agent consoles (agent cards) still route to the access review; only Alfred is open to visitors.
+- Phones and ≤4-core devices get no three.js at all (static fallback), per 2.2.
