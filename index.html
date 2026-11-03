@@ -150,14 +150,14 @@ body{background:#000;color:#F0EDE8;font-family:'Inter',system-ui,-apple-system,s
 }
 
 /* ── NAV ───────────────────────────────────────────────── */
-nav{
+nav#nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   padding:28px var(--sh);
   display:flex;align-items:center;justify-content:space-between;
   transition:background .5s,backdrop-filter .5s,border-color .4s,padding .3s;
   border-bottom:1px solid transparent;
 }
-nav.scrolled{
+nav#nav.scrolled{
   background:color-mix(in srgb,var(--night) 88%,transparent);backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);border-color:var(--line);
   padding-top:18px;padding-bottom:18px;
@@ -673,7 +673,7 @@ footer{
   .intel-inner{grid-template-columns:1fr 1fr}
   .waitlist-form{flex-direction:column}
   .waitlist-submit{padding:14px}
-  nav{padding-left:20px;padding-right:20px}
+  nav#nav{padding-left:20px;padding-right:20px}
   .nav-link{display:none}
   .nav-cta{padding:9px 14px;font-size:12px;letter-spacing:0.14em}
   .hero-status,.hero-coords,.hero-access{display:none}
@@ -1624,7 +1624,7 @@ html,body{overflow-x:clip}
   .tbar-ticker-wrap{padding-left:12px}
 }
 #waitlist{overflow:clip}
-@media(max-width:768px){#grain{display:none}nav.scrolled,.tbar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:color-mix(in srgb,var(--night) 96%,transparent)}}
+@media(max-width:768px){#grain{display:none}nav#nav.scrolled,.tbar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:color-mix(in srgb,var(--night) 96%,transparent)}}
 @media(max-width:680px){.alfred-tabs{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto;gap:6px}.alfred-tab{white-space:nowrap;flex:0 0 auto}}
 footer{padding-bottom:64px}
 /* ── PHASE 5 ───────────────────────────────────────────────────────── */
@@ -1663,6 +1663,38 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
   text-transform:none!important;letter-spacing:0.02em!important}
 .nav-link,.nav-cta,.hero-btn,.tier-cta,.hub-tab,.alfred-tab,.assessment-option,.waitlist-submit,.ask-alfred,.alfred-term-enter,.motion-toggle{font-size:var(--t-small)!important;font-weight:500!important}
 .sample-tag,.tier-tag,.tier-type,.es-label,.intel-label,.outcome-class,.mission-status,.mb-key,.ap-row dt,.atm-label,.atp-label,.feed-footer-label,.vf-label,.agent-new-badge,.hero-eyebrow,.waitlist-eyebrow,.assessment-eyebrow,.architect-eyebrow,.sec-label,.assessment-step-label,.assessment-progress-text{font-size:var(--t-caption)!important;font-weight:500!important}
+
+/* ══ DESIGN 3: STRUCTURE ═════════════════════════════════════════════
+   Spacing scale (8px base), one left-aligned editorial grid, hero the only
+   centered moment, one persistent index (rail) on desktop. */
+:root{
+  --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;--s7:96px;--s8:128px;--s9:192px;
+  --r0:0;--r1:2px;--r2:14px;
+  --gutter:clamp(20px,5vw,72px);
+  --rail-w:0px;
+  --sv:clamp(var(--s6),9vw,var(--s8));
+  --sv-sig:clamp(var(--s7),13vw,var(--s9));
+  --sh:var(--gutter);
+}
+@media(min-width:1100px){:root{--rail-w:168px}}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sec-label-line,.hero-rule,.engine-hud-tl,.engine-hud-tr,.engine-hud-bl,.engine-hud-br,.hero-hud,.architect-rule{display:none!important}
+body>section:not(.hero),body>.intel,body>footer,body>.brand-creed{padding-left:calc(var(--gutter) + var(--rail-w))!important;padding-right:var(--gutter)!important}
+.manifesto,.engine-inner,.system-inner,.agents-inner,.alfred-demo-inner,.access,.outcomes-head,.outcomes-grid,.missions-head,.missions-list,.intel-inner,.architect-inner{max-width:1180px!important;margin-left:0!important;margin-right:auto!important;padding-left:0!important;padding-right:0!important}
+#about,#engine,#system,#outcomes,#mission-logs,#architect{padding-top:var(--sv)!important;padding-bottom:var(--sv)!important}
+#agents,#alfred,#access,#waitlist{padding-top:var(--sv-sig)!important;padding-bottom:var(--sv-sig)!important}
+.manifesto,.engine-inner,.system-inner,.agents-inner,.alfred-demo-inner,.access{padding-top:0!important;padding-bottom:0!important}
+
+.rail{display:none}
+@media(min-width:1100px){
+  .rail{display:flex;gap:var(--s2);position:fixed;left:var(--s4);top:50%;transform:translateY(-50%);z-index:50}
+  .rail-track{position:relative;width:1px;background:var(--line)}
+  .rail-fill{position:absolute;left:0;top:0;width:1px;height:calc(var(--p,0) * 100%);background:var(--line-strong)}
+  .rail-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .rail-list a{display:flex;align-items:center;min-height:40px;font:500 var(--t-caption)/1 var(--ui);letter-spacing:0.02em;color:var(--text-3);text-decoration:none;transition:color var(--d-ui,160ms) var(--ease-ui,ease)}
+  .rail-list a:hover{color:var(--text-1)}
+  .rail-list a[aria-current]{color:var(--moon)}
+}
 /* ── PHASE 3: focus ─────────────────────────────────────────────────── */
 :focus-visible{outline:2px solid var(--gold-text)!important;outline-offset:3px}
 .assessment-field:focus-visible,.waitlist-input:focus-visible,.af-text-in:focus-visible{outline-offset:0}
@@ -1708,6 +1740,21 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
     <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">Pause</button>
   </div>
 </div>
+
+<!-- RAIL: the page's single index and readout (desktop only) -->
+<nav class="rail" id="rail" aria-label="Sections">
+  <div class="rail-track" aria-hidden="true"><span class="rail-fill"></span></div>
+  <ol class="rail-list">
+    <li><a href="#about">System</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#alfred">Alfred</a></li>
+    <li><a href="#system">How it works</a></li>
+    <li><a href="#access">Options</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+    <li><a href="#mission-logs">Missions</a></li>
+    <li><a href="#waitlist">Access</a></li>
+  </ol>
+</nav>
 
 <!-- NAV -->
 <nav id="nav" aria-label="Main navigation">
@@ -1775,9 +1822,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- MANIFESTO -->
 <section id="about" aria-label="The System">
   <div class="manifesto">
-    <div class="sec-label">
-      <span class="sec-label-line"></span>001 — The System
-    </div>
     <h2 class="manifesto-headline">
       Not a tool.<br>
       <em>Not a service.</em><br>
@@ -1896,7 +1940,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <section class="engine-section" id="engine" aria-label="The Engine">
   <div class="engine-inner">
     <div class="engine-copy">
-      <div class="sec-label"><span class="sec-label-line"></span>The Engine</div>
       <h2 class="engine-headline">Precision<br><em>in motion.</em></h2>
       <p class="engine-body">NYX operates as a self-regulating system. Eight agents. Continuous rotation. No part stops so another can move — every layer runs simultaneously, without instruction.</p>
       <div class="engine-specs">
@@ -1920,7 +1963,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- AGENT NETWORK -->
 <section class="agents-section" id="agents" aria-label="Agent Network">
   <div class="agents-inner">
-    <div class="sec-label"><span class="sec-label-line"></span>002 — Agent Network</div>
     <h2 class="agents-headline">Eight minds.<br>One operating system.</h2>
     <p class="agents-sub">Each agent operates as a specialist. They coordinate, delegate, and execute — continuously, without instruction.</p>
     <div class="agents-grid">
@@ -1973,7 +2015,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- ALFRED (merged: briefing, live feed, voice) -->
 <section class="alfred-demo alfred-hub" id="alfred" aria-label="Alfred">
   <div class="alfred-demo-inner">
-    <div class="sec-label"><span class="sec-label-line"></span>003 — Alfred</div>
     <div class="alfred-demo-header" style="margin-bottom:32px">
       <h2 class="alfred-demo-headline">Your Chief of Staff<br><em>never sleeps.</em></h2>
       <p class="alfred-hub-sub">Alfred briefs you, watches the agent network and takes commands by voice or chat. Everything below is a simulated view of the system at work.</p>
@@ -2088,7 +2129,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- SYSTEM PILLARS -->
 <section class="system" id="system" aria-label="How It Works">
   <div class="system-inner">
-    <div class="sec-label"><span class="sec-label-line"></span>004 — How It Works</div>
     <h2 class="system-headline">Four principles.<br>One operating system.</h2>
     <div class="pillars">
       <div class="pillar" data-num="01">
@@ -2194,7 +2234,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- ACCESS TIERS -->
 <section id="access" aria-label="Options">
   <div class="access">
-    <div class="sec-label"><span class="sec-label-line"></span>005 — Options</div>
     <div class="access-header">
       <h2 class="access-headline">Four options.<br>One system.</h2>
       <div class="access-sub">
@@ -2318,7 +2357,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- OPERATOR OUTCOMES -->
 <section class="outcomes" id="outcomes" aria-label="Projected Outcomes">
   <div class="outcomes-head">
-    <div class="sec-label"><span class="sec-label-line"></span>006 — Projected Outcomes</div>
     <h2 class="outcomes-headline">Outcome reports. <em>Not testimonials.</em></h2>
     <p class="outcomes-sub">What changes when the system runs. Projected from how the system is designed to operate. <b>Not guarantees.</b></p>
   </div>
@@ -2368,7 +2406,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- MISSION LOGS -->
 <section class="missions" id="mission-logs" aria-label="Sample Missions">
   <div class="missions-head">
-    <div class="sec-label"><span class="sec-label-line"></span>007 — Sample Missions</div>
     <h2 class="missions-headline">Sample missions. <em>How a deployment runs.</em></h2>
     <p class="missions-sub">Sample operations, showing how the system is designed to run. Every log follows the same briefing structure — objective, constraints, actions, outcome.</p>
   </div>
@@ -2461,7 +2498,6 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- A NOTE FROM THE ARCHITECT -->
 <section class="architect" id="architect" aria-label="A Note from the Architect">
   <div class="architect-inner">
-    <div class="architect-eyebrow">008 — A Note from the Architect</div>
     <p class="architect-body">
       <span class="lead">NYX was built around a simple belief:</span>
       High performers do not need more tools. <em>They need fewer decisions.</em>
@@ -2477,8 +2513,7 @@ body{font-feature-settings:'cv01' 1,'cv02' 1,'cv03' 1;font-variant-numeric:propo
 <!-- INTELLIGENCE ASSESSMENT -->
 <section class="assessment waitlist" id="waitlist" aria-label="Access Review">
   <div class="assessment-glow"></div>
-  <div class="waitlist-rule assessment-rule"></div>
-  <p class="waitlist-eyebrow assessment-eyebrow">009 — Access Review</p>
+  <p class="assessment-eyebrow visually-hidden">Access review</p>
   <h2 class="waitlist-headline assessment-headline">
     We need to know<br><em>who you are.</em>
   </h2>

@@ -473,3 +473,27 @@ function startScanLine(){
   apply(paused);
   if (btn) btn.addEventListener('click', () => apply(!paused));
 })();
+
+/* ── RAIL ───────────────────────────────────────────────
+   Marks the section in view and fills with scroll progress. */
+(function(){
+  const rail = document.getElementById('rail');
+  if (!rail) return;
+  const links = [...rail.querySelectorAll('.rail-list a')];
+  const byId = new Map(links.map(a => [a.hash.slice(1), a]));
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    links.forEach(a => a.removeAttribute('aria-current'));
+    const a = byId.get(e.target.id);
+    if (a) a.setAttribute('aria-current', 'location');
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  byId.forEach((_, id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+  let ticking = false;
+  const fill = () => {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    rail.style.setProperty('--p', max > 0 ? (scrollY / max).toFixed(4) : 0);
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(fill); } }, { passive: true });
+  fill();
+})();
