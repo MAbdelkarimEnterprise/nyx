@@ -337,3 +337,40 @@ The custom fbm shader from the first bold pass is replaced by Paper Design's `Gr
 | Reduced motion | shader mounted at speed 0; 0 px changed over 1.5 s; no running animations |
 | Color (`design-research/pixels/paper.json`) | hero: blue 29% / pink 12% at 1440, blue 33% / pink 7% at 390; Agents and Options bands: blue 15–21%, pink < 0.2% |
 | Unit tests | 40 / 40 |
+
+---
+
+# Art direction, onboarding and theme export (2026-11-03)
+
+Three skills were applied in one pass: a fintech art-direction method (Cleo-inspired, used for its structure, not its energy), a mobile onboarding method, and the 21st.dev theme sync.
+
+## 13. Art direction, written as rules
+The method asks for a personality on five dials, then rules a screen can reuse. NYX sits at the quiet end of every dial, so the method's output is a restraint sheet.
+
+| Dial | NYX |
+|---|---|
+| Supportive ↔ savage | Supportive by competence, never warm. The system does not flatter and does not roast. |
+| Premium ↔ social | Premium. No avatars, no streaks, no share buttons. |
+| Calm ↔ high-energy | Calm. Motion is a pulse arriving somewhere, never a bounce. |
+| Minimal ↔ expressive | Minimal in UI, expressive only in the shader and the wordmark. |
+| Coach ↔ best friend | Operator. Alfred is a system you command, not a friend. |
+
+Rules a screen can reuse:
+- **Hero:** one sentence, one field, the system visibly running behind it. Nothing competes with the wordmark.
+- **Chat (Alfred) vs system cards (Agent Network, Options):** chat carries the visitor's pink edge and the system's blue status; cards are blue-structured and never pink until chosen.
+- **Warnings** (429, offline, error, a missing answer): text in primary ink with a blue edge. Never red, never pink, never an exclamation. The sentence says what happened and what to do.
+- **Success / celebration:** "Received." and "Done" in the same weight as everything else. No confetti, no check-mark animation. The reward is that the system moved.
+- **Neutral:** rest states show zero pink (measured, 24 screens).
+- **Avoid:** rounded pill chips, emoji, bright gradients on text, pink text, blue text at anchor lightness, any motion that draws attention to itself, copy that shames the visitor.
+
+QA against the method's checklist: original (no borrowed assets), personality specific enough to guide copy and motion, warning/success/neutral states defined, "what to avoid" listed, trust kept visible under the personality. The playful dial is intentionally off, so "roast mode" and "celebration moments" have no NYX equivalent.
+
+## 14. Access review as onboarding
+- **Activation:** the first meaningful result is "Received. Expect a response within 48 hours." It appears on the same screen as the last answer.
+- **Sequence:** value (the whole page) → light personalization (identity, objective) → the two sentences → option → the one sensitive ask (email). The sensitive ask is last, after value is clear.
+- **Trust screen:** the email step now carries one line beside the field: what the answers are for, that one confirmation email follows, and how to withdraw (reply to it). The line states only what `api/waitlist.js` does: store the inquiry, email the review team, auto-reply once.
+- **Drop-off states:** Back on steps 2, 3 and 4 (step 2 had none); Edit per row on step 5; answers restored from this device after a failed submit or a later visit; "Try again" on network, 503 and rate-limit replies, with the failing step reopened when the API names a field; the honeypot pretends success.
+- **Checked at 390×500** (a phone with the keyboard open): the trust line, the email field and the button all fit in view together; Back on step 2 sits inside the viewport. Screens: `design-review/access/`.
+
+## 15. Theme export for 21st.dev
+`design-research/theme.py` maps the roles in §7 to the shadcn token names and writes `design-research/nyx-theme.css`. `.dark` is the site as shipped. `:root` keeps every hue and chroma and mirrors lightness in OKLCH, because the publish endpoint needs both blocks and NYX has no light mode of its own. `destructive` is `structure-strong`, not red, because errors are the system's (§7). Publishing is public and needs a `21st_sk_` key; it is run only on the owner's say-so.
