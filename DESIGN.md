@@ -315,17 +315,16 @@ What changed in the restoration:
 - **Dropped:** the fake coordinates and the "ACCESS.STATUS / CLOSED" readout, for honesty.
 - **Crest:** inline SVG so it paints with the first frame. Injected by JS, it became the LCP element at 3.6 s.
 
-## 11. The night field (shader)
-- **Setup:** a fixed full-screen quad with a three.js ShaderMaterial (`js/scenes.js`).
-- **Noise:** 2D simplex fbm with two levels of domain warp; 4 octaves on desktop, 3 octaves and one warp on small devices.
-- **Color:** mixed by noise value: black → deep blue → royal blue, with thin pink filaments along the contour at n ≈ 0.78, the edge of the brightest currents, strongest where the warp is.
-- **Finish:** vignette and grain.
-- **Interaction:**
-  - the cursor bends the field (Gaussian pull, eased 4% per frame);
-  - a click sends a ripple with a pink leading edge and a blue wake (3 slots);
-  - scroll drifts the currents and shifts the blue toward violet.
-- **Brightness:** follows `data-field` on the section at mid-viewport. Hero 1, System 0.55, Agents 0.5, Options 0.5, Alfred 0.35, Access 0.25, everything else 0.
-- **Rendering:** stops when the target is 0, when the tab is hidden or when motion is paused. Internal resolution is 0.6× DPR on desktop and 0.5× on small devices. Reduced motion renders one still frame per section.
+## 11. The shader: Paper Design GrainGradient
+The custom fbm shader from the first bold pass is replaced by Paper Design's `GrainGradient` (`@paper-design/shaders` 0.0.82, framework-free), as the brief specifies. No custom shader code remains.
+- **Mount:** `ShaderMount` + `grainGradientFragmentShader` on a `.paper-bg` div inside the hero (`js/scenes.js`). Only the modules GrainGradient needs are imported from the CDN (shader-mount, grain-gradient, noise texture, color parser, sizing): about 28 KB gzipped, against 64 KB for the whole bundle.
+- **Values, exactly as given:** back `#02070A`; colors `#1058FF`, `#0A3BB8`, `#D83995`; softness 0.76, intensity 0.45, noise 0.12, shape corners, scale 1, rotation 0, speed 0.6. Sizing uses the package's object defaults (fit contain, origin 0.5), the same as the React component.
+- **Overlay:** a 30% midnight veil over the hero keeps text AA (`design-research/field-contrast.json`: 379 visible text elements, 0 below AA).
+- **Interaction (hero only):** `offsetX`/`offsetY` ease toward the cursor (±0.05, 6% per frame); a click adds +2.4 to speed and decays at 6% per frame.
+- **Reuse:** the same gradient at intensity 0.25 behind Agent Network and Options, under a stronger veil that fades to midnight at the band's top and bottom. Every other section has a still deep-blue radial wash so blue is present on each screen.
+- **Lifecycle:** mounted after load (+2.5 s on small devices, so the module parse and compile never land in the first interaction window) and only once the host nears the viewport. ShaderMount pauses off-screen and in hidden tabs. Small devices render at 1× density, capped at a 1080p frame. Reduced motion: speed 0, one still frame (verified: 0 px changed over 1.5 s).
+- **Color check:** with the brief's order, pink is 12% of the hero at 1440 and 7% at 390; blue is 29–33%. Pink first in the list drops it to under 1%; pink second raises it to 13–15%. The brief's order stays.
+- **Fallback:** before the mount, and without WebGL, the hero shows a still CSS gradient in the same colors.
 
 ## 12. Bold rebuild: checks
 | Check | Result |

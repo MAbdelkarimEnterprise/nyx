@@ -7,6 +7,7 @@ const [url = 'http://127.0.0.1:8765/', label = 'rest'] = process.argv.slice(2);
 const SECTIONS = [['hero', '#hero'], ['system', '#about'], ['engine', '#engine'], ['agents', '#agents'], ['alfred', '#alfred'],
   ['how', '#system'], ['options', '#access'], ['outcomes', '#outcomes'], ['missions', '#mission-logs'], ['architect', '#architect'],
   ['access', '#waitlist'], ['footer', 'footer']];
+const ONLY = process.env.ONLY ? process.env.ONLY.split(',') : null;   // e.g. ONLY=hero to measure one section
 const dir = new URL(`./pixels/${label}/`, import.meta.url); mkdirSync(dir, { recursive: true });
 
 // Classifies each pixel by OKLCH hue: chroma ≥ 0.05 and hue 225–295° = blue, hue ≥ 320° or ≤ 20° = pink.
@@ -26,7 +27,7 @@ for (const width of [1440, 390]) {
   await b.send('Page.navigate', { url }); await sleep(1200);
   await b.evalJs("localStorage.setItem('nyx_seen', Date.now()); true");
   await b.send('Page.navigate', { url }); await sleep(2500);
-  for (const [name, sel] of SECTIONS) {
+  for (const [name, sel] of SECTIONS.filter(([n]) => !ONLY || ONLY.includes(n))) {
     const y = await b.evalJs(`(()=>{const e=document.querySelector(${JSON.stringify(sel)});return e?Math.round(e.getBoundingClientRect().top+scrollY):null})()`);
     if (y == null) continue;
     await b.evalJs(`(async()=>{scrollTo(0,${y});await new Promise(r=>setTimeout(r,900));return 1})()`);
