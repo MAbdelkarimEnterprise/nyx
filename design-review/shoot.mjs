@@ -43,7 +43,7 @@ for (const width of widths) {
     if (!r || !r.h) continue;
     // What a visitor sees: the section scrolled into the real viewport, one screen per slice (max 3).
     for (let k = 0; k * vh < r.h && k < 3; k++) {
-      await evalJs(`(async()=>{scrollTo(0,${Math.round(r.y + k * vh)});await new Promise(r=>setTimeout(r,900));return 1})()`);
+      await evalJs(`(async()=>{scrollTo(0,${Math.round(r.y + k * vh)});await new Promise(r=>setTimeout(r,1700));return 1})()`);   // long enough for entry reveals to finish
       const shot = await send('Page.captureScreenshot', { format: 'jpeg', quality: 72 });
       writeFileSync(join(out, `${name}-${width}${k ? '-' + (k + 1) : ''}.jpg`), Buffer.from(shot.result.data, 'base64'));
     }
