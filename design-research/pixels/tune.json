@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "at": "2026-11-04T00:09:09.919Z",
+  "rule": "bold pass: blue is the main color on every screen; pink ~10–15% of the color presence",
+  "screens": {
+    "hero-1440": {
+      "blue": 29.7,
+      "pink": 9.73
+    },
+    "hero-390": {
+      "blue": 33.12,
+      "pink": 5.25
+    }
+  },
+  "maxPink": {
+    "screen": "hero-1440",
+    "blue": 29.7,
+    "pink": 9.73
+  },
+  "pinkShareOfColor": 19.3
+}

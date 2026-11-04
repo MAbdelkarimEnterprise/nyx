@@ -1,0 +1,109 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "at": "2026-11-04T00:06:49.773Z",
+  "rule": "bold pass: blue is the main color on every screen; pink ~10–15% of the color presence",
+  "screens": {
+    "hero-1440": {
+      "blue": 29.09,
+      "pink": 12.08
+    },
+    "system-1440": {
+      "blue": 71.37,
+      "pink": 0.22
+    },
+    "engine-1440": {
+      "blue": 22.15,
+      "pink": 0.02
+    },
+    "agents-1440": {
+      "blue": 21.38,
+      "pink": 0
+    },
+    "alfred-1440": {
+      "blue": 19.41,
+      "pink": 0.09
+    },
+    "how-1440": {
+      "blue": 21.92,
+      "pink": 2.54
+    },
+    "options-1440": {
+      "blue": 20.86,
+      "pink": 0.04
+    },
+    "outcomes-1440": {
+      "blue": 25.46,
+      "pink": 0
+    },
+    "missions-1440": {
+      "blue": 26.89,
+      "pink": 0
+    },
+    "architect-1440": {
+      "blue": 18,
+      "pink": 0.05
+    },
+    "access-1440": {
+      "blue": 31.22,
+      "pink": 0.05
+    },
+    "footer-1440": {
+      "blue": 25.26,
+      "pink": 0.05
+    },
+    "hero-390": {
+      "blue": 32.53,
+      "pink": 7.28
+    },
+    "system-390": {
+      "blue": 73.58,
+      "pink": 0.15
+    },
+    "engine-390": {
+      "blue": 24.84,
+      "pink": 0
+    },
+    "agents-390": {
+      "blue": 14.73,
+      "pink": 0.17
+    },
+    "alfred-390": {
+      "blue": 15.36,
+      "pink": 0.43
+    },
+    "how-390": {
+      "blue": 21.59,
+      "pink": 0
+    },
+    "options-390": {
+      "blue": 14.57,
+      "pink": 0
+    },
+    "outcomes-390": {
+      "blue": 26.16,
+      "pink": 0
+    },
+    "missions-390": {
+      "blue": 25.8,
+      "pink": 0
+    },
+    "architect-390": {
+      "blue": 18.13,
+      "pink": 0.06
+    },
+    "access-390": {
+      "blue": 28.07,
+      "pink": 0.06
+    },
+    "footer-390": {
+      "blue": 22.18,
+      "pink": 0
+    }
+  },
+  "maxPink": {
+    "screen": "hero-1440",
+    "blue": 29.09,
+    "pink": 12.08
+  },
+  "pinkShareOfColor": 3.5
+}
