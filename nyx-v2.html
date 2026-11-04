@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYX — Operations Surface</title>
+<meta name="description" content="NYX. The operating system behind elite performance. Live operational intelligence for founders, executives, investors, and high performers.">
+<meta name="theme-color" content="#0A0B0D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#0A0B0D;--base:#0E1013;--panel:#14171C;--panel2:#191D23;
+  --line:rgba(255,255,255,0.07);--line2:rgba(255,255,255,0.13);
+  --tx:#E9ECEF;--tx2:rgba(233,236,239,0.62);--tx3:rgba(233,236,239,0.36);
+  --steel:#C4A97C;--steel-d:#8C7A57;--ice:#D8BD90;
+  --pos:#C4A97C;--neg:#B5837A;
+  --display:'Space Grotesk',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ui:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --pad:clamp(20px,5vw,68px);
+}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--tx);font-family:var(--ui);font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6;letter-spacing:0.005em}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.9}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 0%,transparent 40%,rgba(0,0,0,0.55) 100%)}
+.wrap{position:relative;z-index:2}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.up{color:var(--pos)} .down{color:var(--neg)}
+
+/* ── STATUS BAR ─────────────────────────────────── */
+.statusbar{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:10px var(--pad);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:0.14em;color:var(--tx3);
+  text-transform:uppercase;background:rgba(10,11,13,0.6);backdrop-filter:blur(6px)}
+.statusbar .seg{display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden}
+.statusbar .dot{width:5px;height:5px;border-radius:50%;background:var(--steel);box-shadow:0 0 8px var(--steel);animation:blink 2.6s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.35}}
+.statusbar .mid{flex:1;text-align:center;color:var(--tx3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.statusbar .right{color:var(--steel)}
+
+/* ── NAV ────────────────────────────────────────── */
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);
+  border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:0.42em;
+  color:var(--tx);padding-left:0.42em}
+.navlinks{display:flex;gap:28px;align-items:center}
+.navlinks a{font-family:var(--mono);font-size:11px;letter-spacing:0.12em;color:var(--tx2);
+  text-decoration:none;text-transform:uppercase;transition:color .3s}
+.navlinks a:hover{color:var(--tx)}
+.nav-cta{border:1px solid var(--line2);padding:9px 18px;color:var(--tx)!important}
+.nav-cta:hover{border-color:var(--steel);background:rgba(196,169,124,0.08)}
+@media(max-width:820px){.navlinks .hide{display:none}}
+
+/* ── HERO ───────────────────────────────────────── */
+.hero{display:grid;grid-template-columns:1.15fr 0.85fr;gap:clamp(28px,4vw,64px);
+  padding:clamp(48px,7vw,104px) var(--pad) clamp(40px,5vw,72px);align-items:center;
+  border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.34em;text-transform:uppercase;
+  color:var(--steel);margin-bottom:26px;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--steel-d)}
+.h1{font-family:var(--display);font-weight:500;font-size:clamp(34px,5.4vw,68px);
+  line-height:1.02;letter-spacing:-0.02em;color:var(--tx);margin-bottom:26px}
+.h1 b{font-weight:500;color:var(--steel)}
+.lede{font-size:clamp(14px,1.5vw,16.5px);line-height:1.75;color:var(--tx2);max-width:46ch;margin-bottom:36px}
+.cta-row{display:flex;gap:13px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;
+  padding:15px 26px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+  transition:all .35s var(--ease);cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--steel);color:#0A0B0D;font-weight:500}
+.btn-primary:hover{background:var(--ice)}
+.btn-ghost{border-color:var(--line2);color:var(--tx)}
+.btn-ghost:hover{border-color:var(--steel);color:var(--steel)}
+.hero-readout{margin-top:38px;display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);
+  font-size:10.5px;letter-spacing:0.1em;color:var(--tx3);text-transform:uppercase}
+.hero-readout b{color:var(--tx);font-weight:500}
+
+/* ── HERO PANEL (signal flow + agents) ──────────── */
+.panel{background:linear-gradient(180deg,rgba(25,29,35,0.6),rgba(16,18,21,0.6));
+  border:1px solid var(--line);position:relative;overflow:hidden}
+.panel-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:13px 18px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tx3)}
+.panel-hd .live{color:var(--steel);display:flex;align-items:center;gap:7px}
+.panel-hd .live::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--steel);animation:blink 2s infinite}
+.flow{padding:24px 18px}
+.flow-stage{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.flow-row{display:flex;align-items:center;gap:12px;padding:11px 0;position:relative}
+.flow-ico{width:30px;height:30px;border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11px;color:var(--steel);flex-shrink:0}
+.flow-label{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tx);flex:1}
+.flow-meta{font-family:var(--mono);font-size:10px;color:var(--tx3)}
+.flow-conn{position:absolute;left:14px;top:41px;width:1px;height:14px;background:var(--line2);overflow:hidden}
+.flow-conn::after{content:"";position:absolute;left:0;top:-14px;width:1px;height:14px;
+  background:linear-gradient(180deg,transparent,var(--steel));animation:drop 2.4s linear infinite}
+@keyframes drop{to{transform:translateY(28px)}}
+
+/* ── SECTION SHELL ──────────────────────────────── */
+.sec{padding:clamp(56px,7vw,96px) var(--pad);border-bottom:1px solid var(--line)}
+.sec-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--steel);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.sec-eyebrow::before{content:"";width:24px;height:1px;background:var(--steel-d)}
+.sec-title{font-family:var(--display);font-weight:500;font-size:clamp(26px,3.4vw,42px);
+  letter-spacing:-0.015em;color:var(--tx);margin-bottom:14px;line-height:1.08}
+.sec-sub{font-size:14.5px;line-height:1.7;color:var(--tx2);max-width:54ch;margin-bottom:48px}
+
+/* ── INTELLIGENCE GRID ──────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line)}
+.cell{background:var(--base);padding:24px 24px 20px;position:relative;min-height:158px;display:flex;flex-direction:column}
+.cell-k{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--tx3)}
+.cell-v{font-family:var(--display);font-weight:500;font-size:clamp(30px,3.6vw,44px);
+  letter-spacing:-0.01em;color:var(--tx);margin-top:10px;line-height:1;font-variant-numeric:tabular-nums}
+.cell-d{font-family:var(--mono);font-size:11px;margin-top:8px;letter-spacing:0.04em}
+.cell-spark{margin-top:auto;height:34px;width:100%}
+.cell-tag{position:absolute;top:18px;right:20px;font-family:var(--mono);font-size:9px;
+  letter-spacing:0.14em;color:var(--tx3);text-transform:uppercase}
+
+/* ── COMMAND DASHBOARD ──────────────────────────── */
+.board{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.card{background:linear-gradient(180deg,rgba(25,29,35,0.55),rgba(16,18,21,0.55));
+  border:1px solid var(--line);padding:20px;position:relative;overflow:hidden;min-height:150px}
+.card:hover{border-color:var(--line2)}
+.card .ck{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--tx3);
+  display:flex;align-items:center;justify-content:space-between}
+.card .cstat{font-family:var(--mono);font-size:9px;color:var(--steel);letter-spacing:0.1em}
+.card .cbig{font-family:var(--display);font-weight:500;font-size:30px;color:var(--tx);margin-top:16px;line-height:1;font-variant-numeric:tabular-nums}
+.card .csub{font-family:var(--mono);font-size:11px;color:var(--tx2);margin-top:8px}
+.bars{display:flex;align-items:flex-end;gap:4px;height:40px;margin-top:16px}
+.bars span{flex:1;background:var(--steel-d);opacity:0.5;transition:height .6s var(--ease)}
+.bars span.hi{background:var(--steel);opacity:1}
+.span-3{grid-column:span 3} .span-4{grid-column:span 4} .span-5{grid-column:span 5}
+.span-6{grid-column:span 6} .span-7{grid-column:span 7}
+.feed{font-family:var(--mono);font-size:11px;line-height:1.55;color:var(--tx2)}
+.feed div{padding:7px 0;border-bottom:1px solid var(--line);display:flex;gap:10px}
+.feed div:last-child{border-bottom:0}
+.feed .ag{color:var(--steel);min-width:62px}
+.risk{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--tx2)}
+.risk:last-child{border-bottom:0}
+.risk .lv{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .board{grid-template-columns:repeat(6,1fr)}
+  .span-3,.span-4,.span-5,.span-6,.span-7{grid-column:span 6}
+}
+
+/* ── FOOTER ─────────────────────────────────────── */
+footer{padding:40px var(--pad);display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;letter-spacing:0.1em;
+  color:var(--tx3);text-transform:uppercase}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}*{animation:none!important}}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<div class="wrap">
+
+  <div class="statusbar">
+    <div class="seg"><span class="dot"></span><span>NYX.SYS / ACTIVE</span></div>
+    <div class="mid" id="ticker">APEX · routing pipeline brief → CONVERT</div>
+    <div class="seg right"><span id="coords">40.7128°N / 74.0060°W</span> &nbsp;·&nbsp; <span id="clock">--:--:-- UTC</span></div>
+  </div>
+
+  <nav>
+    <div class="brand">NYX</div>
+    <div class="navlinks">
+      <a href="#grid" class="hide">Intelligence</a>
+      <a href="#flow" class="hide">Signal Flow</a>
+      <a href="#board" class="hide">Command</a>
+      <a href="#access" class="nav-cta">Request Access</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="reveal in">
+      <div class="eyebrow">Operations Surface · NYX.01</div>
+      <h1 class="h1">The operating system behind <b>elite performance.</b></h1>
+      <p class="lede">NYX unifies intelligence, execution, and decision-making into a single operational layer for founders, executives, investors, and high performers. It runs whether you are watching or not.</p>
+      <div class="cta-row">
+        <a href="#access" class="btn btn-primary">Request Access</a>
+        <a href="#flow" class="btn btn-ghost">View the System →</a>
+      </div>
+      <div class="hero-readout">
+        <span>Agents <b>08</b> active</span>
+        <span>Uptime <b>99.97%</b></span>
+        <span>Autonomous actions <b id="ro-actions">94,210</b></span>
+      </div>
+    </div>
+
+    <div class="panel reveal in">
+      <div class="panel-hd"><span>Agent Network</span><span class="live">Live</span></div>
+      <div class="flow" id="agentflow"></div>
+    </div>
+  </header>
+
+  <!-- INTELLIGENCE GRID -->
+  <section class="sec reveal" id="grid">
+    <div class="sec-eyebrow">001 — Intelligence Grid</div>
+    <h2 class="sec-title">Live operational signal.</h2>
+    <p class="sec-sub">The variables that decide outcomes, measured continuously and surfaced before you ask. No dashboards to assemble. The system already knows.</p>
+    <div class="grid" id="intelgrid"></div>
+  </section>
+
+  <!-- SIGNAL FLOW -->
+  <section class="sec reveal" id="flow">
+    <div class="sec-eyebrow">002 — Signal Flow</div>
+    <h2 class="sec-title">Input to outcome, without you in the loop.</h2>
+    <p class="sec-sub">Every signal entering NYX moves through the same pipeline — captured, analyzed, routed to the right agent, executed, and measured. Continuously, in parallel, without instruction.</p>
+    <div class="pipeline" id="pipeline"></div>
+  </section>
+
+  <!-- COMMAND DASHBOARD -->
+  <section class="sec reveal" id="board">
+    <div class="sec-eyebrow">003 — Command Center</div>
+    <h2 class="sec-title">Your operation, on one surface.</h2>
+    <p class="sec-sub">Revenue, growth, team, risk — assembled every morning before you open your eyes, and held current through the day.</p>
+    <div class="board">
+      <div class="card span-3">
+        <div class="ck">Revenue <span class="cstat">↑ live</span></div>
+        <div class="cbig" id="c-mrr">$284K</div>
+        <div class="csub up">+18.7% MoM · velocity</div>
+        <div class="bars" id="bars-rev"></div>
+      </div>
+      <div class="card span-3">
+        <div class="ck">Growth <span class="cstat">tracking</span></div>
+        <div class="cbig" id="c-pipe">$1.4M</div>
+        <div class="csub">pipeline · 78% close rate</div>
+        <div class="bars" id="bars-grw"></div>
+      </div>
+      <div class="card span-6">
+        <div class="ck">Agent Activity <span class="cstat">8 running</span></div>
+        <div class="feed" id="board-feed" style="margin-top:14px"></div>
+      </div>
+      <div class="card span-4">
+        <div class="ck">Team <span class="cstat">nominal</span></div>
+        <div class="cbig">98.4%</div>
+        <div class="csub">SLA · 0 blockers open</div>
+      </div>
+      <div class="card span-4">
+        <div class="ck">Health <span class="cstat">optimal</span></div>
+        <div class="cbig" id="c-auto">94.2</div>
+        <div class="csub">automation score · +2.1</div>
+      </div>
+      <div class="card span-4">
+        <div class="ck">Risks <span class="cstat">2 flagged</span></div>
+        <div style="margin-top:14px">
+          <div class="risk"><span class="lv" style="background:var(--neg)"></span>Paid spend $12K over budget</div>
+          <div class="risk"><span class="lv" style="background:var(--steel)"></span>Competitor raised Series B</div>
+          <div class="risk"><span class="lv" style="background:var(--pos)"></span>Runway extended to 18 months</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESS -->
+  <section class="sec reveal" id="access" style="border-bottom:0">
+    <div class="sec-eyebrow">004 — Access Review</div>
+    <h2 class="sec-title">Deployed selectively.</h2>
+    <p class="sec-sub">Applications are reviewed manually. NYX is not for everyone, and not every applicant receives access.</p>
+    <a href="#access" class="btn btn-primary">Request Access</a>
+  </section>
+
+  <footer>
+    <span>© 2026 NYX Systems · All systems private</span>
+    <span>NYX.SURFACE / v2 · <span id="clock2">--:--:--</span></span>
+  </footer>
+</div>
+
+<script>
+/* ── live clock + coords ── */
+function tick(){
+  const d=new Date();
+  const t=d.toUTCString().slice(17,25)+' UTC';
+  const c=document.getElementById('clock'); if(c)c.textContent=t;
+  const c2=document.getElementById('clock2'); if(c2)c2.textContent=d.toUTCString().slice(17,25);
+}
+setInterval(tick,1000); tick();
+
+/* ── agent network panel ── */
+const AGENTS=[
+  ['APEX','routing','94'],['ORACLE','scanning','87'],['SIGNAL','active','72'],
+  ['CONVERT','running','81'],['FORGE','nominal','99'],['LEDGER','modeling','76'],
+  ['CIPHER','secure','100'],['MERIDIAN','optimizing','88']
+];
+(function(){
+  const el=document.getElementById('agentflow'); if(!el)return;
+  el.innerHTML=AGENTS.map((a,i)=>`
+    <div class="flow-row">
+      <div class="flow-ico">${a[0][0]}</div>
+      <div class="flow-label">${a[0]}</div>
+      <div class="flow-meta">${a[1]} · ${a[2]}%</div>
+      ${i<AGENTS.length-1?'<div class="flow-conn"></div>':''}
+    </div>`).join('');
+})();
+
+/* ── intelligence grid ── */
+const METRICS=[
+  ['Revenue Velocity','+18.7%','+3.2 pts wk','up','rev'],
+  ['Market Signals','12,842','live feed','steel','sig'],
+  ['Decision Latency','2.4 hrs','↓ from 9.1','up','lat'],
+  ['Automation Score','94.2','+2.1','up','aut'],
+  ['Execution Efficiency','98.1%','holding','steel','exe']
+];
+(function(){
+  const el=document.getElementById('intelgrid'); if(!el)return;
+  el.innerHTML=METRICS.map((m,i)=>`
+    <div class="cell">
+      <div class="cell-tag">0${i+1}</div>
+      <div class="cell-k">${m[0]}</div>
+      <div class="cell-v">${m[1]}</div>
+      <div class="cell-d ${m[3]==='up'?'up':''}" style="${m[3]==='steel'?'color:var(--steel)':''}">${m[2]}</div>
+      <canvas class="cell-spark" id="sp-${m[4]}"></canvas>
+    </div>`).join('');
+  METRICS.forEach(m=>spark('sp-'+m[4]));
+})();
+function spark(id){
+  const cv=document.getElementById(id); if(!cv)return;
+  const w=cv.offsetWidth||220,h=34; cv.width=w*2; cv.height=h*2; cv.style.width=w+'px'; cv.style.height=h+'px';
+  const x=cv.getContext('2d'); x.scale(2,2);
+  const pts=Array.from({length:26},(_,i)=>10+Math.sin(i*0.6)*7+Math.random()*10+i*0.5);
+  const mn=Math.min(...pts),mx=Math.max(...pts);
+  x.beginPath();
+  pts.forEach((p,i)=>{const px=i/(pts.length-1)*w,py=h-2-((p-mn)/(mx-mn))*(h-6);i?x.lineTo(px,py):x.moveTo(px,py)});
+  x.strokeStyle='#C4A97C';x.lineWidth=1.25;x.stroke();
+  x.lineTo(w,h);x.lineTo(0,h);x.closePath();
+  x.fillStyle='rgba(196,169,124,0.10)';x.fill();
+}
+
+/* ── signal-flow pipeline ── */
+const STAGES=[['Inputs','signals captured'],['Analysis','patterns processed'],['Agents','routed & delegated'],['Execution','actions taken'],['Results','outcomes measured']];
+(function(){
+  const el=document.getElementById('pipeline'); if(!el)return;
+  el.style.cssText='display:grid;grid-template-columns:repeat('+STAGES.length+',1fr);gap:0;position:relative;border:1px solid var(--line)';
+  el.innerHTML=STAGES.map((s,i)=>`
+    <div style="padding:26px 18px;border-right:${i<STAGES.length-1?'1px solid var(--line)':'0'};position:relative;background:var(--base)">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:0.16em;color:var(--tx3)">0${i+1}</div>
+      <div style="font-family:var(--display);font-weight:500;font-size:clamp(16px,1.8vw,21px);color:var(--tx);margin:10px 0 6px">${s[0]}</div>
+      <div style="font-family:var(--mono);font-size:10.5px;color:var(--steel);letter-spacing:0.04em">${s[1]}</div>
+      ${i<STAGES.length-1?'<div class="pk" style="position:absolute;right:-4px;top:50%;width:7px;height:7px;border-radius:50%;background:var(--steel);box-shadow:0 0 10px var(--steel);transform:translateY(-50%);opacity:0"></div>':''}
+    </div>`).join('');
+  const pks=[...el.querySelectorAll('.pk')];
+  let s=0;
+  setInterval(()=>{pks.forEach(p=>p.style.opacity='0');const p=pks[s%pks.length];if(p){p.style.opacity='1';p.animate([{opacity:1,transform:'translate(0,-50%)'},{opacity:0,transform:'translate(16px,-50%)'}],{duration:900,easing:'ease-out'})}s++;},700);
+})();
+
+/* ── command dashboard bars ── */
+function bars(id,hiIdx){
+  const el=document.getElementById(id); if(!el)return;
+  el.innerHTML=Array.from({length:12},(_,i)=>`<span class="${i===hiIdx?'hi':''}" style="height:${20+Math.round(Math.random()*70)}%"></span>`).join('');
+}
+bars('bars-rev',11); bars('bars-grw',9);
+setInterval(()=>{bars('bars-rev',11);bars('bars-grw',9+Math.round(Math.random()*2));},2600);
+
+/* ── board live feed ── */
+const FEED=[
+  ['APEX','accelerate enterprise tier — approved'],['ORACLE','14 signals scanned · 2 flagged'],
+  ['CONVERT','3 deals advanced · sequences triggered'],['LEDGER','variance flagged · $12K paid'],
+  ['CIPHER','access audit clean · endpoints secured'],['MERIDIAN','fulfillment lag resolved · SLA 98.4%']
+];
+(function(){
+  const el=document.getElementById('board-feed'); if(!el)return;
+  el.innerHTML=FEED.map(f=>`<div><span class="ag">${f[0]}</span><span>${f[1]}</span></div>`).join('');
+})();
+
+/* ── count-up readout ── */
+(function(){
+  const el=document.getElementById('ro-actions'); if(!el)return;
+  let v=93800; setInterval(()=>{v+=Math.round(Math.random()*3);el.textContent=v.toLocaleString()},1800);
+})();
+
+/* ── ticker rotation ── */
+(function(){
+  const lines=['APEX · routing pipeline brief → CONVERT','ORACLE · competitor Series B detected','LEDGER · runway extended to 18 months','SIGNAL · distribution window optimized','CIPHER · all endpoints secured','MERIDIAN · operational bottleneck cleared'];
+  const el=document.getElementById('ticker'); if(!el)return; let i=0;
+  setInterval(()=>{i=(i+1)%lines.length;el.style.opacity='0';setTimeout(()=>{el.textContent=lines[i];el.style.opacity='1'},300)},3800);
+  el.style.transition='opacity .3s';
+})();
+
+/* ── living telemetry background ── */
+(function(){
+  const cv=document.getElementById('bg'); if(!cv)return; const x=cv.getContext('2d');
+  let W,H,DPR=Math.min(devicePixelRatio||1,2),nodes=[],t=0;
+  function size(){W=cv.width=innerWidth*DPR;H=cv.height=innerHeight*DPR;x.setTransform(DPR,0,0,DPR,0,0)}
+  size(); addEventListener('resize',size);
+  for(let i=0;i<46;i++)nodes.push({x:Math.random(),y:Math.random(),v:0.00006+Math.random()*0.00018,r:Math.random()*1.4+0.4});
+  function draw(){
+    const w=innerWidth,h=innerHeight; x.clearRect(0,0,w,h);
+    const g=42; x.strokeStyle='rgba(255,255,255,0.020)'; x.lineWidth=1;
+    for(let gx=0;gx<w;gx+=g){x.beginPath();x.moveTo(gx,0);x.lineTo(gx,h);x.stroke()}
+    for(let gy=0;gy<h;gy+=g){x.beginPath();x.moveTo(0,gy);x.lineTo(w,gy);x.stroke()}
+    nodes.forEach(n=>{n.y-=n.v;if(n.y<-0.02)n.y=1.02;const px=n.x*w,py=n.y*h;
+      x.beginPath();x.arc(px,py,n.r,0,7);x.fillStyle='rgba(196,169,124,0.44)';x.fill()});
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j],dx=(a.x-b.x)*w,dy=(a.y-b.y)*h,d=Math.hypot(dx,dy);
+      if(d<118){x.beginPath();x.moveTo(a.x*w,a.y*h);x.lineTo(b.x*w,b.y*h);
+        x.strokeStyle='rgba(196,169,124,'+(0.10*(1-d/118))+')';x.lineWidth=0.6;x.stroke()}}
+    const sy=((t*0.4)%(h+200))-100; const grd=x.createLinearGradient(0,sy-60,0,sy+60);
+    grd.addColorStop(0,'rgba(196,169,124,0)');grd.addColorStop(0.5,'rgba(196,169,124,0.05)');grd.addColorStop(1,'rgba(196,169,124,0)');
+    x.fillStyle=grd;x.fillRect(0,sy-60,w,120);
+    t++; requestAnimationFrame(draw);
+  }
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)draw();
+})();
+
+/* ── reveal on scroll ── */
+(function(){
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}}),{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+})();
+</script>
+</body>
+</html>
